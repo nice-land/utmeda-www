@@ -18,7 +18,7 @@ export const Header = ({ children }: IHeaderProps) => (
           to="/"
           className={s.header__logo}
         >
-          <StarterLogo className={s.header__logoSvg} />
+          útmeða
         </Link>
 
         <div className={s.header__navigation}>

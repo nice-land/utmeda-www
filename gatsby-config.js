@@ -36,5 +36,14 @@ module.exports = {
         component: require.resolve('./src/components/app-layout/AppLayout.tsx'),
       },
     },
+    {
+      resolve: 'gatsby-plugin-intl',
+      options: {
+        path: `${__dirname}/src/intl`,
+        languages: ['is', 'en'],
+        defaultLanguage: 'is',
+        redirect: false,
+      },
+    },
   ],
 }
