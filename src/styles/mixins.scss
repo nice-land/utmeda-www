@@ -54,6 +54,28 @@
   }
 }
 
+@mixin variable-font($weight, $weight-default, $italic, $italic-default) {
+  font-family: $font-family;
+  font-weight: $weight-default;
+  font-style: $italic-default;
+
+  @supports (font-variation-settings: normal) {
+    font-family: $font-family-variable;
+
+    @if $weight > 0 and $italic > 0 {
+      font-variation-settings: 'wght' $weight, 'ital' $italic;
+    }
+
+    @else if ($weight > 0) {
+      font-variation-settings: 'wght' $weight;
+    }
+
+    @else if ($italic > 0) {
+      font-variation-settings: 'ital' $italic;
+    }
+  }
+}
+
 // Alias for responsive-font mixin
 @mixin rf($args...) {
   @include responsive-font($args...);

@@ -65,6 +65,10 @@ body {
   text-size-adjust: 100%; // iOS on orientation change
 
   color: $color-font;
+
+  @supports (font-variation-settings: normal) {
+    font-family: $font-family-variable, sans-serif;
+  }
 }
 
 img {

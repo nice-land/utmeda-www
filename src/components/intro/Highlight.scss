@@ -1,9 +1,22 @@
+@import '~styles/config';
+
+@keyframes boldy {
+  0% { font-variation-settings: 'wght' 100; }
+  50% { font-variation-settings: 'wght' 900; }
+  100% { font-variation-settings: 'wght' 100; }
+}
+
 .highlight {
   position: relative;
 
   &__text {
+    @include variable-font(666, bold, 1.1, normal);
+
     position: relative;
-    z-index: 1;
+    z-index: 10;
+
+    text-rendering: geometricPrecision;
+    animation: boldy infinite 5s ease;
 
     .isFirst & {
       padding-right: 10px;
