@@ -1,0 +1,87 @@
+@import '~styles/config';
+
+.steps {
+  padding: 60px 0;
+
+  border-bottom: 1px solid #e5e5e5;
+
+  @media (min-width: $min-768) {
+    padding: 120px 0;
+  }
+
+  &__col {
+    @include grid-col;
+
+    @media (min-width: $min-768) {
+      @include grid-col(8);
+      @include grid-offset-left(2);
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__step {
+    display: flex;
+  }
+
+  &__link {
+    @include responsive-font(16, 28);
+    text-decoration: none;
+    color: #fff;
+    background-color: #000;
+    margin-bottom: $gutter;
+    padding: 5px 15px;
+  }
+
+  &__step:nth-child(1) &__link {
+    @include variable-font(300, normal, 0.5, normal);
+    transform: scale(1.1) rotate(2deg);
+  }
+
+  &__step:nth-child(2) &__link {
+    @include variable-font(600, bold, 0, normal);
+    transform: translateX(10px);
+  }
+
+  &__step:nth-child(3) &__link {
+    @include variable-font(500, normal, 0, normal);
+    transform: rotate(-3deg);
+  }
+
+  &__step:nth-child(4) &__link {
+    @include variable-font(660, bold, 0, normal);
+    transform: scale(1.2) skew(2deg, 2deg);
+  }
+
+  &__step:nth-child(5) &__link {
+    @include variable-font(900, bold, 1.5, italic);
+    transform: translateX(10px);
+  }
+
+  &__step:nth-child(6) &__link {
+    @include variable-font(400, normal, 1, italic);
+    transform: translateX(10px);
+  }
+
+  &__step:nth-child(7) &__link {
+    @include variable-font(250, bold, 0.5, normal);
+    transform: scale(1.5) translateX(20px) skew(-2deg, -2deg);
+  }
+
+  &__step:nth-child(8) &__link {
+    @include variable-font(600, bold, 0, normal);
+    transform: translateX(10px);
+  }
+
+  &__step:nth-child(9) &__link {
+    @include variable-font(950, bold, 0, normal);
+  }
+
+  &__step:nth-child(10) &__link {
+    @include variable-font(400, bold, 2, italic);
+    transform: translateX(30px) scale(1.8);
+  }
+}
