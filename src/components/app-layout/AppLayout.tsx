@@ -1,15 +1,11 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
 
-import Twitter from 'assets/svg/twitter.svg';
-import Instagram from 'assets/svg/instagram.svg';
-import Facebook from 'assets/svg/facebook.svg';
-
 import { helmet } from 'utils/helmet';
 import { Header } from 'components/header/Header';
 import { Language } from 'components/language/Language';
 
-import { Footer } from 'components/footer/Footer';
+// import { Footer } from 'components/footer/Footer';
 import { Devtools } from 'components/devtools/Devtools';
 
 import s from './AppLayout.scss';
@@ -30,13 +26,13 @@ export default ({ children }: IAppLayoutProps) => (
 
     {children}
 
-    <Footer
+    {/* <Footer
       social={[
         { icon: <Twitter />, to: 'https://twitter.com/' },
         { icon: <Instagram />, to: 'https://www.instagram.com/' },
         { icon: <Facebook />, to: 'https://www.facebook.com/' },
       ]}
-    />
+    /> */}
 
     {isDev && <Devtools />}
   </div>

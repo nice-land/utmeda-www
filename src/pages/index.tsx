@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
-import { injectIntl, Link, FormattedMessage } from 'gatsby-plugin-intl';
+import { injectIntl } from 'gatsby-plugin-intl';
 
 import { Steps } from 'components/steps/Steps';
 
