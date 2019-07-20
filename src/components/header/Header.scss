@@ -3,6 +3,10 @@
 .header {
   display: block;
 
+  position: fixed;
+  top: 0;
+  left: 0;
+
   &__container {
     @include container;
   }

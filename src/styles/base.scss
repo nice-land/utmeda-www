@@ -30,15 +30,15 @@
 
 html,
 body {
-  min-height: 100vh;
+  height: 100%;
 
   background-color: $color-background;
 }
 
 html {
   -webkit-overflow-scrolling: touch;
-  overflow-x: hidden;
-  overflow-y: scroll; // always show the vertical scrollbar so that content doesn't jump
+  overflow-x: auto;
+  overflow-y: hidden;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -75,6 +75,10 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+a {
+  color: inherit;
 }
 
 // placeholders

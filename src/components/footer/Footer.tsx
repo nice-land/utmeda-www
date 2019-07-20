@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import { Container } from 'components/container/Container';
-
 import s from './Footer.scss';
 
 interface ISocial {
@@ -16,7 +14,7 @@ interface IFooterProps {
 
 export const Footer = ({ logo, social }: IFooterProps) => (
   <div className={s.footer}>
-    <Container>
+    {/* <Container>
       <div className={s.footer__content}>
         <a
           href="https://ueno.co"
@@ -43,6 +41,6 @@ export const Footer = ({ logo, social }: IFooterProps) => (
           ))}
         </ul>
       </div>
-    </Container>
+    </Container> */}
   </div>
 );

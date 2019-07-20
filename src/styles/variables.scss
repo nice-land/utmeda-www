@@ -15,14 +15,15 @@ $page-limit: $page-width + ($container-gutter-desktop * 2);
 $font-family: 'Jost', sans-serif;
 $font-family-variable: 'JostVariable', sans-serif;
 $font-heading: 'Jost', sans-serif;
-$font-size: 16px;
-$font-size-min: 13px;
-$line-height: 1.5;
+$font-size: 70px;
+$font-size-min: 50px;
+$line-height: (85/70);
 
 // Colors
-$color-font: #333;
-$color-background: #fff;
+$color-font: #fff;
+$color-background: #000;
 $color-placeholder: #ddd;
+$color-primary: #ff4052;
 
 // Timings
 $transition-enter: 200ms;
