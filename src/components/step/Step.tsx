@@ -3,6 +3,7 @@ import { injectIntl, Link } from 'gatsby-plugin-intl';
 
 import { Container } from 'components/container/Container';
 import { Row } from 'components/row/Row';
+import { Video } from 'components/video/Video';
 
 import s from './Step.scss';
 
@@ -38,7 +39,7 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
           <div className={s.step__col}>
             <h2 className={s.step__header}>{num}. {title}</h2>
             <p className={s.step__text}>{text}</p>
-            {video}
+            <Video video={video} />
           </div>
         </Row>
         <Row>
