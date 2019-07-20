@@ -1,0 +1,17 @@
+@import '~styles/config';
+
+.logo {
+  @include variable-font(500, normal, 0, normal);
+  font-size: 40px;
+  line-height: 0.6;
+  letter-spacing: -0.05em;
+
+  > em { // stylelint-disable-line
+    @include variable-font(900, bold, 0, normal);
+    display: block;
+
+    letter-spacing: 0;
+
+    color: $color-primary;
+  }
+}
