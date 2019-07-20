@@ -2,9 +2,27 @@
 
 .logo {
   @include variable-font(500, normal, 0, normal);
+
+  position: relative;
+
+  padding-bottom: 8px;
+
   font-size: 40px;
   line-height: 0.6;
   letter-spacing: -0.05em;
+
+  &::after {
+    content: '';
+    position: absolute;
+
+    bottom: 0;
+    left: 0.05em;
+    right: 0;
+
+    height: 3px;
+
+    background: $color-primary;
+  }
 
   > em { // stylelint-disable-line
     @include variable-font(900, bold, 0, normal);
