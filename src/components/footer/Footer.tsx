@@ -8,22 +8,13 @@ interface ISocial {
 }
 
 interface IFooterProps {
-  logo: React.ReactNode;
   social: ISocial[];
 }
 
-export const Footer = ({ logo, social }: IFooterProps) => (
+export const Footer = ({ social }: IFooterProps) => (
   <div className={s.footer}>
     {/* <Container>
       <div className={s.footer__content}>
-        <a
-          href="https://ueno.co"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {logo}
-        </a>
-
         <ul className={s.footer__list}>
           {social.map((item) => (
             <li

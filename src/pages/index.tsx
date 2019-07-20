@@ -1,8 +1,9 @@
 import * as React from 'react';
-import Helmet from 'react-helmet';
+
 import { injectIntl } from 'gatsby-plugin-intl';
 
 import { Steps } from 'components/steps/Steps';
+import { Helmet } from 'components/helmet/Helmet';
 
 interface IProps {
   intl: any;

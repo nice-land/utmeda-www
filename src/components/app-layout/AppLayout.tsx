@@ -1,7 +1,5 @@
 import * as React from 'react';
-import Helmet from 'react-helmet';
 
-import { helmet } from 'utils/helmet';
 import { Header } from 'components/header/Header';
 import { Language } from 'components/language/Language';
 
@@ -18,8 +16,6 @@ const isDev = process.env.NODE_ENV === 'development';
 
 export default ({ children }: IAppLayoutProps) => (
   <div className={s.layout}>
-    <Helmet {...helmet} />
-
     <Header>
       <Language />
     </Header>
