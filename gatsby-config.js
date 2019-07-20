@@ -13,11 +13,11 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'ueno-gatsby-starter',
-        short_name: 'starter',
+        name: 'Útmeða',
+        short_name: 'Útmeða',
         start_url: '/',
-        background_color: '#663399',
-        theme_color: '#663399',
+        background_color: '#000000',
+        theme_color: '#000000',
         display: 'minimal-ui',
         icon: 'src/assets/images/favicon.png',
       },
@@ -45,5 +45,6 @@ module.exports = {
         redirect: false,
       },
     },
+    'gatsby-plugin-netlify',
   ],
 }
