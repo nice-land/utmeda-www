@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { injectIntl, Link, FormattedMessage } from 'gatsby-plugin-intl';
-
+import { Link } from 'gatsby-plugin-intl';
 import { Container } from 'components/container/Container';
 import { ScrollWrapper } from 'components/scroll-wrapper/ScrollWrapper';
 

@@ -1,26 +1,33 @@
 import * as React from 'react';
-import Helmet from 'react-helmet';
 import { injectIntl } from 'gatsby-plugin-intl';
 
 import { Step } from 'components/step/Step';
+import { Helmet } from 'components/helmet/Helmet';
 
 interface IProps {
   intl: any;
 }
 
-function two({ intl }: IProps) {
+function one({ intl }: IProps) {
+  const title = intl.formatMessage({ id: 'step_two_title' });
+  const text = intl.formatMessage({ id: 'step_two_text' });
+  const video: string = require('assets/videos/two.mp4');
+
   return (
     <>
-      <Helmet title={intl.formatMessage({ id: 'step_two_title' })} />
+      <Helmet
+        title={title}
+        description={text}
+      />
 
       <Step
         num={2}
-        title={intl.formatMessage({ id: 'step_two_title' })}
-        text={intl.formatMessage({ id: 'step_two_text' })}
-        video={''}
+        title={title}
+        text={text}
+        video={video}
       />
     </>
   );
 }
 
-export default injectIntl(two);
+export default injectIntl(one);

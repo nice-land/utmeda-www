@@ -5,6 +5,11 @@ interface ILanguages {
   [key: string]: string;
 }
 
+interface IIntlProps {
+  languages: string[];
+  language: string;
+}
+
 const languageName: ILanguages = {
   en: 'EN',
   is: 'IS',
@@ -21,7 +26,7 @@ export const Language = () => {
   return (
     <div>
       <IntlContextConsumer>
-        {({ languages, language: currentLocale }: { languages: string[], language: string}) =>
+        {({ languages, language: currentLocale }: IIntlProps) =>
           languages.map((language) => language === currentLocale ? null : (
             <a
               key={language}
