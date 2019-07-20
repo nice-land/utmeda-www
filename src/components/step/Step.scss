@@ -1,6 +1,6 @@
 @import '~styles/config';
 
-.steps {
+.step {
   padding: 60px 0;
 
   border-bottom: 1px solid #e5e5e5;
@@ -15,6 +15,37 @@
     @media (min-width: $min-768) {
       @include grid-col(8);
       @include grid-offset-left(2);
+    }
+  }
+
+  &__share {
+    &Link {
+      display: inline-block;
+
+      opacity: 1;
+
+      width: 30px;
+      height: 30px;
+
+      background-repeat: no-repeat;
+
+      transition: opacity 0.2s ease-in-out;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &.twitter {
+        background-image: url('!file-loader!../../assets/svg/twitter.svg');
+      }
+
+      &.facebook {
+        background-image: url('!file-loader!../../assets/svg/facebook.svg');
+      }
+    }
+
+    &Label {
+      @include visually-hidden;
     }
   }
 }

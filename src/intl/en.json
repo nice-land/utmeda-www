@@ -22,5 +22,9 @@
   "step_nine_title": "Don’t be afraid to make mistakes, _learn_ from your experiences.",
   "step_nine_text": "Keep trying and accept challenges. Mistakes are a natural part of life.",
   "step_ten_title": "Tell someone and seek _help_ if you don’t feel well.",
-  "step_ten_text": "The first step towards feeling better is always telling someone. When a problem is put into words, the solution is around the corner."
+  "step_ten_text": "The first step towards feeling better is always telling someone. When a problem is put into words, the solution is around the corner.",
+  "share": {
+    "twitter": "Share on Twitter",
+    "facebook": "Share on Facebook"
+  }
 }

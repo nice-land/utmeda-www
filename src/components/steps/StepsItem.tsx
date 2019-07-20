@@ -4,7 +4,7 @@ import { Link } from 'gatsby-plugin-intl';
 import { Container } from 'components/container/Container';
 import { InlineMarkdown } from 'components/inline-markdown/InlineMarkdown';
 
-import s from './stepsItem.scss';
+import s from './StepsItem.scss';
 
 interface IProps {
   count: string;
