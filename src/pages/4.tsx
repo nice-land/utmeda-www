@@ -12,6 +12,7 @@ function one({ intl }: IProps) {
   const title = intl.formatMessage({ id: 'step_four_title' });
   const text = intl.formatMessage({ id: 'step_four_text' });
   const video: string = require('assets/videos/four.mp4');
+  const poster: string = require('assets/posters/four.jpg');
 
   return (
     <>
@@ -25,6 +26,7 @@ function one({ intl }: IProps) {
         title={title}
         text={text}
         video={video}
+        poster={poster}
       />
     </>
   );

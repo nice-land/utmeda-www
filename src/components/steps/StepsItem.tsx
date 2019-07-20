@@ -25,7 +25,7 @@ export const StepsItem = ({ count, link, text, media }: IProps) => {
       </div>
 
       <div className={s.steps__media}>
-        {media}
+        <img src={media} alt="" />
       </div>
     </Container>
   </div>

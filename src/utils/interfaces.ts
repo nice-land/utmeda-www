@@ -3,3 +3,11 @@ export interface IIntlProps {
   language: string;
   messages: {[key: string]: string};
 }
+
+export interface IStep {
+  title: string;
+  poster: string;
+  text?: string;
+  video?: string;
+  num: number;
+}
