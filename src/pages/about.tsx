@@ -22,7 +22,7 @@ const About = ({ intl }: IProps) => {
         </p>
     </>
   );
-}
+};
 
 export default injectIntl((props: IProps) => (
   <About {...props} />

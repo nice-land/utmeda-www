@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { injectIntl, Link, FormattedMessage } from 'gatsby-plugin-intl';
+import { TimelineLite, Power4 } from 'gsap';
 
 import Twitter from 'assets/svg/twitter.svg';
 import Facebook from 'assets/svg/facebook.svg';
 
-import { Container } from 'components/container/Container';
-import { Row } from 'components/row/Row';
 import { Video } from 'components/video/Video';
 import { InlineMarkdown } from 'components/inline-markdown/InlineMarkdown';
 import { Content } from 'components/steps/Content';
+import { ScrollWrapper } from 'components/scroll-wrapper/ScrollWrapper';
 
 import s from './Step.scss';
 
@@ -36,14 +36,33 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
     intl.formatMessage({ id: 'step_ten_title' }),
   ];
 
+  const slideRef = React.useRef<HTMLDivElement>(null);
   const nextNum = num === steps.length ? 1 : num + 1;
   const nextStep = num === steps.length ? steps[0] : steps[num];
-
   const encodedTitle = encodeURIComponent(`${title.replace(/_/g, '')} #utmeda`); // strip markdown ¯\_(ツ)_/¯
   const url = `${domain}/${num}`;
-
   const twitterLink = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${url}`;
   const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+
+  const handleVideoEnd = () => {
+    const timeline = new TimelineLite();
+    const slide = slideRef.current;
+    const ease = Power4.easeInOut;
+
+    if (!slide) {
+      return;
+    }
+
+    timeline.to(
+      slide,
+      0.45,
+      {
+        opacity: 1,
+        x: 0,
+        ease,
+      },
+    );
+  };
 
   return (
     <div className={s.step}>
@@ -74,18 +93,32 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
         />
       </div>
 
-      <Video video={video} />
+      <Video
+        video={video}
+        onVideoEnd={handleVideoEnd}
+      />
 
-      {/* <div className={s.step__slide}>
-        <p className={s.step__text}><InlineMarkdown source={text} /></p>
+      <div
+        className={s.step__slide}
+        ref={slideRef}
+      >
+        <ScrollWrapper
+          className={s.step__li}
+          snap={false}
+        >
+          <p className={s.step__text}><InlineMarkdown source={text} /></p>
 
-        <Link to={`/${nextNum}`}>
-          <Content
-            count={nextNum}
-            text={nextStep}
-          />
-        </Link>
-      </div> */}
+          <Link
+            to={`/${nextNum}`}
+            className={s.step__link}
+          >
+            <Content
+              count={nextNum}
+              text={nextStep}
+            />
+          </Link>
+        </ScrollWrapper>
+      </div>
     </div>
   );
 });

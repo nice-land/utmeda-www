@@ -2,8 +2,8 @@ import {
   VideoTexture,
   LinearFilter,
   TextureLoader,
-  RepeatWrapping
-} from "three";
+  RepeatWrapping,
+} from 'three';
 
 const fragmentShader = `
 varying vec2 vUv;
@@ -43,8 +43,8 @@ void main() {
 
 // please respect authorship and do not remove
 console.log(
-  "%c Hover effect by Robin Delaporte: https://github.com/robin-dela/hover-effect ",
-  "color: #bada55; font-size: 0.8rem"
+  '%c Hover effect by Robin Delaporte: https://github.com/robin-dela/hover-effect ',
+  'color: #bada55; font-size: 0.8rem',
 );
 
 const createTexture = (src: HTMLVideoElement) => {
@@ -61,12 +61,12 @@ export default (
   intensity2: number,
   angle1: number,
   angle2: number,
-  dispUrl: string
+  dispUrl: string,
 ) => {
   const texture = createTexture(src);
 
   const loader = new TextureLoader();
-  loader.crossOrigin = "";
+  loader.crossOrigin = '';
 
   const dispTexture = loader.load(dispUrl);
 
@@ -75,38 +75,38 @@ export default (
   return {
     uniforms: {
       intensity1: {
-        type: "f",
-        value: intensity1
+        type: 'f',
+        value: intensity1,
       },
       intensity2: {
-        type: "f",
-        value: intensity2
+        type: 'f',
+        value: intensity2,
       },
       dispFactor: {
-        type: "f",
-        value: 0.0
+        type: 'f',
+        value: 0.0,
       },
       angle1: {
-        type: "f",
-        value: angle1
+        type: 'f',
+        value: angle1,
       },
       angle2: {
-        type: "f",
-        value: angle2
+        type: 'f',
+        value: angle2,
       },
       texture: {
-        type: "t",
-        value: texture
+        type: 't',
+        value: texture,
       },
       disp: {
-        type: "t",
-        value: dispTexture
-      }
+        type: 't',
+        value: dispTexture,
+      },
     },
 
     vertexShader,
     fragmentShader,
     transparent: true,
-    opacity: 1.0
+    opacity: 1.0,
   };
 };

@@ -10,9 +10,10 @@ import s from './Video.scss';
 interface IProps {
   video: string;
   poster?: string;
+  onVideoEnd(): void;
 }
 
-export const Video = ({ video, poster }: IProps) => {
+export const Video = ({ video, poster, onVideoEnd }: IProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [light, setLight] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -25,6 +26,10 @@ export const Video = ({ video, poster }: IProps) => {
 
   const showDark = () => {
     setLight(false);
+  };
+
+  const handleEnded = () => {
+    onVideoEnd();
   };
 
   const render = () => {
@@ -64,7 +69,6 @@ export const Video = ({ video, poster }: IProps) => {
     camera.position.z = 1;
 
     const scene = new Scene();
-
     const angle = Math.PI / 4;
 
     const shaderConfig = createRippleShader(
@@ -118,9 +122,9 @@ export const Video = ({ video, poster }: IProps) => {
           ref={videoRef}
           autoPlay
           muted
-          loop
           src={video}
           poster={poster}
+          onEnded={handleEnded}
         />
 
         <canvas

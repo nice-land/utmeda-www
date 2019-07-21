@@ -67,12 +67,33 @@
     transform: translateY(-50%);
   }
 
-  &__col {
-    @include grid-col;
+  &__slide {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
 
-    @media (min-width: $min-768) {
-      @include grid-col(8);
-      @include grid-offset-left(2);
+    width: 90vw;
+
+    opacity: 0;
+    background-color: #000;
+
+    transform: translateX(100%);
+  }
+
+  &__li {
+    display: flex;
+    align-items: center;
+
+    padding: 200px 200px 200px 0;
+
+    &:first-of-type {
+      padding-left: 200px;
     }
+  }
+
+  &__link {
+    text-decoration: none;
   }
 }

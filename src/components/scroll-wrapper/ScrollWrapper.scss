@@ -22,7 +22,9 @@
       overflow-x: scroll;
       overflow-y: hidden;
 
-      scroll-snap-type: x mandatory;
+      .snap & {
+        scroll-snap-type: x mandatory;
+      }
     }
   }
 
@@ -32,7 +34,9 @@
       width: 85vw;
       height: 100%;
 
-      scroll-snap-align: start;
+      .snap & {
+        scroll-snap-align: start;
+      }
     }
   }
 }
