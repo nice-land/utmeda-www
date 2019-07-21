@@ -61,12 +61,12 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
           <div className={s.step__share}>
             <a className={s(s.step__shareLink, s.twitter)} href={twitterLink} target="_new">
               <span className={s.step__shareLabel}>
-                <FormattedMessage id="share.twitter" defaultMessage="Share on Twitter" />
+                <FormattedMessage id="share.twitter" defaultMessage="Deila á Twitter" />
               </span>
             </a>
             <a className={s(s.step__shareLink, s.facebook)} href={facebookLink} target="_new">
               <span className={s.step__shareLabel}>
-                <FormattedMessage id="share.facebook" defaultMessage="Share on Facebook" />
+                <FormattedMessage id="share.facebook" defaultMessage="Deila á Facebook" />
               </span>
             </a>
           </div>

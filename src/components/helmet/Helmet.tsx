@@ -20,13 +20,16 @@ export const Helmet = ({ title, description, image }: IProps) => (
     {({ language, messages }: IIntlProps) => {
 
       const usedTitle = title || messages.defaultPageTitle;
+
+      // remove markdown, TODO more intricate
+      const strippedTitle = usedTitle.replace(/_/g, '');
       const usedDescription = description || messages.defaultPageDescription;
       const usedImage = image || defaultImage;
 
       const imageUrl = `${domain}${usedImage}`;
 
       const helmet = {
-        title: usedTitle,
+        title: strippedTitle,
         titleTemplate: `%s - ${messages.defaultPageTitle}`,
         htmlAttributes: { lang: language },
         meta: [
@@ -37,13 +40,13 @@ export const Helmet = ({ title, description, image }: IProps) => (
           { name: 'msapplication-TileColor', content: '#000' },
           { name: 'theme-color', content: '#000' },
 
-          { property: 'og:title', content: usedTitle },
+          { property: 'og:title', content: strippedTitle },
           { property: 'og:image', content: imageUrl },
           { property: 'og:image:width', content: '880px' },
           { property: 'og:image:height', content: '440px' },
           { property: 'og:image:alt', content: usedDescription },
 
-          { name: 'twitter:title', content: usedTitle },
+          { name: 'twitter:title', content: strippedTitle },
           { name: 'twitter:card', content: 'summary_large_image' },
           { name: 'twitter:image', content: imageUrl },
           { name: 'twitter:description', content: usedDescription },

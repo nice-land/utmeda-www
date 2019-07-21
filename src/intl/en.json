@@ -26,5 +26,15 @@
   "share": {
     "twitter": "Share on Twitter",
     "facebook": "Share on Facebook"
+  },
+  "navigation": {
+    "steps": "The steps",
+    "about": "About",
+    "is": "Íslenska",
+    "en": "English"
+  },
+  "about": {
+    "title": "About Útmeða",
+    "intro": "Geðhjálp og Hjálparsími Rauða krossins 1717 standa sameiginlega að forvarnarverkefninu Útmeð’a. Markmið verkefnisins er að stuðla að bættri geðheilsu meðal almennings með því að hvetja fólk, með sérstakri áherslu á ungt fólk, til að tjá sig um andlega líðan sína og leita sér faglegrar aðstoðar þegar á þarf að halda. Verkefnið er brýnt, m.a. með hliðsjón af því að á bilinu 500 til 600 manns leita sér aðstoðar á heilsugæslustöðvum og í sjúkrahúsum á Íslandi vegna sjálfskaða í kjölfar vanlíðanar á hverju ári. Sjálfsvíg eru algengasta dánarorsök ungra karlmanna á Íslandi."
   }
 }

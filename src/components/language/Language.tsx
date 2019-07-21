@@ -1,5 +1,5 @@
 import React from 'react';
-import { IntlContextConsumer, changeLocale } from 'gatsby-plugin-intl';
+import { IntlContextConsumer, changeLocale, FormattedMessage } from 'gatsby-plugin-intl';
 
 interface ILanguages {
   [key: string]: string;
@@ -22,21 +22,20 @@ function onClickHandler(language: string): undefined {
   };
 }
 
-export const Language = () => {
-  return (
-    <div>
-      <IntlContextConsumer>
-        {({ languages, language: currentLocale }: IIntlProps) =>
-          languages.map((language) => language === currentLocale ? null : (
-            <a
-              key={language}
-              href={`/${language}`}
-              onClick={onClickHandler(language)}
-            >
-              {languageName[language]}
-            </a>
-        ))}
-      </IntlContextConsumer>
-    </div>
-  )
-}
+export const Language = () => (
+  <IntlContextConsumer>
+    {({ languages, language: currentLocale }: IIntlProps) =>
+      languages.map((language) => language === currentLocale ? null : (
+        <a
+          key={language}
+          href={`/${language}`}
+          onClick={onClickHandler(language)}
+        >
+          <FormattedMessage
+            id={`navigation.${language}`}
+            defaultMessage={languageName[language]}
+          />
+        </a>
+    ))}
+  </IntlContextConsumer>
+);
