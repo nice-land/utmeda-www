@@ -23,53 +23,6 @@
     text-decoration: none;
   }
 
-  &__content {
-    position: relative;
-    z-index: 1;
-
-    max-width: (550px/$font-size) * 1em;
-  }
-
-  &__link {
-    @include responsive-font(54, 80);
-    @include variable-font(700, bold, 0, normal);
-
-    > em { // stylelint-disable-line
-      @include variable-font(900, 900, 0, normal);
-
-      font-style: normal;
-      color: $color-primary;
-    }
-  }
-
-  &__count {
-    @include responsive-font(14, 18);
-    @include variable-font(700, bold, 0, normal);
-
-    display: flex;
-    align-items: center;
-    margin-bottom: (20/18) * 1em;
-
-    height: 2em;
-
-    &::after {
-      content: '';
-
-      display: block;
-
-      margin-left: (20/18) * 1em;
-
-      width: 100px;
-      height: 3px;
-
-      background: $color-primary;
-    }
-
-    @media (min-width: $min-768) {
-      margin-bottom: (40/18) * 1em;
-    }
-  }
-
   &__media {
     margin-top: -25px;
 

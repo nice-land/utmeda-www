@@ -47,7 +47,8 @@
   },
   "share": {
     "twitter": "Deila á Twitter",
-    "facebook": "Deila á Facebook"
+    "facebook": "Deila á Facebook",
+    "copy": "Deila"
   },
   "navigation": {
     "steps": "Skrefin",

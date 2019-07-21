@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { injectIntl, Link, FormattedMessage } from 'gatsby-plugin-intl';
+import { TimelineLite, Power4 } from 'gsap';
 
-import { Container } from 'components/container/Container';
-import { Row } from 'components/row/Row';
+import Twitter from 'assets/svg/twitter.svg';
+import Facebook from 'assets/svg/facebook.svg';
+
 import { Video } from 'components/video/Video';
 import { InlineMarkdown } from 'components/inline-markdown/InlineMarkdown';
+import { Content } from 'components/steps/Content';
+import { ScrollWrapper } from 'components/scroll-wrapper/ScrollWrapper';
 
 import s from './Step.scss';
 
@@ -32,46 +36,89 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
     intl.formatMessage({ id: 'steps.ten.title' }),
   ];
 
+  const slideRef = React.useRef<HTMLDivElement>(null);
   const nextNum = num === steps.length ? 1 : num + 1;
   const nextStep = num === steps.length ? steps[0] : steps[num];
-
   const encodedTitle = encodeURIComponent(`${title.replace(/_/g, '')} #utmeda`); // strip markdown ¯\_(ツ)_/¯
   const url = `${domain}/${num}`;
-
   const twitterLink = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${url}`;
   const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
 
-  return (
-    <Container>
-      <div className={s.step}>
-        <Row>
-          <div className={s.step__col}>
-            <h2 className={s.step__header}>{num}. <InlineMarkdown source={title} /></h2>
-            <p className={s.step__text}><InlineMarkdown source={text} /></p>
-            <Video video={video} />
+  const handleVideoEnd = () => {
+    const timeline = new TimelineLite();
+    const slide = slideRef.current;
+    const ease = Power4.easeInOut;
 
-          </div>
-        </Row>
-        <Row>
-          <div className={s.step__col}>
-            <Link to={`/${nextNum}`}>{nextNum}. {nextStep}</Link>
-          </div>
-        </Row>
-        <Row>
-          <div className={s.step__share}>
-            <a className={s(s.step__shareLink, s.twitter)} href={twitterLink} target="_new">
-              <span className={s.step__shareLabel}>
-                <FormattedMessage id="share.twitter" defaultMessage="Deila á Twitter" />
-              </span>
-            </a>
-            <a className={s(s.step__shareLink, s.facebook)} href={facebookLink} target="_new">
-              <span className={s.step__shareLabel}>
-                <FormattedMessage id="share.facebook" defaultMessage="Deila á Facebook" />
-              </span>
-            </a>
-          </div>
-        </Row>
+    if (!slide) {
+      return;
+    }
+
+    timeline.to(
+      slide,
+      0.45,
+      {
+        opacity: 1,
+        x: 0,
+        ease,
+      },
+    );
+  };
+
+  return (
+    <div className={s.step}>
+      <div className={s.step__share}>
+        <a
+          className={s.step__shareLink}
+          href={facebookLink}
+          target="_new"
+        >
+          <Facebook />
+        </a>
+
+        <a
+          className={s.step__shareLink}
+          href={twitterLink}
+          target="_new"
+        >
+          <Twitter />
+        </a>
+
+        <p className={s.step__shareCopy}><FormattedMessage id="share.copy" /></p>
       </div>
-    </Container>
+
+      <div className={s.step__content}>
+        <Content
+          count={num}
+          text={title}
+        />
+      </div>
+
+      <Video
+        video={video}
+        onVideoEnd={handleVideoEnd}
+      />
+
+      <div
+        className={s.step__slide}
+        ref={slideRef}
+      >
+        <ScrollWrapper
+          className={s.step__li}
+          snap={false}
+        >
+          <p className={s.step__text}><InlineMarkdown source={text} /></p>
+
+          <Link
+            to={`/${nextNum}`}
+            className={s.step__link}
+          >
+            <Content
+              count={nextNum}
+              text={nextStep}
+            />
+          </Link>
+        </ScrollWrapper>
+      </div>
+    </div>
   );
 });

@@ -1,29 +1,36 @@
-import React, { useState, useRef, useEffect } from "react";
-import {
-  WebGLRenderer,
-  OrthographicCamera,
-  Scene,
-  Mesh,
-  ShaderMaterial,
-  BoxGeometry
-} from "three";
-import s from "./Video.scss";
-import createRippleShader from "./createRippleShader";
-import DisplacementMap from "assets/images/displacementmap.png";
-import { TweenLite, Power4 } from "gsap";
+import React, { useState, useRef, useEffect } from 'react';
+import { WebGLRenderer, OrthographicCamera, Scene, Mesh, ShaderMaterial, BoxGeometry } from 'three';
+import { TweenLite, Power4 } from 'gsap';
+
+import DisplacementMap from 'assets/images/displacementmap.png';
+
+import createRippleShader from './createRippleShader';
+import s from './Video.scss';
 
 interface IProps {
   video: string;
   poster?: string;
+  onVideoEnd(): void;
 }
 
-export const Video = ({ video, poster }: IProps) => {
+export const Video = ({ video, poster, onVideoEnd }: IProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [light, setLight] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const renderer = useRef<Function>();
+  const renderer = useRef<() => void>();
   const shader = useRef<ShaderMaterial>();
+
+  const showLight = () => {
+    setLight(true);
+  };
+
+  const showDark = () => {
+    setLight(false);
+  };
+
+  const handleEnded = () => {
+    onVideoEnd();
+  };
 
   const render = () => {
     requestAnimationFrame(render);
@@ -45,7 +52,7 @@ export const Video = ({ video, poster }: IProps) => {
     const webglRenderer = new WebGLRenderer({
       antialias: false,
       alpha: true,
-      canvas: canvasRef.current
+      canvas: canvasRef.current,
     });
 
     webglRenderer.setSize(offsetWidth, offsetHeight);
@@ -56,13 +63,12 @@ export const Video = ({ video, poster }: IProps) => {
       offsetHeight / -2,
       offsetHeight / 2,
       1,
-      100
+      100,
     );
 
     camera.position.z = 1;
 
     const scene = new Scene();
-
     const angle = Math.PI / 4;
 
     const shaderConfig = createRippleShader(
@@ -71,14 +77,14 @@ export const Video = ({ video, poster }: IProps) => {
       0.2,
       angle,
       -3 * angle,
-      DisplacementMap
+      DisplacementMap,
     );
 
     shader.current = new ShaderMaterial(shaderConfig);
 
     const videoPlane = new Mesh(
       new BoxGeometry(offsetWidth, offsetHeight, 0),
-      shader.current
+      shader.current,
     );
     videoPlane.rotation.z = Math.PI;
 
@@ -104,17 +110,9 @@ export const Video = ({ video, poster }: IProps) => {
       value: Number(light),
       ease: Power4.easeOut,
       onUpdate: renderer.current,
-      onComplete: renderer.current
+      onComplete: renderer.current,
     });
   }, [light, shader, renderer]);
-
-  function showLight() {
-    setLight(true);
-  }
-
-  function showDark() {
-    setLight(false);
-  }
 
   return (
     <div className={s.video}>
@@ -124,16 +122,16 @@ export const Video = ({ video, poster }: IProps) => {
           ref={videoRef}
           autoPlay
           muted
-          loop
           src={video}
           poster={poster}
+          onEnded={handleEnded}
         />
 
         <canvas
           ref={canvasRef}
           className={s.video__render}
-          onMouseEnter={showLight}
-          onMouseLeave={showDark}
+          onMouseDown={showLight}
+          onMouseUp={showDark}
           onTouchStart={showLight}
           onTouchEnd={showDark}
         />

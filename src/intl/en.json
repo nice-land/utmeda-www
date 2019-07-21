@@ -47,7 +47,8 @@
   },
   "share": {
     "twitter": "Share on Twitter",
-    "facebook": "Share on Facebook"
+    "facebook": "Share on Facebook",
+    "copy": "Share"
   },
   "navigation": {
     "steps": "The steps",
