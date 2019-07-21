@@ -14,10 +14,10 @@ interface IProps {
 
 export const Steps = ({ title, list }: IProps) => {
   return (
-    <ScrollWrapper>
-      <div className={s.steps__title}>
+    <ScrollWrapper snap>
+      {/* <div className={s.steps__title}>
         <h1 className={s.steps__titleContent}>{title}</h1>
-      </div>
+      </div> */}
       {list.map((step, i) => (
         <StepsItem
           key={i}
