@@ -9,8 +9,8 @@ interface IProps {
 }
 
 function one({ intl }: IProps) {
-  const title = intl.formatMessage({ id: 'step_two_title' });
-  const text = intl.formatMessage({ id: 'step_two_text' });
+  const title = intl.formatMessage({ id: 'steps.two.title' });
+  const text = intl.formatMessage({ id: 'steps.two.text' });
   const video: string = require('assets/videos/two.mp4');
   const poster: string = require('assets/posters/two.jpg');
 

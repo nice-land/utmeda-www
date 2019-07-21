@@ -3,26 +3,48 @@
   "defaultPageDescription": "Það skiptir máli að dreifa boðskapnum. Útmeða.",
   "title": "Tían",
   "tagline": "Taktu skrefið",
-  "step_one_title": "_Elskaðu_ þig eins og þú ert.",
-  "step_one_text": "Vertu þinn besti vinur. Láttu þér þykja vænt um sjálfa/an þig og berðu þig ekki saman við aðra.",
-  "step_two_title": "_Hvíldu_ símann og gleymdu þér í núinu.",
-  "step_two_text": "Ekki leyfa símanum að ræna þig augnablikinu. Njóttu lífsins með góðum vinum.",
-  "step_three_title": "Prófaðu eitthvað _nýtt_.",
-  "step_three_text": "Stígðu út fyrir þægindarammann og upplifðu eitthvað nýtt. Lífið er fullt af spennandi tækifærum.",
-  "step_four_title": "_Sofðu_ nóg, _borðaðu_ fjölbreytt og _hreyfðu_ þig.",
-  "step_four_text": "Farðu vel með þig. Líkamlegt heilbrigði ýtir undir andlega vellíðan.",
-  "step_five_title": "Lærðu að segja _nei_.",
-  "step_five_text": "Þú ert stjórnandinn í eigin lífi og þarft ekki að þóknast öðrum. Stundum er nei rétta svarið.",
-  "step_six_title": "Hugsaðu _jákvætt_ og njóttu.",
-  "step_six_text": "Beindu huganum í jákvæða átt. Vertu þakklát/ur og njóttu þess sem þú átt.",
-  "step_seven_title": "Eltu _drauma_ þína.",
-  "step_seven_text": "Gefðu ekki draumana upp á bátinn þótt á móti blási. Því meiri þrautseigja, þeim mun sætari sigur.",
-  "step_eight_title": "Vertu traustur _vinur_.",
-  "step_eight_text": "Vertu til staðar fyrir vini þína þegar þeir ganga í gegnum erfiðleika. Sönn vinátta er ein dýrmætasta gjöf lífsins.",
-  "step_nine_title": "Ekki hræðast mistök, _lærðu_ af reynslunni.",
-  "step_nine_text": "Prófaðu þig áfram og taktu áskorunum. Mistök eru eðlilegur þáttur af lífinu.",
-  "step_ten_title": "Segðu frá og leitaðu _hjálpar_ ef þér líður illa.",
-  "step_ten_text": "Fyrsta skrefið í átt að betri líðan er alltaf að segja frá. Þegar vandamál er fært í orð, er lausnin handan við hornið.",
+  "steps": {
+    "one": {
+      "title": "_Elskaðu_ þig eins og þú ert.",
+      "text": "Vertu þinn besti vinur. Láttu þér þykja vænt um sjálfa/an þig og berðu þig ekki saman við aðra."
+    },
+    "two": {
+      "title": "_Hvíldu_ símann og gleymdu þér í núinu.",
+      "text": "Ekki leyfa símanum að ræna þig augnablikinu. Njóttu lífsins með góðum vinum."
+    },
+    "three": {
+      "title": "Prófaðu eitthvað _nýtt_.",
+      "text": "Stígðu út fyrir þægindarammann og upplifðu eitthvað nýtt. Lífið er fullt af spennandi tækifærum."
+    },
+    "four": {
+      "title": "_Sofðu_ nóg, _borðaðu_ fjölbreytt og _hreyfðu_ þig.",
+      "text": "Farðu vel með þig. Líkamlegt heilbrigði ýtir undir andlega vellíðan."
+    },
+    "five": {
+      "title": "Lærðu að segja _nei_.",
+      "text": "Þú ert stjórnandinn í eigin lífi og þarft ekki að þóknast öðrum. Stundum er nei rétta svarið."
+    },
+    "six": {
+      "title": "Hugsaðu _jákvætt_ og njóttu.",
+      "text": "Beindu huganum í jákvæða átt. Vertu þakklát/ur og njóttu þess sem þú átt."
+    },
+    "seven": {
+      "title": "Eltu _drauma_ þína.",
+      "text": "Gefðu ekki draumana upp á bátinn þótt á móti blási. Því meiri þrautseigja, þeim mun sætari sigur."
+    },
+    "eight": {
+      "title": "Vertu traustur _vinur_.",
+      "text": "Vertu til staðar fyrir vini þína þegar þeir ganga í gegnum erfiðleika. Sönn vinátta er ein dýrmætasta gjöf lífsins."
+    },
+    "nine": {
+      "title": "Ekki hræðast mistök, _lærðu_ af reynslunni.",
+      "text": "Prófaðu þig áfram og taktu áskorunum. Mistök eru eðlilegur þáttur af lífinu."
+    },
+    "ten": {
+      "title": "Segðu frá og leitaðu _hjálpar_ ef þér líður illa.",
+      "text": "Fyrsta skrefið í átt að betri líðan er alltaf að segja frá. Þegar vandamál er fært í orð, er lausnin handan við hornið."
+    }
+  },
   "share": {
     "twitter": "Deila á Twitter",
     "facebook": "Deila á Facebook",
@@ -36,7 +58,12 @@
   },
   "about": {
     "title": "Um Útmeða",
-    "intro": "Geðhjálp og Hjálparsími Rauða krossins 1717 standa sameiginlega að forvarnarverkefninu Útmeð’a. Markmið verkefnisins er að stuðla að bættri geðheilsu meðal almennings með því að hvetja fólk, með sérstakri áherslu á ungt fólk, til að tjá sig um andlega líðan sína og leita sér faglegrar aðstoðar þegar á þarf að halda. Verkefnið er brýnt, m.a. með hliðsjón af því að á bilinu 500 til 600 manns leita sér aðstoðar á heilsugæslustöðvum og í sjúkrahúsum á Íslandi vegna sjálfskaða í kjölfar vanlíðanar á hverju ári. Sjálfsvíg eru algengasta dánarorsök ungra karlmanna á Íslandi."
+    "content": "Geðhjálp og Hjálparsími Rauða krossins 1717 standa sameiginlega að forvarnarverkefninu Útmeð’a. Markmið verkefnisins er að stuðla að bættri geðheilsu meðal almennings með því að hvetja fólk, með sérstakri áherslu á ungt fólk, til að tjá sig um andlega líðan sína og leita sér faglegrar aðstoðar þegar á þarf að halda. Verkefnið er brýnt, m.a. með hliðsjón af því að á bilinu 500 til 600 manns leita sér aðstoðar á heilsugæslustöðvum og í sjúkrahúsum á Íslandi vegna sjálfskaða í kjölfar vanlíðanar á hverju ári. Sjálfsvíg eru algengasta dánarorsök ungra karlmanna á Íslandi."
   },
-  "step_watch": "Horfa"
+  "step_watch": "Horfa",
+  "loading": "Það eru tvær hliðar á hverri sögu. Haltu inni til að sjá hina hliðina.",
+  "transition": "Kíktu á hina hliðina."
 }
+
+
+

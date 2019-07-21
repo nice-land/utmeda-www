@@ -24,16 +24,16 @@ interface IProps {
 
 export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
   const steps = [
-    intl.formatMessage({ id: 'step_one_title' }),
-    intl.formatMessage({ id: 'step_two_title' }),
-    intl.formatMessage({ id: 'step_three_title' }),
-    intl.formatMessage({ id: 'step_four_title' }),
-    intl.formatMessage({ id: 'step_five_title' }),
-    intl.formatMessage({ id: 'step_six_title' }),
-    intl.formatMessage({ id: 'step_seven_title' }),
-    intl.formatMessage({ id: 'step_eight_title' }),
-    intl.formatMessage({ id: 'step_nine_title' }),
-    intl.formatMessage({ id: 'step_ten_title' }),
+    intl.formatMessage({ id: 'steps.one.title' }),
+    intl.formatMessage({ id: 'steps.two.title' }),
+    intl.formatMessage({ id: 'steps.three.title' }),
+    intl.formatMessage({ id: 'steps.four.title' }),
+    intl.formatMessage({ id: 'steps.five.title' }),
+    intl.formatMessage({ id: 'steps.six.title' }),
+    intl.formatMessage({ id: 'steps.seven.title' }),
+    intl.formatMessage({ id: 'steps.eight.title' }),
+    intl.formatMessage({ id: 'steps.nine.title' }),
+    intl.formatMessage({ id: 'steps.ten.title' }),
   ];
 
   const slideRef = React.useRef<HTMLDivElement>(null);
