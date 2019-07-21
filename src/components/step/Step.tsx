@@ -74,9 +74,7 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
         />
       </div>
 
-      <div className={s.step__video}>
-        <Video video={video} />
-      </div>
+      <Video video={video} />
 
       {/* <div className={s.step__slide}>
         <p className={s.step__text}><InlineMarkdown source={text} /></p>
