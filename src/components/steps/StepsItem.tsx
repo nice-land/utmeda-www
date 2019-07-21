@@ -26,10 +26,18 @@ export const StepsItem = injectIntl(({ count, link, text, media, intl }: IProps)
     mouseLeave();
   };
 
+  const handleClick = () => {
+    mouseLeave();
+  };
+
   return (
     <div className={s.stepsItem}>
       <Container>
-        <Link className={s.stepsItem__wrapper} to={link}>
+        <Link
+          className={s.stepsItem__wrapper}
+          to={link}
+          onClick={handleClick}
+        >
           <div className={s.stepsItem__content}>
             <span className={s.stepsItem__count}>{count}</span>
 
