@@ -3,26 +3,48 @@
   "defaultPageDescription": "It matters to spread the message. Out with it.",
   "title": "Top Ten",
   "tagline": "Take the step",
-  "step_one_title": "_Love_ yourself the way you are",
-  "step_one_text": "Be your own best friend. Love yourself and don’t compare yourself to others.",
-  "step_two_title": "Put your phone _down_ and get lost in the moment.",
-  "step_two_text": "Don’t allow your phone to take you out of the moment. Enjoy your life with good friends.",
-  "step_three_title": "Try something _new_.",
-  "step_three_text": "Step out of your comfort zone and experience new things. Life is full of exciting opportunities.",
-  "step_four_title": "Get enough _sleep_, _eat_ well and _exercise_.",
-  "step_four_text": "Take good care of yourself. Physical health supports mental well-being. ",
-  "step_five_title": "Learn to say _no_.",
-  "step_five_text": "You are the boss of your own life and you don’t need to please others. Sometimes no is the right answer.",
-  "step_six_title": "Have a _positive_ mindset and enjoy.",
-  "step_six_text": "Direct your mind in a positive direction. Be thankful and enjoy what you have.",
-  "step_seven_title": "Follow your _dreams_.",
-  "step_seven_text": "Don’t give up on your dreams when things don’t go your way. The more resilience, the sweeter the victory.",
-  "step_eight_title": "Be a loyal _friend_.",
-  "step_eight_text": "Be there for your friends when they’re going through a hard time. True friendship is one of the most valuable gifts of life.",
-  "step_nine_title": "Don’t be afraid to make mistakes, _learn_ from your experiences.",
-  "step_nine_text": "Keep trying and accept challenges. Mistakes are a natural part of life.",
-  "step_ten_title": "Tell someone and seek _help_ if you don’t feel well.",
-  "step_ten_text": "The first step towards feeling better is always telling someone. When a problem is put into words, the solution is around the corner.",
+  "steps": {
+    "one": {
+      "title": "_Love_ yourself the way you are",
+      "text": "Be your own best friend. Love yourself and don’t compare yourself to others."
+    },
+    "two": {
+      "title": "Put your phone _down_ and get lost in the moment.",
+      "text": "Don’t allow your phone to take you out of the moment. Enjoy your life with good friends."
+    },
+    "three": {
+      "title": "Try something _new_.",
+      "text": "Step out of your comfort zone and experience new things. Life is full of exciting opportunities."
+    },
+    "four": {
+      "title": "Get enough _sleep_, _eat_ well and _exercise_.",
+      "text": "Take good care of yourself. Physical health supports mental well-being."
+    },
+    "five": {
+      "title": "Learn to say _no_.",
+      "text": "You are the boss of your own life and you don’t need to please others. Sometimes no is the right answer."
+    },
+    "six": {
+      "title": "Have a _positive_ mindset and enjoy.",
+      "text": "Direct your mind in a positive direction. Be thankful and enjoy what you have."
+    },
+    "seven": {
+      "title": "Follow your _dreams_.",
+      "text": "Don’t give up on your dreams when things don’t go your way. The more resilience, the sweeter the victory."
+    },
+    "eight": {
+      "title": "Be a loyal _friend_.",
+      "text": "Be there for your friends when they’re going through a hard time. True friendship is one of the most valuable gifts of life."
+    },
+    "nine": {
+      "title": "Don’t be afraid to make mistakes, _learn_ from your experiences.",
+      "text": "Keep trying and accept challenges. Mistakes are a natural part of life."
+    },
+    "ten": {
+      "title": "Tell someone and seek _help_ if you don’t feel well.",
+      "text": "The first step towards feeling better is always telling someone. When a problem is put into words, the solution is around the corner."
+    }
+  },
   "share": {
     "twitter": "Share on Twitter",
     "facebook": "Share on Facebook"
