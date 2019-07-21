@@ -37,4 +37,4 @@ export const Circle = ({ text }: ICircleProps) => {
       ))}
     </svg>
   );
-}
+};

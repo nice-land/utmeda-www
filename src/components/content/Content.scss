@@ -1,0 +1,40 @@
+@import '~styles/config';
+
+.content {
+  &__container {
+    @include container;
+    padding-top: 140px;
+
+    @media (min-width: $min-tablet) {
+      padding-top: 200px;
+    }
+  }
+
+  &__row {
+    @include grid-row;
+  }
+
+  &__col {
+    @include grid-col(12);
+
+    @media (min-width: $min-tablet) {
+      @include grid-col(8);
+      @include grid-offset-left(2);
+    }
+  }
+
+  &__title {
+    @include responsive-font(36, 48);
+
+    margin-bottom: 1rem;
+  }
+
+  &__content {
+    @include responsive-font(20, 24);
+    line-height: 1.5;
+
+    p {
+      margin-bottom: 1rem;
+    }
+  }
+}

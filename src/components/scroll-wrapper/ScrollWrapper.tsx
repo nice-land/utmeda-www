@@ -6,11 +6,13 @@ import 'utils/gsap/ScrollToPlugin';
 
 import s from './ScrollWrapper.scss';
 
-interface IRowProps {
+interface IProps {
   children: React.ReactNode;
+  className?: string;
+  snap?: boolean;
 }
 
-export const ScrollWrapper = ({ children }: IRowProps) => {
+export const ScrollWrapper = ({ children, snap }: IProps) => {
 
   const container = useRef<HTMLOListElement>(null);
   const [activeSlide, setActiveSlide] = useState(0);
@@ -70,7 +72,7 @@ export const ScrollWrapper = ({ children }: IRowProps) => {
   };
 
   return (
-    <div className={s.scrollWrapper}>
+    <div className={s('scrollWrapper', { snap })}>
       <ol className={s.scrollWrapper__inner} ref={container}>
         {Children.map(children, (child) => (
           <li className={s.scrollWrapper__item}>
