@@ -1,4 +1,7 @@
 {
   "extends": "@ueno/stylelint-config",
-  "ignoreFiles": ['**/*.ts', '**/*.tsx']
+  "ignoreFiles": ['**/*.ts', '**/*.tsx'],
+  "rules": {
+    "primer/selector-no-utility": null
+  }
 }

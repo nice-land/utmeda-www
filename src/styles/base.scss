@@ -46,6 +46,10 @@ html {
   box-sizing: border-box;
 }
 
+html * {
+  cursor: none;
+}
+
 // inherited from <html>
 *,
 *::before,
