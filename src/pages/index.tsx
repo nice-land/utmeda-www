@@ -26,7 +26,7 @@ function index({ intl }: IProps) {
   return (
     <>
       <Helmet title={intl.formatMessage({ id: 'title' })} />
-      <Steps list={steps} />
+      <Steps title={intl.formatMessage({ id: 'title' })} list={steps} />
     </>
   );
 }

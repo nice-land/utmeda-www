@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Link, FormattedMessage } from 'gatsby-plugin-intl';
 
 import { Header } from 'components/header/Header';
+import { Footer } from 'components/footer/Footer';
 import { Language } from 'components/language/Language';
 import { Devtools } from 'components/devtools/Devtools';
 import { PhoneBubble } from 'components/phone-bubble/PhoneBubble';
@@ -59,6 +60,8 @@ export default ({ children }: IAppLayoutProps) => {
         <PhoneBubble url="https://utmeda.is" />
         {children}
       </AppContext.Provider>
+
+      <Footer />
 
       {isDev && <Devtools />}
     </div>

@@ -5,13 +5,19 @@ import { IStep } from 'utils/interfaces';
 
 import { StepsItem } from './StepsItem';
 
+import s from './Steps.scss';
+
 interface IProps {
+  title: string;
   list: IStep[];
 }
 
-export const Steps = ({ list }: IProps) => {
+export const Steps = ({ title, list }: IProps) => {
   return (
     <ScrollWrapper>
+      <div className={s.steps__title}>
+        <h1 className={s.steps__titleContent}>{title}</h1>
+      </div>
       {list.map((step, i) => (
         <StepsItem
           key={i}

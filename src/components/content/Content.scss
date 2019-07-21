@@ -3,7 +3,11 @@
 .content {
   &__container {
     @include container;
-    padding-top: 200px;
+    padding-top: 140px;
+
+    @media (min-width: $min-tablet) {
+      padding-top: 200px;
+    }
   }
 
   &__row {
@@ -11,8 +15,12 @@
   }
 
   &__col {
-    @include grid-col(8);
-    @include grid-offset-left(2);
+    @include grid-col(12);
+
+    @media (min-width: $min-tablet) {
+      @include grid-col(8);
+      @include grid-offset-left(2);
+    }
   }
 
   &__title {

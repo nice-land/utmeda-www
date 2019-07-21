@@ -1,31 +1,9 @@
 @import '~styles/config';
 
 .footer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  min-height: 100px;
 
-  pointer-events: none;
-
-  &__content {
-    display: flex;
-    justify-content: space-between;
-
-    padding: 40px 0;
-  }
-
-  &__list {
-    display: flex;
-  }
-
-  &__item {
-    margin-left: 30px;
-
-    transition: 200ms opacity ease-in-out;
-
-    &:hover {
-      opacity: 0.5;
-    }
+  @media (min-width: $min-tablet) {
+    min-height: initial;
   }
 }
