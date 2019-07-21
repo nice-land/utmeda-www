@@ -3,6 +3,8 @@
 
 # Environment Configuration
 .env
+.env.development
+.env.production
 
 # Project dependencies
 .cache

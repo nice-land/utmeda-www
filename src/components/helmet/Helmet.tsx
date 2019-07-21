@@ -7,6 +7,8 @@ import { IIntlProps } from 'utils/interfaces';
 const favicon: string = require('assets/images/favicon.png');
 const defaultImage: string = require('assets/images/share.png');
 
+const domain = process.env.GATSBY_DOMAIN || '';
+
 interface IProps {
   title?: string;
   description?: string;
@@ -21,6 +23,8 @@ export const Helmet = ({ title, description, image }: IProps) => (
       const usedDescription = description || messages.defaultPageDescription;
       const usedImage = image || defaultImage;
 
+      const imageUrl = `${domain}${usedImage}`;
+
       const helmet = {
         title: usedTitle,
         titleTemplate: `%s - ${messages.defaultPageTitle}`,
@@ -34,14 +38,14 @@ export const Helmet = ({ title, description, image }: IProps) => (
           { name: 'theme-color', content: '#000' },
 
           { property: 'og:title', content: usedTitle },
-          { property: 'og:image', content: usedImage },
+          { property: 'og:image', content: imageUrl },
           { property: 'og:image:width', content: '880px' },
           { property: 'og:image:height', content: '440px' },
           { property: 'og:image:alt', content: usedDescription },
 
           { name: 'twitter:title', content: usedTitle },
           { name: 'twitter:card', content: 'summary_large_image' },
-          { name: 'twitter:image', content: usedImage },
+          { name: 'twitter:image', content: imageUrl },
           { name: 'twitter:description', content: usedDescription },
         ],
         link: [
