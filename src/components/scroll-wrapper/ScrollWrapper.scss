@@ -8,9 +8,14 @@
   width: 100%;
 
   &__inner {
+    padding-top: 140px;
+    padding-bottom: 60px;
+
     @media (min-width: $min-tablet) {
       display: flex;
       flex-wrap: nowrap;
+
+      padding: 0;
 
       width: 100%;
 

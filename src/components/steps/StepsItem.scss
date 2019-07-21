@@ -1,12 +1,19 @@
 @import '~styles/config';
 
 .stepsItem {
+  display: flex;
+  flex-direction: column;
+
   position: relative;
 
+  margin-bottom: 80px;
+
   @media (min-width: $min-tablet) {
-    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+
+    margin-bottom: 0;
 
     height: 100%;
     width: 100%;
@@ -20,6 +27,7 @@
   }
 
   &__link {
+    @include responsive-font(54, 80);
     @include variable-font(700, bold, 0, normal);
 
     text-decoration: none;
@@ -33,12 +41,12 @@
   }
 
   &__count {
-    @include responsive-font(16, 18);
+    @include responsive-font(14, 18);
     @include variable-font(700, bold, 0, normal);
 
     display: flex;
     align-items: center;
-    margin-bottom: (40/18) * 1em;
+    margin-bottom: (20/18) * 1em;
 
     height: 2em;
 
@@ -54,31 +62,41 @@
 
       background: $color-primary;
     }
+
+    @media (min-width: $min-768) {
+      margin-bottom: (40/18) * 1em;
+    }
   }
 
   &__media {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    margin-top: -25px;
 
-    width: percentage(1000/1500);
-    max-width: 1000px;
+    @media (min-width: $min-768) {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
 
-    &::before {
-      content: '';
+      margin-top: 0;
 
-      display: block;
+      width: percentage(1000/1500);
+      max-width: 1000px;
 
-      padding-bottom: percentage(9/16);
-    }
+      &::before {
+        content: '';
 
-    > * {
-      @include fit;
+        display: block;
 
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+        padding-bottom: percentage(9/16);
+      }
+
+      > * {
+        @include fit;
+
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
     }
   }
 }
