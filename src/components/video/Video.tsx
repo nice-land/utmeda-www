@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { WebGLRenderer, OrthographicCamera, Scene, Mesh, ShaderMaterial, BoxGeometry } from 'three';
+import { TweenLite, Power4 } from 'gsap';
 
+import DisplacementMap from 'assets/images/displacementmap.png';
+
+import createRippleShader from './createRippleShader';
 import s from './Video.scss';
 
 interface IProps {
@@ -8,50 +13,123 @@ interface IProps {
 }
 
 export const Video = ({ video, poster }: IProps) => {
-  const videoRef = React.useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [light, setLight] = useState(false);
-  const [width, setWidth] = React.useState(1280);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const renderer = useRef<() => void>();
+  const shader = useRef<ShaderMaterial>();
 
-  const getHalfWidth = () => {
-    const vdo = videoRef.current;
-    console.log('-vdo', vdo.videoWidth);
+  const showLight = () => {
+    setLight(true);
+  };
 
-    if (vdo) {
-      setWidth(vdo.videoWidth);
+  const showDark = () => {
+    setLight(false);
+  };
+
+  const render = () => {
+    requestAnimationFrame(render);
+
+    if (renderer.current) {
+      renderer.current();
     }
   };
 
-  function showLight() {
-    setLight(true);
-  }
+  render();
 
-  function showDark() {
-    setLight(false);
-  }
+  useEffect(() => {
+    if (!canvasRef.current || !videoRef.current) {
+      return;
+    }
 
-  function handleLoad() {
-    getHalfWidth();
-  }
+    const { offsetWidth, offsetHeight } = canvasRef.current;
 
-  React.useEffect(() => {
-    getHalfWidth();
-  }, [video, poster]);
+    const webglRenderer = new WebGLRenderer({
+      antialias: false,
+      alpha: true,
+      canvas: canvasRef.current,
+    });
+
+    webglRenderer.setSize(offsetWidth, offsetHeight);
+
+    const camera = new OrthographicCamera(
+      offsetWidth / -2,
+      offsetWidth / 2,
+      offsetHeight / -2,
+      offsetHeight / 2,
+      1,
+      100,
+    );
+
+    camera.position.z = 1;
+
+    const scene = new Scene();
+
+    const angle = Math.PI / 4;
+
+    const shaderConfig = createRippleShader(
+      videoRef.current,
+      0.2,
+      0.2,
+      angle,
+      -3 * angle,
+      DisplacementMap,
+    );
+
+    shader.current = new ShaderMaterial(shaderConfig);
+
+    const videoPlane = new Mesh(
+      new BoxGeometry(offsetWidth, offsetHeight, 0),
+      shader.current,
+    );
+    videoPlane.rotation.z = Math.PI;
+
+    scene.add(videoPlane);
+
+    renderer.current = () => {
+      webglRenderer.render(scene, camera);
+    };
+
+    return () => {
+      shader.current = undefined;
+      renderer.current = undefined;
+      webglRenderer.dispose();
+    };
+  }, [canvasRef, videoRef]);
+
+  useEffect(() => {
+    if (!shader.current || !renderer.current) {
+      return;
+    }
+
+    TweenLite.to(shader.current.uniforms.dispFactor, 1, {
+      value: Number(light),
+      ease: Power4.easeOut,
+      onUpdate: renderer.current,
+      onComplete: renderer.current,
+    });
+  }, [light, shader, renderer]);
 
   return (
-    <div className={s.video} style={{ width: `${1280}px` }}>
-      <div className={s(s.video__content, { light })}>
+    <div className={s.video}>
+      <div className={s(s.video__content)}>
         <video
+          className={s.video__video}
+          ref={videoRef}
           autoPlay
           muted
           loop
-          ref={videoRef}
           src={video}
           poster={poster}
-          onMouseEnter={showLight}
-          onMouseLeave={showDark}
+        />
+
+        <canvas
+          ref={canvasRef}
+          className={s.video__render}
+          onMouseDown={showLight}
+          onMouseUp={showDark}
           onTouchStart={showLight}
           onTouchEnd={showDark}
-          onLoad={handleLoad}
         />
       </div>
     </div>
