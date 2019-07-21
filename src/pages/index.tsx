@@ -1,10 +1,9 @@
 import * as React from 'react';
-
 import { injectIntl } from 'gatsby-plugin-intl';
 
+import { IStep } from 'utils/interfaces';
 import { Steps } from 'components/steps/Steps';
 import { Helmet } from 'components/helmet/Helmet';
-import { IStep } from 'utils/interfaces';
 
 interface IProps {
   intl: any;

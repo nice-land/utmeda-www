@@ -2,9 +2,8 @@ import * as React from 'react';
 
 import { Header } from 'components/header/Header';
 import { Language } from 'components/language/Language';
-
-// import { Footer } from 'components/footer/Footer';
 import { Devtools } from 'components/devtools/Devtools';
+import { PhoneBubble } from 'components/phone-bubble/PhoneBubble';
 
 import s from './AppLayout.scss';
 
@@ -21,14 +20,7 @@ export default ({ children }: IAppLayoutProps) => (
     </Header>
 
     {children}
-
-    {/* <Footer
-      social={[
-        { icon: <Twitter />, to: 'https://twitter.com/' },
-        { icon: <Instagram />, to: 'https://www.instagram.com/' },
-        { icon: <Facebook />, to: 'https://www.facebook.com/' },
-      ]}
-    /> */}
+    <PhoneBubble url="https://utmeda.is" />
 
     {isDev && <Devtools />}
   </div>

@@ -1,0 +1,22 @@
+@import '~styles/config';
+
+.phoneBubble {
+  position: fixed;
+  bottom: 15px;
+  right: 20px;
+
+  @media (min-width: $min-768) {
+    bottom: 75px;
+    right: 50px;
+  }
+
+  path { // stylelint-disable-line
+    transition: 200ms fill ease-in-out;
+  }
+
+  &:hover {
+    path { // stylelint-disable-line
+      fill: $color-primary;
+    }
+  }
+}
