@@ -41,3 +41,10 @@
     left: 65px;
   }
 }
+
+
+:global {
+  html * {  // stylelint-disable-line
+    cursor: none;
+  }
+}
