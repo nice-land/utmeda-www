@@ -24,7 +24,7 @@
   &__item {
     @media (min-width: $min-tablet) {
       flex: none;
-      width: 100vw;
+      width: 85vw;
       height: 100%;
 
       scroll-snap-align: start;

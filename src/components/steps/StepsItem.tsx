@@ -13,21 +13,20 @@ interface IProps {
   media: string;
 }
 
-export const StepsItem = ({ count, link, text, media }: IProps) => {
-  return (
-    <div className={s.stepsItem}>
-      <Container>
-        <div className={s.steps__content}>
-          <span className={s.steps__count}>{count}</span>
-          <Link className={s.steps__link} to={link}>
-            <InlineMarkdown source={text} />
-          </Link>
-        </div>
+export const StepsItem = ({ count, link, text, media }: IProps) => (
+  <div className={s.stepsItem}>
+    <Container>
+      <div className={s.stepsItem__content}>
+        <span className={s.stepsItem__count}>{count}</span>
 
-        <div className={s.stepsItem__media}>
-          <img src={media} alt="" />
-        </div>
-    </Container>
+        <Link className={s.stepsItem__link} to={link}>
+          <InlineMarkdown source={text} />
+        </Link>
+      </div>
+
+      <div className={s.stepsItem__media}>
+        <img src={media} alt="" />
+      </div>
+  </Container>
   </div>
-  );
-};
+);
