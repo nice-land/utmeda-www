@@ -1,10 +1,14 @@
 import * as React from 'react';
 import { injectIntl, Link, FormattedMessage } from 'gatsby-plugin-intl';
 
+import Twitter from 'assets/svg/twitter.svg';
+import Facebook from 'assets/svg/facebook.svg';
+
 import { Container } from 'components/container/Container';
 import { Row } from 'components/row/Row';
 import { Video } from 'components/video/Video';
 import { InlineMarkdown } from 'components/inline-markdown/InlineMarkdown';
+import { Content } from 'components/steps/Content';
 
 import s from './Step.scss';
 
@@ -42,36 +46,48 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
   const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
 
   return (
-    <Container>
-      <div className={s.step}>
-        <Row>
-          <div className={s.step__col}>
-            <h2 className={s.step__header}>{num}. <InlineMarkdown source={title} /></h2>
-            <p className={s.step__text}><InlineMarkdown source={text} /></p>
-            <Video video={video} />
+    <div className={s.step}>
+      <div className={s.step__share}>
+        <a
+          className={s.step__shareLink}
+          href={facebookLink}
+          target="_new"
+        >
+          <Facebook />
+        </a>
 
-          </div>
-        </Row>
-        <Row>
-          <div className={s.step__col}>
-            <Link to={`/${nextNum}`}>{nextNum}. {nextStep}</Link>
-          </div>
-        </Row>
-        <Row>
-          <div className={s.step__share}>
-            <a className={s(s.step__shareLink, s.twitter)} href={twitterLink} target="_new">
-              <span className={s.step__shareLabel}>
-                <FormattedMessage id="share.twitter" defaultMessage="Deila á Twitter" />
-              </span>
-            </a>
-            <a className={s(s.step__shareLink, s.facebook)} href={facebookLink} target="_new">
-              <span className={s.step__shareLabel}>
-                <FormattedMessage id="share.facebook" defaultMessage="Deila á Facebook" />
-              </span>
-            </a>
-          </div>
-        </Row>
+        <a
+          className={s.step__shareLink}
+          href={twitterLink}
+          target="_new"
+        >
+          <Twitter />
+        </a>
+
+        <p className={s.step__shareCopy}><FormattedMessage id="share.copy" /></p>
       </div>
-    </Container>
+
+      <div className={s.step__content}>
+        <Content
+          count={num}
+          text={title}
+        />
+      </div>
+
+      <div className={s.step__video}>
+        <Video video={video} />
+      </div>
+
+      {/* <div className={s.step__slide}>
+        <p className={s.step__text}><InlineMarkdown source={text} /></p>
+
+        <Link to={`/${nextNum}`}>
+          <Content
+            count={nextNum}
+            text={nextStep}
+          />
+        </Link>
+      </div> */}
+    </div>
   );
 });
