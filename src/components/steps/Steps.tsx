@@ -15,6 +15,7 @@ export const Steps = ({ list }: IProps) => {
       {list.map((step, i) => (
         <StepsItem
           key={i}
+          index={i}
           text={step.title}
           count={(i + 1).toString().padStart(2, '0')}
           link={`/${i + 1}`}

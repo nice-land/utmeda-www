@@ -5,3 +5,4 @@ declare module '*.png';
 declare module '*.jpg';
 
 declare module 'gatsby-plugin-intl';
+declare module 'gsap/ScrollToPlugin';

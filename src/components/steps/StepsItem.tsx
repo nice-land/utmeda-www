@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { injectIntl, Link } from 'gatsby-plugin-intl';
+import { useInView } from 'react-intersection-observer';
 
 import { Container } from 'components/container/Container';
 import { InlineMarkdown } from 'components/inline-markdown/InlineMarkdown';
@@ -13,10 +14,14 @@ interface IProps {
   link: string;
   text: string;
   media: string;
+  index: number;
+  setActive: (args: number) => void;
 }
 
-export const StepsItem = injectIntl(({ count, link, text, media, intl }: IProps) => {
+export const StepsItem = injectIntl(({ count, link, text, media, intl, setActive, index }: IProps) => {
   const { mouseEnter, mouseLeave } = React.useContext(AppContext);
+  const threshold = 0.5;
+  const [ref, active] = useInView({ threshold });
 
   const handleMouseEnter = () => {
     mouseEnter(intl.formatMessage({ id: 'step_watch' }));
@@ -30,8 +35,17 @@ export const StepsItem = injectIntl(({ count, link, text, media, intl }: IProps)
     mouseLeave();
   };
 
+  useEffect(() => {
+
+    if (active) {
+      setActive(index);
+      // console.log(active, index);
+    }
+
+  }, [active]);
+
   return (
-    <div className={s.stepsItem}>
+    <div className={s.stepsItem} ref={ref}>
       <Container>
         <Link
           className={s.stepsItem__wrapper}
