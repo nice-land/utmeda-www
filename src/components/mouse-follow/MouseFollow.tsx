@@ -28,10 +28,12 @@ export const MouseFollow = () => {
         setInner({ xy: direction });
       },
     },
-    { domTarget: window },
+    { domTarget: typeof window !== 'undefined' ? window : null },
   );
 
-  React.useEffect(bind, [bind]);
+  React.useEffect(() => {
+    bind();
+  }, [bind]);
 
   React.useEffect(() => {
     setStroke({

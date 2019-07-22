@@ -33,6 +33,10 @@ export const Video = ({ video, poster, onVideoEnd }: IProps) => {
   };
 
   const render = () => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     requestAnimationFrame(render);
 
     if (renderer.current) {
