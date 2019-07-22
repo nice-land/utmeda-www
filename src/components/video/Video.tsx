@@ -4,6 +4,8 @@ import { TweenLite, Power4 } from 'gsap';
 
 import DisplacementMap from 'assets/images/displacementmap.png';
 
+import { useKeyDown } from 'hooks/use-keydown';
+
 import createRippleShader from './createRippleShader';
 import s from './Video.scss';
 
@@ -19,6 +21,7 @@ export const Video = ({ video, poster, onVideoEnd }: IProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const renderer = useRef<() => void>();
   const shader = useRef<ShaderMaterial>();
+  const keys = useKeyDown();
 
   const showLight = () => {
     setLight(true);
@@ -117,6 +120,15 @@ export const Video = ({ video, poster, onVideoEnd }: IProps) => {
       onComplete: renderer.current,
     });
   }, [light, shader, renderer]);
+
+  useEffect(() => {
+    // on space
+    if (keys.includes(32)) {
+      showLight();
+    } else if (!keys.includes(32)) {
+      showDark();
+    }
+  }, [keys]);
 
   return (
     <div className={s.video}>
