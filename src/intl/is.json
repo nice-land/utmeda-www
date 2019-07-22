@@ -6,7 +6,7 @@
   "steps": {
     "one": {
       "title": "_Elskaðu_ þig eins og þú ert.",
-      "text": "Vertu þinn besti vinur. Láttu þér þykja vænt um sjálfa/an þig og berðu þig ekki saman við aðra."
+      "text": "Vertu þinn besti vinur. Láttu þér þykja vænt um þig og berðu þig ekki saman við aðra."
     },
     "two": {
       "title": "_Hvíldu_ símann og gleymdu þér í núinu.",
@@ -22,11 +22,11 @@
     },
     "five": {
       "title": "Lærðu að segja _nei_.",
-      "text": "Þú ert stjórnandinn í eigin lífi og þarft ekki að þóknast öðrum. Stundum er nei rétta svarið."
+      "text": "Þú ert stjórnar í eigin lífi og þarft ekki að þóknast öðrum. Stundum er nei rétta svarið."
     },
     "six": {
       "title": "Hugsaðu _jákvætt_ og njóttu.",
-      "text": "Beindu huganum í jákvæða átt. Vertu þakklát/ur og njóttu þess sem þú átt."
+      "text": "Beindu huganum í jákvæða átt. Sýndu þakklæti og njóttu þess sem þú átt."
     },
     "seven": {
       "title": "Eltu _drauma_ þína.",
