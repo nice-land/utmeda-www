@@ -1,6 +1,12 @@
 @import '~styles/config';
 
 .circle {
+  position: relative;
+  top: 5px;
+
+  width: 125px;
+  height: 125px;
+
   animation: spin 12s infinite linear;
 
   text { // stylelint-disable-line

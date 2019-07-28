@@ -19,7 +19,7 @@
 
   transform: translate(-100%, -100%);
 
-  &__circle {
+  &__inner {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,53 +48,14 @@
     border-radius: 64px;
     border: 2px solid #fff;
   }
+
+  &__play {
+    position: absolute;
+    top: -10px;
+    left: 30px;
+
+    opacity: 0;
+
+    transform-origin: center;
+  }
 }
-
-// .mouseFollow {
-//   position: fixed;
-//   top: -80px;
-//   left: -80px;
-//   z-index: 1000;
-
-//   width: 150px;
-//   height: 150px;
-
-//   pointer-events: none;
-
-//   &__stroke {
-//     position: absolute;
-//     top: 30px;
-//     left: 30px;
-
-//     width: 90px;
-//     height: 90px;
-
-//     border-radius: 90px;
-//     border: 1.5px solid #fff;
-//   }
-
-//   &__inner {
-//     position: absolute;
-//     top: 66px;
-//     left: 66px;
-
-//     width: 16px;
-//     height: 16px;
-
-//     border-radius: 16px;
-//     background-color: $color-primary;
-//   }
-
-//   &__play {
-//     position: absolute;
-//     top: 60px;
-//     left: 65px;
-//   }
-// }
-
-
-// :global {
-//   html * {  // stylelint-disable-line
-//     cursor: none;
-//   }
-// }

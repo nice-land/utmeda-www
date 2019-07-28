@@ -16,6 +16,7 @@ interface IAppLayoutProps {
 }
 
 const isDev = process.env.NODE_ENV === 'development';
+
 export const AppContext = React.createContext({}) as any;
 
 export default ({ children }: IAppLayoutProps) => {

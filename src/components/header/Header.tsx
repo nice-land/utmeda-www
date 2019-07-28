@@ -1,4 +1,4 @@
-import React, { Children, cloneElement } from 'react';
+import React, { Children } from 'react';
 import { Link } from 'gatsby-plugin-intl';
 
 import { Logo } from 'components/logo/Logo';
@@ -21,8 +21,8 @@ export const Header = ({ children }: IHeaderProps) => (
         </Link>
 
         <ul className={s.header__navigation}>
-          {Children.toArray(children).map((child: any) => (
-            <li className={s.header__item}>{child}</li>
+          {Children.toArray(children).map((child: any, i: number) => (
+            <li key={i} className={s.header__item}>{child}</li>
           ))}
         </ul>
       </div>
