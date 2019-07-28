@@ -10,7 +10,6 @@
  * @author: Jack Doyle, jack@greensock.com
  **/
 /* eslint-disable */
-console.log('yep');
 
 var _gsScope =
   typeof module !== 'undefined' && module.exports && typeof global !== 'undefined'
