@@ -5845,6 +5845,11 @@ internal-ip@^3.0.1:
     default-gateway "^2.6.0"
     ipaddr.js "^1.5.2"
 
+intersection-observer@0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.7.0.tgz#ee16bee978db53516ead2f0a8154b09b400bbdc9"
+  integrity sha512-Id0Fij0HsB/vKWGeBe9PxeY45ttRiBmhFyyt/geBdDHBYNctMRTE3dC1U3ujzz3lap+hVXlEcVaB56kZP/eEUg==
+
 intl-format-cache@^2.0.5:
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/intl-format-cache/-/intl-format-cache-2.2.9.tgz#fb560de20c549cda20b569cf1ffb6dc62b5b93b4"
