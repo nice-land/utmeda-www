@@ -6,13 +6,13 @@ import Play from 'assets/svg/play.svg';
 import { AppContext } from 'components/app-layout/AppLayout';
 
 import { Circle } from './Circle';
-import s from './MouseFollow.scss';
+import s from './Cursor.scss';
 
-interface IMouseFollowComponentProps {
+interface ICursorComponentProps {
   context: any;
 }
 
-class MouseFollowComponent extends React.PureComponent<IMouseFollowComponentProps> {
+class CursorComponent extends React.PureComponent<ICursorComponentProps> {
 
   static contextType = AppContext;
 
@@ -39,7 +39,7 @@ class MouseFollowComponent extends React.PureComponent<IMouseFollowComponentProp
     window.addEventListener('mouseup', this.handleMouseUp);
   }
 
-  componentWillReceiveProps(nextProps: IMouseFollowComponentProps) {
+  componentWillReceiveProps(nextProps: ICursorComponentProps) {
     if (nextProps.context.isMediaHovered) {
       this.handleMouseOver.play();
     } else {
@@ -180,16 +180,16 @@ class MouseFollowComponent extends React.PureComponent<IMouseFollowComponentProp
     return (
       <div
         ref={this.cursorRef}
-        className={s.mouseFollow}
+        className={s.cursor}
       >
         <div
           ref={this.innerRef}
-          className={s.mouseFollow__inner}
+          className={s.cursor__inner}
         />
 
         <div
           ref={this.strokeRef}
-          className={s.mouseFollow__stroke}
+          className={s.cursor__stroke}
         />
 
         <div ref={this.svgCircleRef}>
@@ -198,7 +198,7 @@ class MouseFollowComponent extends React.PureComponent<IMouseFollowComponentProp
 
         <div
           ref={this.svgPlayRef}
-          className={s.mouseFollow__play}
+          className={s.cursor__play}
         >
           <Play />
         </div>
@@ -217,4 +217,4 @@ const withContext = (Component: any) => {
   );
 };
 
-export const MouseFollow = withContext(MouseFollowComponent);
+export const Cursor = withContext(CursorComponent);

@@ -7,7 +7,7 @@ import { Footer } from 'components/footer/Footer';
 import { Language } from 'components/language/Language';
 import { Devtools } from 'components/devtools/Devtools';
 import { PhoneBubble } from 'components/phone-bubble/PhoneBubble';
-import { MouseFollow } from 'components/mouse-follow/MouseFollow';
+import { Cursor } from 'components/cursor/Cursor';
 
 import s from './AppLayout.scss';
 
@@ -57,7 +57,7 @@ export default ({ children }: IAppLayoutProps) => {
           mouseLeave,
         }}
       >
-        <MouseFollow />
+        <Cursor />
         <PhoneBubble url="https://utmeda.is" />
         {children}
       </AppContext.Provider>
