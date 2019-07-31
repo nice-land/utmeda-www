@@ -2,6 +2,7 @@ import * as React from 'react';
 import { TweenLite, TimelineLite, Power4 } from 'gsap';
 
 import Play from 'assets/svg/play.svg';
+import Mouse from 'assets/svg/mouse.svg';
 
 import { AppContext } from 'components/app-layout/AppLayout';
 
@@ -20,7 +21,7 @@ class CursorComponent extends React.PureComponent<ICursorComponentProps> {
   innerRef: React.RefObject<HTMLDivElement> = React.createRef();
   strokeRef: React.RefObject<HTMLDivElement> = React.createRef();
   svgCircleRef: React.RefObject<HTMLDivElement> = React.createRef();
-  svgPlayRef: React.RefObject<HTMLDivElement> = React.createRef();
+  svgIconRef: React.RefObject<HTMLDivElement> = React.createRef();
   overCache: any;
   mouseDownActive = false;
   mouseTimestamp = 0;
@@ -60,7 +61,7 @@ class CursorComponent extends React.PureComponent<ICursorComponentProps> {
 
     const stroke = this.strokeRef.current;
     const circle = this.svgCircleRef.current;
-    const play = this.svgPlayRef.current;
+    const play = this.svgIconRef.current;
     const inner = this.innerRef.current;
     const timeline = new TimelineLite();
     const ease = Power4.easeInOut;
@@ -175,7 +176,7 @@ class CursorComponent extends React.PureComponent<ICursorComponentProps> {
   }
 
   render() {
-    const { mouseText } = this.props.context;
+    const { cursorText, cursorIcon } = this.props.context;
 
     return (
       <div
@@ -193,14 +194,15 @@ class CursorComponent extends React.PureComponent<ICursorComponentProps> {
         />
 
         <div ref={this.svgCircleRef}>
-          <Circle text={mouseText} />
+          <Circle text={cursorText} />
         </div>
 
         <div
-          ref={this.svgPlayRef}
-          className={s.cursor__play}
+          ref={this.svgIconRef}
+          className={s.cursor__icon}
         >
-          <Play />
+          {cursorIcon === 'play' && <Play />}
+          {cursorIcon === 'mouse' && <Mouse />}
         </div>
       </div>
     );

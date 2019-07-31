@@ -7,7 +7,7 @@ interface ICircleProps {
 }
 
 export const Circle = ({ text }: ICircleProps) => {
-  const length = String(text).length > 10 ? 2 : 4;
+  const length = String(text).length > 10 ? 2 : 3;
   const items = Array.isArray(text) ? text : Array.from({ length }).map(() => text);
 
   return (

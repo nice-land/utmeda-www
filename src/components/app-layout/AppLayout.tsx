@@ -20,19 +20,22 @@ const isDev = process.env.NODE_ENV === 'development';
 export const AppContext = React.createContext({}) as any;
 
 export default ({ children }: IAppLayoutProps) => {
-  const [mouseText, setMouseText] = React.useState<undefined | string | string[]>();
+  const [cursorText, setCursorText] = React.useState<undefined | string | string[]>();
+  const [cursorIcon, setCursorIcon] = React.useState<undefined | string>();
   const [isMediaHovered, setMediaHovered] = React.useState(false);
 
-  const mouseEnter = (val?: string | undefined) => {
-    if (val) {
-      setMouseText(val);
+  const mouseEnter = ({ text, icon }: { text: string | undefined; icon: 'play' | 'mouse' }) => {
+    if (text) {
+      setCursorText(text);
+      setCursorIcon(icon);
     }
 
     setMediaHovered(true);
   };
 
   const mouseLeave = () => {
-    setMouseText(undefined);
+    setCursorText(undefined);
+    setCursorIcon(undefined);
     setMediaHovered(false);
   };
 
@@ -50,9 +53,10 @@ export default ({ children }: IAppLayoutProps) => {
 
       <AppContext.Provider
         value={{
-          mouseText,
+          cursorText,
+          cursorIcon,
           isMediaHovered,
-          setMouseText,
+          setCursorText,
           mouseEnter,
           mouseLeave,
         }}
