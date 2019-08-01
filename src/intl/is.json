@@ -62,7 +62,8 @@
   },
   "step_watch": "Horfa",
   "loading": "Það eru tvær hliðar á hverri sögu. Haltu inni til að sjá hina hliðina.",
-  "transition": "Kíktu á hina hliðina."
+  "transition": "Kíktu á hina hliðina.",
+  "step_click": "Haltu inni"
 }
 
 

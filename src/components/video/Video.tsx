@@ -13,9 +13,11 @@ interface IProps {
   video: string;
   poster?: string;
   onVideoEnd(): void;
+  onMouseEnter?(): void;
+  onMouseLeave?(): void;
 }
 
-export const Video = ({ video, poster, onVideoEnd }: IProps) => {
+export const Video = ({ video, poster, onVideoEnd, onMouseEnter, onMouseLeave }: IProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [light, setLight] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -131,7 +133,11 @@ export const Video = ({ video, poster, onVideoEnd }: IProps) => {
   }, [keys]);
 
   return (
-    <div className={s.video}>
+    <div
+      className={s.video}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <div className={s(s.video__content)}>
         <video
           className={s.video__video}

@@ -1,0 +1,67 @@
+@import '~styles/config';
+
+.cursor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  left: -40px;
+  top: -40px;
+  z-index: 9999;
+
+  width: 80px;
+  height: 80px;
+
+  pointer-events: none;
+
+  opacity: 1;
+
+  transform: translate(-100%, -100%);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 12px;
+
+    pointer-events: none;
+
+    background-color: $color-primary;
+    transform-origin: center;
+  }
+
+  &__stroke {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+
+    width: 64px;
+    height: 64px;
+
+    border-radius: 64px;
+    border: 2px solid #fff;
+  }
+
+  &__icon {
+    display: flex;
+
+    position: absolute;
+
+    margin-top: -2px;
+    margin-left: 4px;
+
+    width: 27px;
+    height: 33px;
+
+    opacity: 0;
+
+    transform-origin: center;
+  }
+}

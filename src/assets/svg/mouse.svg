@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="32px" viewBox="0 0 22 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>mouse-2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Video-Playing" transform="translate(-1329.000000, -691.000000)" fill-rule="nonzero">
+            <g id="mouse-2" transform="translate(1329.000000, 691.000000)">
+                <path d="M12,11 L22,11 C21.9924749,5.31626524 17.6597746,0.57239167 12,0.051 L12,11 Z" id="Path" fill="#FFFFFF"></path>
+                <path d="M10,0.051 C4.34022543,0.57239167 0.00752512062,5.31626524 0,11 L10,11 L10,0.051 Z" id="Path" fill="#FF4052"></path>
+                <path d="M0,13 L0,21 C0,27.0751322 4.92486775,32 11,32 C17.0751322,32 22,27.0751322 22,21 L22,13 L0,13 Z" id="Path" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -9,6 +9,7 @@ import { Video } from 'components/video/Video';
 import { InlineMarkdown } from 'components/inline-markdown/InlineMarkdown';
 import { Content } from 'components/steps/Content';
 import { ScrollWrapper } from 'components/scroll-wrapper/ScrollWrapper';
+import { AppContext } from 'components/app-layout/AppLayout';
 
 import s from './Step.scss';
 
@@ -36,6 +37,7 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
     intl.formatMessage({ id: 'steps.ten.title' }),
   ];
 
+  const { mouseEnter, mouseLeave } = React.useContext(AppContext);
   const slideRef = React.useRef<HTMLDivElement>(null);
   const nextNum = num === steps.length ? 1 : num + 1;
   const nextStep = num === steps.length ? steps[0] : steps[num];
@@ -63,6 +65,21 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
       },
     );
   };
+
+  const handleMouseEnter = () => {
+    mouseEnter({
+      text: intl.formatMessage({ id: 'step_click' }),
+      icon: 'mouse',
+    });
+  };
+
+  const handleMouseLeave = () => {
+    mouseLeave();
+  };
+
+  React.useEffect(() => {
+    handleMouseEnter();
+  }, []);
 
   return (
     <div className={s.step}>
@@ -96,6 +113,8 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
       <Video
         video={video}
         onVideoEnd={handleVideoEnd}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       />
 
       <div

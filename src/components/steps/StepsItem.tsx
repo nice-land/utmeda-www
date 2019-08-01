@@ -24,7 +24,10 @@ export const StepsItem = injectIntl(({ count, link, text, media, intl, setActive
   const [ref, active] = useInView({ threshold });
 
   const handleMouseEnter = () => {
-    mouseEnter(intl.formatMessage({ id: 'step_watch' }));
+    mouseEnter({
+      text: intl.formatMessage({ id: 'step_watch' }),
+      icon: 'play',
+    });
   };
 
   const handleMouseLeave = () => {

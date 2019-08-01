@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { Link, FormattedMessage } from 'gatsby-plugin-intl';
 
 import { Header } from 'components/header/Header';
@@ -7,7 +6,7 @@ import { Footer } from 'components/footer/Footer';
 import { Language } from 'components/language/Language';
 import { Devtools } from 'components/devtools/Devtools';
 import { PhoneBubble } from 'components/phone-bubble/PhoneBubble';
-import { MouseFollow } from 'components/mouse-follow/MouseFollow';
+import { Cursor } from 'components/cursor/Cursor';
 
 import s from './AppLayout.scss';
 
@@ -16,23 +15,33 @@ interface IAppLayoutProps {
 }
 
 const isDev = process.env.NODE_ENV === 'development';
+
 export const AppContext = React.createContext({}) as any;
 
 export default ({ children }: IAppLayoutProps) => {
-  const [mouseText, setMouseText] = React.useState<undefined | string | string[]>();
+  const [cursorText, setCursorText] = React.useState<undefined | string | string[]>();
+  const [cursorIcon, setCursorIcon] = React.useState<undefined | string>();
   const [isMediaHovered, setMediaHovered] = React.useState(false);
+  const timer = React.useRef<any>(null);
 
-  const mouseEnter = (val?: string | undefined) => {
-    if (val) {
-      setMouseText(val);
+  const mouseEnter = ({ text, icon }: { text: string | undefined; icon: 'play' | 'mouse' }) => {
+    clearTimeout(timer.current);
+
+    if (text) {
+      setCursorText(text);
+      setCursorIcon(icon);
     }
 
     setMediaHovered(true);
   };
 
   const mouseLeave = () => {
-    setMouseText(undefined);
     setMediaHovered(false);
+
+    timer.current = setTimeout(() => {
+      setCursorText(undefined);
+      setCursorIcon(undefined);
+    }, 400);
   };
 
   return (
@@ -49,14 +58,15 @@ export default ({ children }: IAppLayoutProps) => {
 
       <AppContext.Provider
         value={{
-          mouseText,
+          cursorText,
+          cursorIcon,
           isMediaHovered,
-          setMouseText,
+          setCursorText,
           mouseEnter,
           mouseLeave,
         }}
       >
-        <MouseFollow />
+        <Cursor />
         <PhoneBubble url="https://utmeda.is" />
         {children}
       </AppContext.Provider>
