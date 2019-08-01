@@ -77,6 +77,10 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
     mouseLeave();
   };
 
+  React.useEffect(() => {
+    handleMouseEnter();
+  }, []);
+
   return (
     <div className={s.step}>
       <div className={s.step__share}>
