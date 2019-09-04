@@ -1,4 +1,5 @@
-import { Canvas, useThree } from 'react-three-fiber';
+import { Canvas } from 'components/canvas/Canvas';
+import { useThree } from 'react-three-fiber';
 import React, { useState } from 'react';
 import DisplacementMap from 'assets/images/displacementmap.png';
 import { useKeyDown } from 'hooks/use-keydown';
