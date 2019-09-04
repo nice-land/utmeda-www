@@ -12,7 +12,7 @@ function one({ intl }: IProps) {
   const title = intl.formatMessage({ id: 'steps.one.title' });
   const text = intl.formatMessage({ id: 'steps.one.text' });
   const video: string = require('assets/videos/one.mp4');
-  const poster: string = require('assets/posters/one.jpg');
+  const poster: string = require('assets/posters/1_bright@2x.jpg');
 
   return (
     <>
