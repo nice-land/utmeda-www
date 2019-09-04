@@ -1,6 +1,26 @@
-@import '~styles/config';
+@import "~styles/config";
 
 .steps {
+  &__canvas {
+    @include fit;
+    position: fixed;
+    z-index: 1;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+
+    z-index: 2;
+  }
+
+  &__step {
+    flex: 1 0 100%;
+    width: 100vw;
+    height: 100%;
+  }
+
   &__title {
     display: flex;
     flex-direction: column;

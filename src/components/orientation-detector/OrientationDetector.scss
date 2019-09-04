@@ -2,6 +2,7 @@
 
 .orientationDetector {
   @include fit;
+  position: fixed;
 
   display: flex;
   flex-direction: column;
@@ -27,8 +28,10 @@
   }
 
   &__message {
+    @include rf(14, 18);
     margin-top: 40px;
-    font-size: 18px;
+    
+    text-align: center;
   }
 
   @keyframes phone-rotate {

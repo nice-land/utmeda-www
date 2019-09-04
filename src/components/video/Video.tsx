@@ -1,14 +1,14 @@
-import { Canvas } from 'components/canvas/Canvas';
-import { useThree } from 'react-three-fiber';
-import React, { useState } from 'react';
-import DisplacementMap from 'assets/images/displacementmap.png';
-import { useKeyDown } from 'hooks/use-keydown';
-import { TweenLite, Power4 } from 'gsap';
-import { useOrientation } from 'hooks/use-orientation';
-import { debounce } from 'lodash';
+import { Canvas } from "components/canvas/Canvas";
+import { useThree } from "react-three-fiber";
+import React, { useState } from "react";
+import DisplacementMap from "assets/images/displacementmap.png";
+import { useKeyDown } from "hooks/use-keydown";
+import { TweenLite, Power4 } from "gsap";
+import { useOrientation } from "hooks/use-orientation";
+import { debounce } from "lodash";
 
-import s from './Video.scss';
-import createRippleShader from './createRippleShader';
+import s from "./Video.scss";
+import createRippleShader from "./createRippleShader";
 
 interface IProps {
   videoRef: React.RefObject<HTMLVideoElement>;
@@ -29,18 +29,29 @@ const VideoObject = ({
   showLight,
   intensity1 = 0.2,
   intensity2 = 0.2,
-  angle2 = -3 * angle,
+  angle2 = -3 * angle
 }: IProps) => {
   const { invalidate, ready } = useThree();
-  const [dimensions, set] = useState<[number, number]>([window.innerWidth, window.innerWidth / ASPECT]);
+  const [dimensions, set] = useState<[number, number]>([
+    window.innerWidth,
+    window.innerWidth / ASPECT
+  ]);
 
   if (videoRef.current === null) {
     return null;
   }
 
   const shaderConfig = React.useMemo(
-    () => createRippleShader(videoRef.current!, intensity1, intensity2, angle, angle2, displacementMap),
-    [videoRef, intensity1, intensity2, angle, angle2, displacementMap],
+    () =>
+      createRippleShader(
+        videoRef.current!,
+        intensity1,
+        intensity2,
+        angle,
+        angle2,
+        displacementMap
+      ),
+    [videoRef, intensity1, intensity2, angle, angle2, displacementMap]
   );
 
   React.useEffect(() => {
@@ -48,7 +59,7 @@ const VideoObject = ({
       value: Number(showLight),
       ease: Power4.easeOut,
       onUpdate: invalidate,
-      onComplete: invalidate,
+      onComplete: invalidate
     });
   }, [showLight, ready]);
 
@@ -59,21 +70,24 @@ const VideoObject = ({
   }, 200);
 
   React.useEffect(() => {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return;
     }
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     handleResize();
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <group>
       <mesh rotation={[0, 0, 0]}>
-        <boxGeometry attach="geometry" args={[...dimensions, 0] as [number, number, number]} />
+        <boxGeometry
+          attach="geometry"
+          args={[...dimensions, 0] as [number, number, number]}
+        />
         <shaderMaterial attach="material" args={[shaderConfig]} />
       </mesh>
     </group>
@@ -87,9 +101,15 @@ interface IVideoProps {
   onMouseLeave(): void;
 }
 
-export const Video = ({ src, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoProps) => {
+export const Video = ({
+  src,
+  onVideoEnd,
+  onMouseEnter,
+  onMouseLeave
+}: IVideoProps) => {
   const ref = React.useRef<HTMLVideoElement>(null);
   const [light, setLight] = React.useState(false);
+  const [canPlay, setCanPlay] = React.useState(false);
   const keys = useKeyDown();
   const orientation = useOrientation();
 
@@ -119,7 +139,7 @@ export const Video = ({ src, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoPro
       return;
     }
 
-    if (orientation === 'portrait') {
+    if (orientation === "portrait") {
       ref.current!.pause();
     } else {
       ref.current!.play();
@@ -138,9 +158,17 @@ export const Video = ({ src, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoPro
       onMouseLeave={onMouseLeave}
     >
       <div className={s.video__content}>
-        <video className={s.video__video} ref={ref} src={src} muted autoPlay onEnded={handleEnded} />
+        <video
+          className={s.video__video}
+          ref={ref}
+          onCanPlay={() => setCanPlay(true)}
+          src={src}
+          muted
+          autoPlay
+          onEnded={handleEnded}
+        />
 
-        <div className={s.video__render}>
+        <div className={s(s.video__render, { canPlay })}>
           <Canvas orthographic={true}>
             <VideoObject
               angle={Math.PI * 4}
