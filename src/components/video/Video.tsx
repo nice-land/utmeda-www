@@ -1,28 +1,71 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { WebGLRenderer, OrthographicCamera, Scene, Mesh, ShaderMaterial, BoxGeometry } from 'three';
+import { Canvas, useThree } from 'react-three-fiber';
+import React from 'react';
+import DisplacementMap from 'assets/images/displacementmap.png';
+import { useKeyDown } from 'hooks/use-keydown';
 import { TweenLite, Power4 } from 'gsap';
 
-import DisplacementMap from 'assets/images/displacementmap.png';
-
-import { useKeyDown } from 'hooks/use-keydown';
-
-import createRippleShader from './createRippleShader';
 import s from './Video.scss';
+import createRippleShader from './createRippleShader';
 
 interface IProps {
-  video: string;
-  poster?: string;
-  onVideoEnd(): void;
-  onMouseEnter?(): void;
-  onMouseLeave?(): void;
+  videoRef: React.RefObject<HTMLVideoElement>;
+  angle: number;
+  showLight: boolean;
+  displacementMap: any;
+  intensity1?: number;
+  intensity2?: number;
+  angle2?: number;
 }
 
-export const Video = ({ video, poster, onVideoEnd, onMouseEnter, onMouseLeave }: IProps) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [light, setLight] = useState(false);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const renderer = useRef<() => void>();
-  const shader = useRef<ShaderMaterial>();
+const VideoObject = ({
+  videoRef,
+  angle,
+  displacementMap,
+  showLight,
+  intensity1 = 0.2,
+  intensity2 = 0.2,
+  angle2 = -3 * angle,
+}: IProps) => {
+  const { canvasRect, invalidate, ready } = useThree();
+
+  if (videoRef.current === null) {
+    return null;
+  }
+
+  const shaderConfig = React.useMemo(
+    () => createRippleShader(videoRef.current!, intensity1, intensity2, angle, angle2, displacementMap),
+    [videoRef, intensity1, intensity2, angle, angle2, displacementMap],
+  );
+
+  React.useEffect(() => {
+    TweenLite.to(shaderConfig.uniforms.dispFactor, 1, {
+      value: Number(showLight),
+      ease: Power4.easeOut,
+      onUpdate: invalidate,
+      onComplete: invalidate,
+    });
+  }, [showLight, ready]);
+
+  return (
+    <group>
+      <mesh rotation={[0, 0, 0]}>
+        <boxGeometry attach="geometry" args={[canvasRect.width, canvasRect.height, 0]} />
+        <shaderMaterial attach="material" args={[shaderConfig]} />
+      </mesh>
+    </group>
+  );
+};
+
+interface IVideoProps {
+  src: string;
+  onVideoEnd(): void;
+  onMouseEnter(): void;
+  onMouseLeave(): void;
+}
+
+export const Video = ({ src, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoProps) => {
+  const ref = React.useRef<HTMLVideoElement>(null);
+  const [light, setLight] = React.useState(false);
   const keys = useKeyDown();
 
   const showLight = () => {
@@ -37,93 +80,7 @@ export const Video = ({ video, poster, onVideoEnd, onMouseEnter, onMouseLeave }:
     onVideoEnd();
   };
 
-  const render = () => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    requestAnimationFrame(render);
-
-    if (renderer.current) {
-      renderer.current();
-    }
-  };
-
-  render();
-
-  useEffect(() => {
-    if (!canvasRef.current || !videoRef.current) {
-      return;
-    }
-
-    const { offsetWidth, offsetHeight } = canvasRef.current;
-
-    const webglRenderer = new WebGLRenderer({
-      antialias: false,
-      alpha: true,
-      canvas: canvasRef.current,
-    });
-
-    webglRenderer.setSize(offsetWidth, offsetHeight);
-
-    const camera = new OrthographicCamera(
-      offsetWidth / -2,
-      offsetWidth / 2,
-      offsetHeight / -2,
-      offsetHeight / 2,
-      1,
-      100,
-    );
-
-    camera.position.z = 1;
-
-    const scene = new Scene();
-    const angle = Math.PI / 4;
-
-    const shaderConfig = createRippleShader(
-      videoRef.current,
-      0.2,
-      0.2,
-      angle,
-      -3 * angle,
-      DisplacementMap,
-    );
-
-    shader.current = new ShaderMaterial(shaderConfig);
-
-    const videoPlane = new Mesh(
-      new BoxGeometry(offsetWidth, offsetHeight, 0),
-      shader.current,
-    );
-    videoPlane.rotation.z = Math.PI;
-
-    scene.add(videoPlane);
-
-    renderer.current = () => {
-      webglRenderer.render(scene, camera);
-    };
-
-    return () => {
-      shader.current = undefined;
-      renderer.current = undefined;
-      webglRenderer.dispose();
-    };
-  }, [canvasRef, videoRef]);
-
-  useEffect(() => {
-    if (!shader.current || !renderer.current) {
-      return;
-    }
-
-    TweenLite.to(shader.current.uniforms.dispFactor, 1, {
-      value: Number(light),
-      ease: Power4.easeOut,
-      onUpdate: renderer.current,
-      onComplete: renderer.current,
-    });
-  }, [light, shader, renderer]);
-
-  useEffect(() => {
+  React.useEffect(() => {
     // on space
     if (keys.includes(32)) {
       showLight();
@@ -135,28 +92,27 @@ export const Video = ({ video, poster, onVideoEnd, onMouseEnter, onMouseLeave }:
   return (
     <div
       className={s.video}
+      onMouseDown={showLight}
+      onMouseUp={showDark}
+      onTouchStart={showLight}
+      onTouchEnd={showDark}
+      onTouchCancel={showDark}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div className={s(s.video__content)}>
-        <video
-          className={s.video__video}
-          ref={videoRef}
-          autoPlay
-          muted
-          src={video}
-          poster={poster}
-          onEnded={handleEnded}
-        />
+      <div className={s.video__content}>
+        <video className={s.video__video} ref={ref} src={src} muted autoPlay onEnded={handleEnded} />
 
-        <canvas
-          ref={canvasRef}
-          className={s.video__render}
-          onMouseDown={showLight}
-          onMouseUp={showDark}
-          onTouchStart={showLight}
-          onTouchEnd={showDark}
-        />
+        <div className={s.video__render}>
+          <Canvas orthographic={true}>
+            <VideoObject
+              angle={Math.PI * 4}
+              videoRef={ref}
+              displacementMap={DisplacementMap}
+              showLight={light}
+            />
+          </Canvas>
+        </div>
       </div>
     </div>
   );

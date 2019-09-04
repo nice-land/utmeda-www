@@ -4,8 +4,8 @@ import { TimelineLite, Power4 } from 'gsap';
 
 import Twitter from 'assets/svg/twitter.svg';
 import Facebook from 'assets/svg/facebook.svg';
-
 import { Video } from 'components/video/Video';
+
 import { InlineMarkdown } from 'components/inline-markdown/InlineMarkdown';
 import { Content } from 'components/steps/Content';
 import { ScrollWrapper } from 'components/scroll-wrapper/ScrollWrapper';
@@ -55,15 +55,11 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
       return;
     }
 
-    timeline.to(
-      slide,
-      0.45,
-      {
-        opacity: 1,
-        x: 0,
-        ease,
-      },
-    );
+    timeline.to(slide, 0.45, {
+      opacity: 1,
+      x: 0,
+      ease,
+    });
   };
 
   const handleMouseEnter = () => {
@@ -84,57 +80,38 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
   return (
     <div className={s.step}>
       <div className={s.step__share}>
-        <a
-          className={s.step__shareLink}
-          href={facebookLink}
-          target="_new"
-        >
+        <a className={s.step__shareLink} href={facebookLink} target="_new">
           <Facebook />
         </a>
 
-        <a
-          className={s.step__shareLink}
-          href={twitterLink}
-          target="_new"
-        >
+        <a className={s.step__shareLink} href={twitterLink} target="_new">
           <Twitter />
         </a>
 
-        <p className={s.step__shareCopy}><FormattedMessage id="share.copy" /></p>
+        <p className={s.step__shareCopy}>
+          <FormattedMessage id="share.copy" />
+        </p>
       </div>
 
       <div className={s.step__content}>
-        <Content
-          count={num}
-          text={title}
-        />
+        <Content count={num} text={title} />
       </div>
 
       <Video
-        video={video}
+        src={video}
         onVideoEnd={handleVideoEnd}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       />
 
-      <div
-        className={s.step__slide}
-        ref={slideRef}
-      >
-        <ScrollWrapper
-          className={s.step__li}
-          snap={false}
-        >
-          <p className={s.step__text}><InlineMarkdown source={text} /></p>
+      <div className={s.step__slide} ref={slideRef}>
+        <ScrollWrapper className={s.step__li} snap={false}>
+          <p className={s.step__text}>
+            <InlineMarkdown source={text} />
+          </p>
 
-          <Link
-            to={`/${nextNum}`}
-            className={s.step__link}
-          >
-            <Content
-              count={nextNum}
-              text={nextStep}
-            />
+          <Link to={`/${nextNum}`} className={s.step__link}>
+            <Content count={nextNum} text={nextStep} />
           </Link>
         </ScrollWrapper>
       </div>
