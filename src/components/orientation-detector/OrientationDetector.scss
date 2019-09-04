@@ -1,0 +1,50 @@
+@import '~styles/config';
+
+.orientationDetector {
+  @include fit;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  visibility: hidden;
+  pointer-events: none;
+
+  opacity: 0;
+  background: #000;
+  transition: opacity 0.3s ease-out;
+
+  &.portrait {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &__phone {
+    transform-origin: 50% 50%;
+
+    animation: phone-rotate 3s ease-in-out infinite;
+  }
+
+  @keyframes phone-rotate {
+    0% {
+      opacity: 1;
+    }
+
+    10% {
+      transform: rotate(0deg);
+    }
+
+    25% {
+      transform: rotate(90deg);
+    }
+
+    90% {
+      opacity: 1;
+    }
+    
+    100% {
+      opacity: 0;
+      transform: rotate(90deg);
+    }
+  }
+}

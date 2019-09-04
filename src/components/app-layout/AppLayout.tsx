@@ -9,6 +9,7 @@ import { PhoneBubble } from 'components/phone-bubble/PhoneBubble';
 import { Cursor } from 'components/cursor/Cursor';
 
 import s from './AppLayout.scss';
+import { OrientationDetector } from 'components/orientation-detector/OrientationDetector';
 
 interface IAppLayoutProps {
   children: React.ReactNode;
@@ -21,7 +22,7 @@ export const AppContext = React.createContext({}) as any;
 export default ({ children }: IAppLayoutProps) => {
   const [cursorText, setCursorText] = React.useState<undefined | string | string[]>();
   const [cursorIcon, setCursorIcon] = React.useState<undefined | string>();
-  const [isMediaHovered, setMediaHovered] = React.useState(false);
+  const [isMediaHovered, setMediaHovered] = React.useState(false);
   const timer = React.useRef<any>(null);
 
   const mouseEnter = ({ text, icon }: { text: string | undefined; icon: 'play' | 'mouse' }) => {
@@ -46,6 +47,7 @@ export default ({ children }: IAppLayoutProps) => {
 
   return (
     <div className={s.layout}>
+      <OrientationDetector />
       <Header>
         <Link to="/">
           <FormattedMessage id="navigation.steps" defaultMessage="Skrefin" />
