@@ -4,6 +4,7 @@
   @include fit;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 1000;
@@ -23,6 +24,11 @@
     transform-origin: 50% 50%;
 
     animation: phone-rotate 3s ease-in-out infinite;
+  }
+
+  &__message {
+    margin-top: 40px;
+    font-size: 18px;
   }
 
   @keyframes phone-rotate {

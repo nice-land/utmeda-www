@@ -7,9 +7,9 @@ import { Language } from 'components/language/Language';
 import { Devtools } from 'components/devtools/Devtools';
 import { PhoneBubble } from 'components/phone-bubble/PhoneBubble';
 import { Cursor } from 'components/cursor/Cursor';
+import { OrientationDetector } from 'components/orientation-detector/OrientationDetector';
 
 import s from './AppLayout.scss';
-import { OrientationDetector } from 'components/orientation-detector/OrientationDetector';
 
 interface IAppLayoutProps {
   children: React.ReactNode;

@@ -21,6 +21,10 @@
     left: 0;
   }
 
+  &__video {
+    display: none;
+  }
+
   &__render {
     @include fit;
 

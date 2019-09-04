@@ -1,8 +1,10 @@
 import { Canvas, useThree } from 'react-three-fiber';
-import React from 'react';
+import React, { useState } from 'react';
 import DisplacementMap from 'assets/images/displacementmap.png';
 import { useKeyDown } from 'hooks/use-keydown';
 import { TweenLite, Power4 } from 'gsap';
+import { useOrientation } from 'hooks/use-orientation';
+import { debounce } from 'lodash';
 
 import s from './Video.scss';
 import createRippleShader from './createRippleShader';
@@ -17,6 +19,8 @@ interface IProps {
   angle2?: number;
 }
 
+const ASPECT = 1.7777777;
+
 const VideoObject = ({
   videoRef,
   angle,
@@ -26,7 +30,8 @@ const VideoObject = ({
   intensity2 = 0.2,
   angle2 = -3 * angle,
 }: IProps) => {
-  const { canvasRect, invalidate, ready } = useThree();
+  const { invalidate, ready } = useThree();
+  const [dimensions, set] = useState<[number, number]>([window.innerWidth, window.innerWidth / ASPECT]);
 
   if (videoRef.current === null) {
     return null;
@@ -46,10 +51,28 @@ const VideoObject = ({
     });
   }, [showLight, ready]);
 
+  const handleResize = debounce(() => {
+    const geometryWidth = window.innerWidth;
+    const geometryHeight = window.innerWidth / ASPECT;
+    set([geometryWidth, geometryHeight]);
+  }, 200);
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <group>
       <mesh rotation={[0, 0, 0]}>
-        <boxGeometry attach="geometry" args={[canvasRect.width, canvasRect.height, 0]} />
+        <boxGeometry attach="geometry" args={[...dimensions, 0] as [number, number, number]} />
         <shaderMaterial attach="material" args={[shaderConfig]} />
       </mesh>
     </group>
@@ -67,6 +90,7 @@ export const Video = ({ src, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoPro
   const ref = React.useRef<HTMLVideoElement>(null);
   const [light, setLight] = React.useState(false);
   const keys = useKeyDown();
+  const orientation = useOrientation();
 
   const showLight = () => {
     setLight(true);
@@ -88,6 +112,18 @@ export const Video = ({ src, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoPro
       showDark();
     }
   }, [keys]);
+
+  React.useEffect(() => {
+    if (ref.current === null) {
+      return;
+    }
+
+    if (orientation === 'portrait') {
+      ref.current!.pause();
+    } else {
+      ref.current!.play();
+    }
+  }, [ref, orientation]);
 
   return (
     <div

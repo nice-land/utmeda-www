@@ -45,6 +45,9 @@
       "text": "The first step towards feeling better is always telling someone. When a problem is put into words, the solution is around the corner."
     }
   },
+  "orientation": {
+    "pleaseRotate": "Please rotate your device or increase the browser size horizontally."
+  },
   "share": {
     "twitter": "Share on Twitter",
     "facebook": "Share on Facebook",
