@@ -3,19 +3,27 @@ import * as React from 'react';
 /**
  * Custom hooks that return the keys that are pressed on the keyboard
  */
-export const useKeyDown = () => {
+export const useKeyDown = (preventDefaultKeys: number[] = []) => {
   const [keys, setKeys] = React.useState<number[]>([]);
 
-  const handleKeyDown = ({ keyCode }: KeyboardEvent) => {
-    if (keys.includes(keyCode)) {
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (preventDefaultKeys.includes(e.keyCode)) {
+      e.preventDefault();
+    }
+
+    if (keys.includes(e.keyCode)) {
       return;
     }
 
-    setKeys([...keys, keyCode]);
+    setKeys([...keys, e.keyCode]);
   };
 
-  const handleKeyUp = ({ keyCode }: KeyboardEvent) => {
-    const d = keys.indexOf(keyCode, 0);
+  const handleKeyUp = (e: KeyboardEvent) => {
+    if (preventDefaultKeys.includes(e.keyCode)) {
+      e.preventDefault();
+    }
+
+    const d = keys.indexOf(e.keyCode, 0);
 
     setKeys([...keys.slice(0, d), ...keys.slice(d + 1)]);
   };

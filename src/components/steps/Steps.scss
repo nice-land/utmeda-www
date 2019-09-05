@@ -10,7 +10,7 @@
   &__inner {
     display: flex;
     flex-direction: row;
-    height: 100vh;
+    height: calc(100vh - 17px);
 
     z-index: 2;
   }
