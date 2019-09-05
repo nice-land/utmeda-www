@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Canvas } from 'components/canvas/Canvas';
 import { injectIntl } from 'gatsby-plugin-intl';
 import { IStep } from 'utils/interfaces';
-import { TextureLoader, Group } from 'three';
+import { TextureLoader, Group, Mesh, PlaneGeometry } from 'three';
 import { useThree } from 'react-three-fiber';
 import { navigate } from 'gatsby';
 import { TweenLite, Power4 } from 'gsap';
@@ -39,6 +39,7 @@ const StepPoster = ({
   mouseDown,
 }: IPosterProps) => {
   const ref = React.useRef<Group>();
+  const meshRef = React.useRef<Mesh>();
   const loader = new TextureLoader();
   const texture = React.useMemo(() => loader.load(poster), [poster]);
 
@@ -56,6 +57,21 @@ const StepPoster = ({
     mouseLeave();
   };
 
+  const handleMouseDown = () => {
+    const incr = { val: 0 };
+    const xScale = window.innerWidth / width;
+    const startPos = meshRef.current!.position.clone();
+
+    TweenLite.to(incr, 0.5, {
+      val: 1,
+      onUpdate: () => {
+        meshRef.current!.position.set(startPos.x * (1 - incr.val), 0, -10);
+        meshRef.current!.scale.set(xScale * incr.val, xScale * incr.val, 1);
+      },
+      onComplete: mouseDown,
+    });
+  };
+
   React.useEffect(() => {
     TweenLite.to(ref.current!.scale, 0.5, {
       x: active ? 1 : 0.8,
@@ -67,10 +83,11 @@ const StepPoster = ({
   return (
     <group position-x={index * window.innerWidth} ref={ref}>
       <mesh
+        ref={meshRef}
         scale={[0.8, 0.8, 0.8]}
         position={[window.innerWidth * 0.15, 0, -10]}
         onPointerOver={handleMouseEnter}
-        onPointerDown={mouseDown}
+        onPointerDown={handleMouseDown}
         onPointerOut={handleMouseLeave}
       >
         <planeGeometry attach="geometry" args={[width, height]} />
@@ -135,9 +152,11 @@ export const Steps = injectIntl(({ intl, title, list }: IProps) => {
   }, [state]);
 
   const handleScroll = debounce(() => {
-    set({
-      active: Math.round(parentRef.current!.scrollLeft / window.innerWidth),
-    });
+    if (parentRef.current) {
+      set({
+        active: Math.round(parentRef.current!.scrollLeft / window.innerWidth),
+      });
+    }
   }, 1000);
 
   React.useEffect(() => {

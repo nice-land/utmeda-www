@@ -20,6 +20,7 @@ interface IProps {
   title: string;
   text: string;
   video: string;
+  poster: string;
   intl: any;
 }
 
@@ -29,7 +30,7 @@ const StepText = ({ text }: { text: string }) => (
   </p>
 );
 
-export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
+export const Step = injectIntl(({ num, title, text, video, intl, poster }: IProps) => {
   const steps = [
     intl.formatMessage({ id: "steps.one.title" }),
     intl.formatMessage({ id: "steps.two.title" }),
@@ -105,6 +106,7 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
 
       <Video
         src={video}
+        poster={poster}
         onVideoEnd={handleVideoEnd}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
