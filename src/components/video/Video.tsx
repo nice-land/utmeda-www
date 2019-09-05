@@ -3,12 +3,18 @@ import { useThree } from 'react-three-fiber';
 import React, { useState } from 'react';
 import DisplacementMap from 'assets/images/displacementmap.png';
 import { useKeyDown } from 'hooks/use-keydown';
-import { TweenLite, Power4 } from 'gsap';
+import { TweenLite, Power4, Linear } from 'gsap';
 import { useOrientation } from 'hooks/use-orientation';
+import { useAnimationFrame } from 'hooks/use-animation-frame';
 import { debounce } from 'lodash';
 
 import s from './Video.scss';
+
+import createWaveShader from './createWaveShader';
 import createRippleShader from './createRippleShader';
+
+// tslint:disable-next-line:no-var-requires
+const tone: string = require('assets/videos/tone.mp3');
 
 interface IProps {
   videoRef: React.RefObject<HTMLVideoElement>;
@@ -21,6 +27,62 @@ interface IProps {
 }
 
 const ASPECT = 1.7777777;
+
+const Wave = ({ erratic }: { erratic: boolean }) => {
+  const [dimensions, set] = useState<[number, number]>([window.innerWidth, window.innerWidth / ASPECT]);
+  const [time, setTime] = useState<number>(0);
+  const { invalidate, ready } = useThree();
+
+  const handleResize = debounce(() => {
+    const geometryWidth = window.innerWidth;
+    const geometryHeight = window.innerWidth / ASPECT;
+    set([geometryWidth, geometryHeight]);
+  }, 200);
+
+  const shaderConfig = React.useMemo(
+    () => createWaveShader(dimensions),
+    [dimensions],
+  );
+
+  useAnimationFrame((dt) => {
+    setTime(time + dt);
+  });
+
+//  React.useEffect(() => {
+//    shaderConfig.uniforms.dt.value = time;
+//  }, [time, ready]);
+
+  React.useEffect(() => {
+    TweenLite.to(shaderConfig.uniforms.erratic, 1, {
+      value: Number(erratic),
+      ease: Power4.easeOut,
+      onUpdate: invalidate,
+      onComplete: invalidate,
+    });
+  }, [erratic, ready]);
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <group>
+      <mesh rotation={[0, 0, 0]}>
+        <planeGeometry />
+        <boxGeometry attach="geometry" args={[...dimensions, 0] as [number, number, number]} />
+        <shaderMaterial attach="material" args={[shaderConfig]} />
+      </mesh>
+    </group>
+  );
+};
 
 const VideoObject = ({
   videoRef,
@@ -82,18 +144,22 @@ const VideoObject = ({
 
 interface IVideoProps {
   src: string;
+  onVideoPlay(): void;
   onVideoEnd(): void;
   onMouseEnter(): void;
   onMouseLeave(): void;
 }
 
-export const Video = ({ src, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoProps) => {
+export const Video = ({ src, onVideoPlay, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoProps) => {
   const ref = React.useRef<HTMLVideoElement>(null);
+  const audioRef = React.useRef<HTMLAudioElement>(null);
   const [light, setLight] = React.useState(false);
+  const [ended, setEnded] = useState<boolean>(false);
   const keys = useKeyDown();
   const orientation = useOrientation();
 
   const showLight = () => {
+    ref.current!.play();
     setLight(true);
   };
 
@@ -102,6 +168,7 @@ export const Video = ({ src, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoPro
   };
 
   const handleEnded = () => {
+    setEnded(true);
     onVideoEnd();
   };
 
@@ -120,9 +187,9 @@ export const Video = ({ src, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoPro
     }
 
     if (orientation === 'portrait') {
-      ref.current!.pause();
+      ref.current.pause();
     } else {
-      ref.current!.play();
+      ref.current.play();
     }
   }, [ref, orientation]);
 
@@ -138,7 +205,24 @@ export const Video = ({ src, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoPro
       onMouseLeave={onMouseLeave}
     >
       <div className={s.video__content}>
-        <video className={s.video__video} ref={ref} src={src} muted autoPlay onEnded={handleEnded} />
+        <video
+          className={s.video__video}
+          ref={ref}
+          src={src}
+          // muted
+          autoPlay
+          onPlay={onVideoPlay}
+          onEnded={handleEnded}
+          onTouchStart={showLight}
+          onTouchEnd={showDark}
+        />
+        <audio
+          ref={audioRef}
+          src={tone}
+          autoPlay
+          muted={light || ended}
+          loop
+        />
 
         <div className={s.video__render}>
           <Canvas orthographic={true}>
@@ -148,6 +232,7 @@ export const Video = ({ src, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoPro
               displacementMap={DisplacementMap}
               showLight={light}
             />
+            <Wave erratic={!light} />
           </Canvas>
         </div>
       </div>

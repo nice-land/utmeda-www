@@ -8,6 +8,7 @@ import { Devtools } from 'components/devtools/Devtools';
 import { PhoneBubble } from 'components/phone-bubble/PhoneBubble';
 import { Cursor } from 'components/cursor/Cursor';
 import { OrientationDetector } from 'components/orientation-detector/OrientationDetector';
+import { useMobile } from 'hooks/use-mobile';
 
 import s from './AppLayout.scss';
 
@@ -24,6 +25,8 @@ export default ({ children }: IAppLayoutProps) => {
   const [cursorIcon, setCursorIcon] = React.useState<undefined | string>();
   const [isMediaHovered, setMediaHovered] = React.useState(false);
   const timer = React.useRef<any>(null);
+
+  const isMobile = useMobile();
 
   const mouseEnter = ({ text, icon }: { text: string | undefined; icon: 'play' | 'mouse' }) => {
     clearTimeout(timer.current);
@@ -68,7 +71,7 @@ export default ({ children }: IAppLayoutProps) => {
           mouseLeave,
         }}
       >
-        <Cursor />
+        {!isMobile && <Cursor />}
         <PhoneBubble url="https://utmeda.is" />
         {children}
       </AppContext.Provider>

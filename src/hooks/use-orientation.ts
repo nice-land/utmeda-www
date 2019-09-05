@@ -8,13 +8,19 @@ export const useOrientation = (): Orientation => {
   const handleOrientationChange = (ev: MediaQueryListEvent) => set(ev.matches);
 
   useEffect(() => {
-    const media = window.matchMedia('(orientation: landscape)');
+    const media = window.matchMedia('screen and (orientation: landscape)');
 
     set(media.matches);
 
-    media.addEventListener('change', handleOrientationChange);
+    if (media.addEventListener) {
+      media.addEventListener('change', handleOrientationChange);
+    }
 
-    return () => media.removeEventListener('change', handleOrientationChange);
+    return () => {
+      if (media.removeEventListener) {
+        media.removeEventListener('change', handleOrientationChange);
+      }
+    };
   }, []);
 
   return landscape ? 'landscape' : 'portrait';

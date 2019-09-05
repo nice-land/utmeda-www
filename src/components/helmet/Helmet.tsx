@@ -4,7 +4,9 @@ import { IntlContextConsumer } from 'gatsby-plugin-intl';
 
 import { IIntlProps } from 'utils/interfaces';
 
+// tslint:disable-next-line:no-var-requires
 const favicon: string = require('assets/images/favicon.png');
+// tslint:disable-next-line:no-var-requires
 const defaultImage: string = require('assets/images/share.png');
 
 const domain = process.env.GATSBY_DOMAIN || '';

@@ -46,6 +46,10 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
   const twitterLink = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${url}`;
   const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
 
+  const handleVideoStart = () => {
+    // TODO fade stuff out
+  };
+
   const handleVideoEnd = () => {
     const timeline = new TimelineLite();
     const slide = slideRef.current;
@@ -99,6 +103,7 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
 
       <Video
         src={video}
+        onVideoStart={handleVideoStart}
         onVideoEnd={handleVideoEnd}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
