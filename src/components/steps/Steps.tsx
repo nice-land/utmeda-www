@@ -67,9 +67,8 @@ const StepPoster = ({
   return (
     <group position-x={index * window.innerWidth} ref={ref}>
       <mesh
-        frustumCulled={false}
         scale={[0.8, 0.8, 0.8]}
-        position={[window.innerWidth * 0.15, 0, 0]}
+        position={[window.innerWidth * 0.15, 0, -10]}
         onPointerOver={handleMouseEnter}
         onPointerDown={mouseDown}
         onPointerOut={handleMouseLeave}
@@ -83,68 +82,76 @@ const StepPoster = ({
   );
 };
 
-export const Controller = () => {
+interface IControllerProps {
+  container: HTMLDivElement;
+}
+
+export const Controller = ({ container }: IControllerProps) => {
   const { camera, invalidate } = useThree();
 
   const handleScroll = () => {
     TweenLite.to(camera.position, 0.5, {
-      x: window.scrollX,
-      y: window.scrollY,
+      x: container.scrollLeft,
       onUpdate: invalidate,
       onComplete: invalidate,
     });
   };
 
   React.useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    if (!container) {
+      return;
+    }
+    container.addEventListener('scroll', handleScroll);
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [container]);
 
   return null;
 };
 
 interface IState {
   active: number;
-  animating: boolean;
 }
 
 export const Steps = injectIntl(({ intl, title, list }: IProps) => {
   const keys = useKeyDown([39, 37]);
-  const [state, set] = React.useState<IState>({ active: 0, animating: false });
-
+  const [state, set] = React.useState<IState>({ active: 0 });
+  const parentRef = React.useRef<HTMLDivElement>(null);
   const { mouseEnter, mouseLeave } = React.useContext(AppContext);
 
   React.useEffect(() => {
     if (keys.includes(37)) {
-      set({ active: Math.max(0, state.active - 1), animating: true });
+      set({ active: Math.max(0, state.active - 1) });
     } else if (keys.includes(39) || keys.includes(32)) {
-      set({ active: Math.min(list.length - 1, state.active + 1), animating: true });
+      set({ active: Math.min(list.length - 1, state.active + 1) });
     }
   }, [keys]);
 
   React.useEffect(() => {
-    TweenLite.to(window, 1, {
+    TweenLite.to(parentRef.current!, 1, {
       scrollTo: { x: state.active * window.innerWidth },
       ease: Power4.easeInOut,
-      onComplete: () => set((x) => ({ ...x, animating: false })),
     });
   }, [state]);
 
   const handleScroll = debounce(() => {
-    if (!state.animating) {
-      set((x) => ({ ...x, active: Math.round(window.scrollX / window.innerWidth) }));
-    }
-  }, 300);
+    set({
+      active: Math.round(parentRef.current!.scrollLeft / window.innerWidth),
+    });
+  }, 1000);
 
   React.useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    if (!parentRef.current) {
+      return;
+    }
+
+    parentRef.current!.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      parentRef.current!.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };
-  }, []);
+  }, [parentRef.current]);
 
   const handleMouseDown = (index: number) => {
     navigate(`/${index}`);
@@ -154,7 +161,7 @@ export const Steps = injectIntl(({ intl, title, list }: IProps) => {
     <div className={s.steps}>
       <div className={s.steps__canvas}>
         <Canvas orthographic={true}>
-          <Controller />
+          <Controller container={parentRef.current!} />
           {list.map((step, i) => (
             <StepPoster
               stepWatchText={intl.formatMessage({ id: 'step_watch' })}
@@ -172,7 +179,7 @@ export const Steps = injectIntl(({ intl, title, list }: IProps) => {
       {/* <div className={s.steps__title}>
         <h1 className={s.steps__titleContent}>{title}</h1>
       </div> */}
-      <div className={s.steps__inner}>
+      <div ref={parentRef} className={s.steps__inner}>
         {list.map((step, i) => (
           <div key={i} className={s.steps__step}>
             <StepsItem

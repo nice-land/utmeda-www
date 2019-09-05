@@ -14,7 +14,6 @@ interface ICursorComponentProps {
 }
 
 class CursorComponent extends React.PureComponent<ICursorComponentProps> {
-
   static contextType = AppContext;
 
   cursorRef: React.RefObject<HTMLDivElement> = React.createRef();
@@ -144,14 +143,10 @@ class CursorComponent extends React.PureComponent<ICursorComponentProps> {
       return;
     }
 
-    TweenLite.to(
-      cursor,
-      0.25,
-      {
-        x: e.pageX,
-        y: e.pageY,
-      },
-    );
+    TweenLite.to(cursor, 0.25, {
+      x: e.pageX,
+      y: e.pageY,
+    });
   }
 
   handleMouseSpeed = (e: MouseEvent) => {
@@ -159,7 +154,7 @@ class CursorComponent extends React.PureComponent<ICursorComponentProps> {
     const currentMouse = e.pageX;
     const dt = now - this.mouseTimestamp;
     const distance = Math.abs(currentMouse - this.mouse);
-    const speed = Math.round(distance / dt * 1000);
+    const speed = Math.round((distance / dt) * 1000);
 
     this.mouse = currentMouse;
     this.mouseTimestamp = now;
@@ -179,28 +174,16 @@ class CursorComponent extends React.PureComponent<ICursorComponentProps> {
     const { cursorText, cursorIcon } = this.props.context;
 
     return (
-      <div
-        ref={this.cursorRef}
-        className={s.cursor}
-      >
-        <div
-          ref={this.innerRef}
-          className={s.cursor__inner}
-        />
+      <div ref={this.cursorRef} className={s.cursor}>
+        <div ref={this.innerRef} className={s.cursor__inner} />
 
-        <div
-          ref={this.strokeRef}
-          className={s.cursor__stroke}
-        />
+        <div ref={this.strokeRef} className={s.cursor__stroke} />
 
         <div ref={this.svgCircleRef}>
           <Circle text={cursorText} />
         </div>
 
-        <div
-          ref={this.svgIconRef}
-          className={s.cursor__icon}
-        >
+        <div ref={this.svgIconRef} className={s.cursor__icon}>
           {cursorIcon === 'play' && <Play />}
           {cursorIcon === 'mouse' && <Mouse />}
         </div>

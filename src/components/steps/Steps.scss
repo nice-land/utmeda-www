@@ -1,16 +1,18 @@
-@import "~styles/config";
+@import '~styles/config';
 
 .steps {
   &__canvas {
     @include fit;
     position: fixed;
     z-index: 1;
+    bottom: 17px;
   }
 
   &__inner {
     display: flex;
     flex-direction: row;
-    height: calc(100vh - 17px);
+    height: 100vh;
+    overflow-x: scroll;
 
     z-index: 2;
   }
