@@ -13,30 +13,24 @@ interface IProps {
   text: string;
   media: string;
   index: number;
-  
+  onClick(): void;
 }
 
-export const StepsItem = injectIntl(({ count, link, text }: IProps) => {
+export const StepsItem = injectIntl(({ count, link, text, onClick }: IProps) => {
   const { mouseLeave } = React.useContext(AppContext);
-  
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     mouseLeave();
-  };
 
+    onClick();
+  };
 
   return (
     <div className={s.stepsItem}>
       <Container>
-        <Link
-          className={s.stepsItem__wrapper}
-          to={link}
-          onClick={handleClick}
-        >
-          <Content
-            count={count}
-            text={text}
-          />
+        <Link className={s.stepsItem__wrapper} to={link} onClick={handleClick}>
+          <Content count={count} text={text} />
         </Link>
       </Container>
     </div>

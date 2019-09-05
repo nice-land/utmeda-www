@@ -3,9 +3,8 @@
 .content {
   position: relative;
   z-index: 1;
-  
 
-  max-width: (550px/$font-size) * 1em;
+  max-width: (550px / $font-size) * 1em;
 
   &__count {
     @include responsive-font(14, 18);
@@ -39,7 +38,8 @@
     @include responsive-font(54, 80);
     @include variable-font(700, bold, 0, normal);
 
-    > em { // stylelint-disable-line
+    > em {
+      // stylelint-disable-line
       @include variable-font(900, 900, 0, normal);
 
       font-style: normal;
