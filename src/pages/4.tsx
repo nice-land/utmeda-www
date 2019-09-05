@@ -10,15 +10,18 @@ interface IProps {
 
 function one({ intl }: IProps) {
   const title = intl.formatMessage({ id: 'steps.four.title' });
+  const socialTitle = intl.formatMessage({ id: 'steps.four.socialTitle' });
   const text = intl.formatMessage({ id: 'steps.four.text' });
   const video: string = require('assets/videos/four.mp4');
   const poster: string = require('assets/posters/4_bright@2x.jpg');
+  const socialPoster: string = require('assets/posters/4_bright@2x.jpg');
 
   return (
     <>
       <Helmet
-        title={title}
+        title={socialTitle}
         description={text}
+        image={socialPoster}
       />
 
       <Step

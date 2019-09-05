@@ -6,42 +6,52 @@
   "steps": {
     "one": {
       "title": "_Love_ yourself the way you are",
+      "socialTitle": "1. Love yourself the way you are",
       "text": "Be your own best friend. Love yourself and don’t compare yourself to others."
     },
     "two": {
       "title": "Put your phone _down_ and get lost in the moment.",
+      "socialTitle": "2. Put your phone down and get lost in the moment.",
       "text": "Don’t allow your phone to take you out of the moment. Enjoy your life with good friends."
     },
     "three": {
       "title": "Try something _new_.",
+      "socialTitle": "3. Try something new.",
       "text": "Step out of your comfort zone and experience new things. Life is full of exciting opportunities."
     },
     "four": {
       "title": "Get enough _sleep_, _eat_ well and _exercise_.",
+      "socialTitle": "4. Get enough sleep, eat well and exercise.",
       "text": "Take good care of yourself. Physical health supports mental well-being."
     },
     "five": {
       "title": "Learn to say _no_.",
+      "socialTitle": "5. Learn to say no.",
       "text": "You are the boss of your own life and you don’t need to please others. Sometimes no is the right answer."
     },
     "six": {
       "title": "Have a _positive_ mindset and enjoy.",
+      "socialTitle": "6. Have a positive mindset and enjoy.",
       "text": "Direct your mind in a positive direction. Be thankful and enjoy what you have."
     },
     "seven": {
       "title": "Follow your _dreams_.",
+      "socialTitle": "7. Follow your dreams.",
       "text": "Don’t give up on your dreams when things don’t go your way. The more resilience, the sweeter the victory."
     },
     "eight": {
       "title": "Be a loyal _friend_.",
+      "socialTitle": "8. Be a loyal friend.",
       "text": "Be there for your friends when they’re going through a hard time. True friendship is one of the most valuable gifts of life."
     },
     "nine": {
       "title": "Don’t be afraid to make mistakes, _learn_ from your experiences.",
+      "socialTitle": "9. Don’t be afraid to make mistakes, learn from your experiences.",
       "text": "Keep trying and accept challenges. Mistakes are a natural part of life."
     },
     "ten": {
       "title": "Tell someone and seek _help_ if you don’t feel well.",
+      "socialTitle": "10. Tell someone and seek help if you don’t feel well.",
       "text": "The first step towards feeling better is always telling someone. When a problem is put into words, the solution is around the corner."
     }
   },

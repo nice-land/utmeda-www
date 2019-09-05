@@ -6,42 +6,52 @@
   "steps": {
     "one": {
       "title": "_Elskaðu_ þig eins og þú ert.",
+      "socialTitle": "1. Elskaðu þig eins og þú ert.",
       "text": "Vertu þinn besti vinur. Láttu þér þykja vænt um þig og berðu þig ekki saman við aðra."
     },
     "two": {
       "title": "_Hvíldu_ símann og gleymdu þér í núinu.",
+      "socialTitle": "2. Hvíldu símann og gleymdu þér í núinu.",
       "text": "Ekki leyfa símanum að ræna þig augnablikinu. Njóttu lífsins með góðum vinum."
     },
     "three": {
       "title": "Prófaðu eitthvað _nýtt_.",
+      "socialTitle": "3. Prófaðu eitthvað nýtt.",
       "text": "Stígðu út fyrir þægindarammann og upplifðu eitthvað nýtt. Lífið er fullt af spennandi tækifærum."
     },
     "four": {
       "title": "_Sofðu_ nóg, _borðaðu_ fjölbreytt og _hreyfðu_ þig.",
+      "socialTitle": "4. Sofðu nóg, borðaðu fjölbreytt og hreyfðu þig.",
       "text": "Farðu vel með þig. Líkamlegt heilbrigði ýtir undir andlega vellíðan."
     },
     "five": {
       "title": "Lærðu að segja _nei_.",
+      "socialTitle": "5 Lærðu að segja nei.",
       "text": "Þú ert stjórnar í eigin lífi og þarft ekki að þóknast öðrum. Stundum er nei rétta svarið."
     },
     "six": {
       "title": "Hugsaðu _jákvætt_ og njóttu.",
+      "socialTitle": "6. Hugsaðu jákvætt og njóttu.",
       "text": "Beindu huganum í jákvæða átt. Sýndu þakklæti og njóttu þess sem þú átt."
     },
     "seven": {
       "title": "Eltu _drauma_ þína.",
+      "socialTitle": "7. Eltu drauma þína.",
       "text": "Gefðu ekki draumana upp á bátinn þótt á móti blási. Því meiri þrautseigja, þeim mun sætari sigur."
     },
     "eight": {
       "title": "Vertu traustur _vinur_.",
+      "socialTtle": "8. Vertu traustur vinur.",
       "text": "Vertu til staðar fyrir vini þína þegar þeir ganga í gegnum erfiðleika. Sönn vinátta er ein dýrmætasta gjöf lífsins."
     },
     "nine": {
       "title": "Ekki hræðast mistök, _lærðu_ af reynslunni.",
+      "socialTitle": "9. Ekki hræðast mistök, lærðu af reynslunni.",
       "text": "Prófaðu þig áfram og taktu áskorunum. Mistök eru eðlilegur þáttur af lífinu."
     },
     "ten": {
       "title": "Segðu frá og leitaðu _hjálpar_ ef þér líður illa.",
+      "socialTitle": "10. Segðu frá og leitaðu hjálpar ef þér líður illa.",
       "text": "Fyrsta skrefið í átt að betri líðan er alltaf að segja frá. Þegar vandamál er fært í orð, er lausnin handan við hornið."
     }
   },
