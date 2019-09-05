@@ -209,6 +209,7 @@ export const Video = ({ src, onVideoPlay, onVideoEnd, onMouseEnter, onMouseLeave
           className={s.video__video}
           ref={ref}
           src={src}
+          playsInline
           // muted
           autoPlay
           onPlay={onVideoPlay}
