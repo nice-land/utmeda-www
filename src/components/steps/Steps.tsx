@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { ScrollWrapper } from 'components/scroll-wrapper/ScrollWrapper';
 import { IStep } from 'utils/interfaces';
+import Slider from 'components/slider/Slider';
 
 import { StepsItem } from './StepsItem';
 
@@ -14,20 +14,23 @@ interface IProps {
 
 export const Steps = ({ title, list }: IProps) => {
   return (
-    <ScrollWrapper snap>
-      {/* <div className={s.steps__title}>
-        <h1 className={s.steps__titleContent}>{title}</h1>
-      </div> */}
-      {list.map((step, i) => (
-        <StepsItem
-          key={i}
-          index={i}
-          text={step.title}
-          count={(i + 1).toString().padStart(2, '0')}
-          link={`/${i + 1}`}
-          media={step.poster}
-        />
-      ))}
-    </ScrollWrapper>
+    <Slider items={list} width={window.innerWidth * 0.7} visible={1.3}>
+        {(step: any, i: number) =>
+          i === 0 ? (
+            <div className={s.steps__title}>
+              <h1 className={s.steps__titleContent}>{title}</h1>
+            </div>
+          ) : (
+            <StepsItem
+              key={i}
+              index={i}
+              text={step.title}
+              count={i.toString().padStart(2, '0')}
+              link={`/${i}`}
+              media={step.poster}
+            />
+          )
+        }
+      </Slider>
   );
 };
