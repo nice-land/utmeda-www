@@ -1,5 +1,5 @@
 import { Canvas } from 'components/canvas/Canvas';
-import { useThree } from 'react-three-fiber';
+import { useThree, useRender } from 'react-three-fiber';
 import React, { useState } from 'react';
 import DisplacementMap from 'assets/images/displacementmap.png';
 import { useKeyDown } from 'hooks/use-keydown';
@@ -12,6 +12,7 @@ import s from './Video.scss';
 
 import createWaveShader from './createWaveShader';
 import createRippleShader from './createRippleShader';
+import { Vector3, Vector2 } from 'three';
 
 // tslint:disable-next-line:no-var-requires
 const tone: string = require('assets/videos/tone.mp3');
@@ -30,31 +31,26 @@ const ASPECT = 1.7777777;
 
 const Wave = ({ erratic }: { erratic: boolean }) => {
   const [dimensions, set] = useState<[number, number]>([window.innerWidth, window.innerWidth / ASPECT]);
-  const [time, setTime] = useState<number>(0);
+
   const { invalidate, ready } = useThree();
 
   const handleResize = debounce(() => {
     const geometryWidth = window.innerWidth;
     const geometryHeight = window.innerWidth / ASPECT;
+    shaderConfig.uniforms.dimensions.value = new Vector2(geometryWidth, geometryHeight);
     set([geometryWidth, geometryHeight]);
   }, 200);
 
-  const shaderConfig = React.useMemo(
-    () => createWaveShader(dimensions),
-    [dimensions],
-  );
+  const shaderConfig = React.useMemo(() => createWaveShader(dimensions), []);
 
-  useAnimationFrame((dt) => {
-    setTime(time + dt);
+  useRender((ctx, dt) => {
+    shaderConfig.uniforms.dt.value = 0.2;
+    shaderConfig.uniforms.random.value = erratic ? Math.random() * 0.5 : Math.random() * 0.1;
   });
-
-//  React.useEffect(() => {
-//    shaderConfig.uniforms.dt.value = time;
-//  }, [time, ready]);
 
   React.useEffect(() => {
     TweenLite.to(shaderConfig.uniforms.erratic, 1, {
-      value: Number(erratic),
+      value: erratic ? 1.0 : 0.01,
       ease: Power4.easeOut,
       onUpdate: invalidate,
       onComplete: invalidate,
@@ -75,9 +71,8 @@ const Wave = ({ erratic }: { erratic: boolean }) => {
 
   return (
     <group>
-      <mesh rotation={[0, 0, 0]}>
-        <planeGeometry />
-        <boxGeometry attach="geometry" args={[...dimensions, 0] as [number, number, number]} />
+      <mesh rotation={[0, 0, 0]} position={[0, 0, 1]}>
+        <planeGeometry attach="geometry" args={dimensions} />
         <shaderMaterial attach="material" args={[shaderConfig]} />
       </mesh>
     </group>
@@ -217,16 +212,10 @@ export const Video = ({ src, onVideoPlay, onVideoEnd, onMouseEnter, onMouseLeave
           onTouchStart={showLight}
           onTouchEnd={showDark}
         />
-        <audio
-          ref={audioRef}
-          src={tone}
-          autoPlay
-          muted={light || ended}
-          loop
-        />
+        <audio ref={audioRef} src={tone} autoPlay muted={light || ended} loop />
 
         <div className={s.video__render}>
-          <Canvas orthographic={true}>
+          <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>
             <VideoObject
               angle={Math.PI * 4}
               videoRef={ref}
