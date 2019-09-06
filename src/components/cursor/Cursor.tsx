@@ -1,5 +1,6 @@
-import * as React from 'react';
-// import { TweenLite, TimelineLite, Power4 } from 'gsap';
+import React, { useContext, useEffect } from 'react';
+import { config, useSpring, animated as a } from 'react-spring';
+import { useMove } from 'react-use-gesture';
 
 import Play from 'assets/svg/play.svg';
 import Mouse from 'assets/svg/mouse.svg';
@@ -9,214 +10,61 @@ import { AppContext } from 'components/app-layout/AppLayout';
 import { Circle } from './Circle';
 import s from './Cursor.scss';
 
-interface ICursorComponentProps {
-  context: any;
-}
+export const Cursor = () => {
+  const { cursorText, cursorIcon, isMediaHovered } = useContext(AppContext);
+  const [{ xy, hovering }, set] = useSpring(() => ({ xy: [0, 0], hovering: 0 }));
+  const bind = useMove((d) => set({ xy: d.xy }), { domTarget: window });
 
-class CursorComponent extends React.PureComponent<ICursorComponentProps> {
+  useEffect(bind as any, [bind]);
 
-  static contextType = AppContext;
+  useEffect(() => {
+    set({ hovering: Number(isMediaHovered) });
+  }, [isMediaHovered]);
 
-  cursorRef: React.RefObject<HTMLDivElement> = React.createRef();
-  innerRef: React.RefObject<HTMLDivElement> = React.createRef();
-  strokeRef: React.RefObject<HTMLDivElement> = React.createRef();
-  svgCircleRef: React.RefObject<HTMLDivElement> = React.createRef();
-  svgIconRef: React.RefObject<HTMLDivElement> = React.createRef();
-  overCache: any;
-  mouseDownActive = false;
-  mouseTimestamp = 0;
-  mouse = 0;
+  return (
+    <a.div
+      className={s.cursor}
+      style={{ transform: xy.interpolate((x: number, y: number) => `translate3D(${x}px, ${y}px, 0)`) }}
+    >
+      <a.div
+        className={s.cursor__inner}
+        style={{
+          opacity: hovering.interpolate({ range: [0, 1], output: [1, 0] }),
+        }}
+      />
+      <a.div
+        className={s.cursor__stroke}
+        style={{
+          opacity: hovering.interpolate({ range: [0, 1], output: [1, 0] }),
+          transform: hovering
+            .interpolate({ range: [0, 1], output: [1, 1.3] })
+            .interpolate((r) => `scale(${r})`),
+        }}
+      />
 
-  state = {
-    isPhotoOpen: false,
-    isTouchable: false,
-  };
-
-  componentDidMount() {
-    this.onInit();
-
-    window.addEventListener('mousedown', this.handleMouseDown);
-    window.addEventListener('mousemove', this.handleMouseMove);
-    window.addEventListener('mouseup', this.handleMouseUp);
-  }
-
-  componentWillReceiveProps(nextProps: ICursorComponentProps) {
-    // if (nextProps.context.isMediaHovered) {
-    //   this.handleMouseOver.play();
-    // } else {
-    //   this.handleMouseOver.reverse();
-    // }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('mousedown', this.handleMouseDown);
-    window.removeEventListener('mousemove', this.handleMouseMove);
-    window.removeEventListener('mouseup', this.handleMouseUp);
-  }
-
-  get handleMouseOver() {
-    if (this.overCache) {
-      return this.overCache;
-    }
-
-    const stroke = this.strokeRef.current;
-    const circle = this.svgCircleRef.current;
-    const play = this.svgIconRef.current;
-    const inner = this.innerRef.current;
-    // const timeline = new TimelineLite();
-    // const ease = Power4.easeInOut;
-
-    if (!stroke || !circle || !inner || !play) {
-      return;
-    }
-
-    // timeline.addLabel('start', 0);
-
-    // timeline.fromTo(
-    //   stroke,
-    //   0.6,
-    //   {
-    //     opacity: 1,
-    //     scale: 1,
-    //   },
-    //   {
-    //     opacity: 0,
-    //     scale: 1.3,
-    //     ease,
-    //   },
-    // );
-
-    // timeline.fromTo(
-    //   circle,
-    //   0.6,
-    //   {
-    //     opacity: 0,
-    //     scale: 1.2,
-    //   },
-    //   {
-    //     opacity: 1,
-    //     scale: 1,
-    //     ease,
-    //   },
-    //   'start',
-    // );
-
-    // timeline.fromTo(
-    //   inner,
-    //   0.6,
-    //   {
-    //     opacity: 1,
-    //   },
-    //   {
-    //     opacity: 0,
-    //     ease,
-    //   },
-    //   'start',
-    // );
-
-    // timeline.fromTo(
-    //   play,
-    //   0.6,
-    //   {
-    //     opacity: 0,
-    //     scale: 0.8,
-    //   },
-    //   {
-    //     opacity: 1,
-    //     scale: 1,
-    //     ease,
-    //   },
-    //   'start',
-    // );
-
-    // this.overCache = timeline;
-    // return timeline;
-  }
-
-  onInit = () => {
-    this.setState({ isTouchable: 'ontouchstart' in document.documentElement });
-  }
-
-  handleMouseMove = (e: MouseEvent) => {
-    const cursor = this.cursorRef.current;
-
-    if (!cursor) {
-      return;
-    }
-
-    // TweenLite.to(
-    //   cursor,
-    //   0.25,
-    //   {
-    //     x: e.pageX,
-    //     y: e.pageY,
-    //   },
-    // );
-  }
-
-  handleMouseSpeed = (e: MouseEvent) => {
-    const now = Date.now();
-    const currentMouse = e.pageX;
-    const dt = now - this.mouseTimestamp;
-    const distance = Math.abs(currentMouse - this.mouse);
-    const speed = Math.round(distance / dt * 1000);
-
-    this.mouse = currentMouse;
-    this.mouseTimestamp = now;
-
-    return speed;
-  }
-
-  handleMouseDown = () => {
-    this.mouseDownActive = true;
-  }
-
-  handleMouseUp = () => {
-    this.mouseDownActive = false;
-  }
-
-  render() {
-    const { cursorText, cursorIcon } = this.props.context;
-
-    return (
-      <div
-        ref={this.cursorRef}
-        className={s.cursor}
+      <a.div
+        style={{
+          opacity: hovering,
+          transform: hovering
+            .interpolate({ range: [0, 1], output: [1.2, 1] })
+            .interpolate((r) => `scale(${r})`),
+        }}
       >
-        <div
-          ref={this.innerRef}
-          className={s.cursor__inner}
-        />
+        <Circle text={cursorText} />
+      </a.div>
 
-        <div
-          ref={this.strokeRef}
-          className={s.cursor__stroke}
-        />
-
-        <div ref={this.svgCircleRef}>
-          <Circle text={cursorText} />
-        </div>
-
-        <div
-          ref={this.svgIconRef}
-          className={s.cursor__icon}
-        >
-          {cursorIcon === 'play' && <Play />}
-          {cursorIcon === 'mouse' && <Mouse />}
-        </div>
-      </div>
-    );
-  }
-}
-
-const withContext = (Component: any) => {
-  return (props: any) => (
-    <AppContext.Consumer>
-      {(context: any) => {
-        return <Component {...props} context={context} />;
-      }}
-    </AppContext.Consumer>
+      <a.div
+        className={s.cursor__icon}
+        style={{
+          opacity: hovering,
+          transform: hovering
+            .interpolate({ range: [0, 1], output: [0.8, 1] })
+            .interpolate((r) => `scale(${r})`),
+        }}
+      >
+        {cursorIcon === 'play' && <Play />}
+        {cursorIcon === 'mouse' && <Mouse />}
+      </a.div>
+    </a.div>
   );
 };
-
-export const Cursor = withContext(CursorComponent);
