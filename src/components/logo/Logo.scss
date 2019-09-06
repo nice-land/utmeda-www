@@ -7,9 +7,15 @@
 
   padding-bottom: 8px;
 
-  font-size: 40px;
-  line-height: 0.6;
+  font-size: 30px;
+  line-height: (18 / 30) * 1em;
   letter-spacing: -0.05em;
+
+  @media (min-width: $min-tablet) {
+    font-size: 40px;
+    line-height: (24 / 40) * 1em;
+  }
+
 
   &::after {
     content: '';
