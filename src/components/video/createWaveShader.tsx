@@ -50,7 +50,7 @@ export default (dimensions: [number, number]) => {
       },
       dt: {
         type: 'f',
-        value: 0,
+        value: 0.2,
       },
       erratic: {
         type: 'f',

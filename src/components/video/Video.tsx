@@ -3,10 +3,9 @@ import { useThree, useRender } from 'react-three-fiber';
 import React, { useState } from 'react';
 import DisplacementMap from 'assets/images/displacementmap.png';
 import { useKeyDown } from 'hooks/use-keydown';
-// import { TweenLite, Power4, Linear } from 'gsap';
+import { useSpring, a } from 'react-spring/three';
 import { useOrientation } from 'hooks/use-orientation';
-import { debounce } from 'lodash';
-import { Vector3, Vector2 } from 'three';
+import { Vector3 } from 'three';
 
 import s from './Video.scss';
 
@@ -19,7 +18,7 @@ const tone: string = require('assets/videos/tone.mp3');
 interface IProps {
   videoRef: React.RefObject<HTMLVideoElement>;
   angle: number;
-  showLight: boolean;
+  light: any;
   displacementMap: any;
   intensity1?: number;
   intensity2?: number;
@@ -28,53 +27,27 @@ interface IProps {
 
 const ASPECT = 1.7777777;
 
-const Wave = ({ erratic }: { erratic: boolean }) => {
-  const [dimensions, set] = useState<[number, number]>([window.innerWidth, window.innerWidth / ASPECT]);
-
-  const { invalidate, ready } = useThree();
-
-  const handleResize = debounce(() => {
-    const geometryWidth = window.innerWidth;
-    const geometryHeight = window.innerWidth / ASPECT;
-    shaderConfig.uniforms.dimensions.value = new Vector2(geometryWidth, geometryHeight);
-    set([geometryWidth, geometryHeight]);
-  }, 200);
+const Wave = ({ erratic }: { erratic: any }) => {
+  const { size } = useThree();
+  const dimensions: [number, number] = [size.width, size.width / ASPECT];
 
   const shaderConfig = React.useMemo(() => createWaveShader(dimensions), []);
 
-  useRender((ctx, dt) => {
-    shaderConfig.uniforms.dt.value = 0.2;
-    shaderConfig.uniforms.random.value = erratic ? Math.random() * 0.5 : Math.random() * 0.1;
+  useRender((_, dt) => {
+    shaderConfig.uniforms.dt.value = dt;
+    shaderConfig.uniforms.random.value = Math.random() * 0.2;
   });
-
-  React.useEffect(() => {
-    // TODO: REACT-SPRING
-    // TweenLite.to(shaderConfig.uniforms.erratic, 1, {
-    //   value: erratic ? 1.0 : 0.01,
-    //   ease: Power4.easeOut,
-    //   onUpdate: invalidate,
-    //   onComplete: invalidate,
-    // });
-  }, [erratic, ready]);
-
-  React.useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <group>
-      <mesh rotation={[0, 0, 0]} position={[0, 0, 1]}>
-        <planeGeometry attach="geometry" args={dimensions} />
-        <shaderMaterial attach="material" args={[shaderConfig]} />
-      </mesh>
+      <a.mesh rotation={[0, 0, 0]} position={[0, 0, 1]}>
+        <a.planeGeometry attach="geometry" args={dimensions} />
+        <a.shaderMaterial
+          attach="material"
+          args={[shaderConfig]}
+          uniforms-erratic-value={erratic.interpolate({ range: [0, 1], output: [1, 0] })}
+        />
+      </a.mesh>
     </group>
   );
 };
@@ -83,13 +56,14 @@ const VideoObject = ({
   videoRef,
   angle,
   displacementMap,
-  showLight,
+  light,
   intensity1 = 0.2,
   intensity2 = 0.2,
   angle2 = -3 * angle,
 }: IProps) => {
-  const { invalidate, ready } = useThree();
-  const [dimensions, set] = useState<[number, number]>([window.innerWidth, window.innerWidth / ASPECT]);
+  const { size } = useThree();
+
+  const dimensions = [size.width, size.width / ASPECT];
 
   if (videoRef.current === null) {
     return null;
@@ -100,39 +74,11 @@ const VideoObject = ({
     [videoRef, intensity1, intensity2, angle, angle2, displacementMap],
   );
 
-  React.useEffect(() => {
-    // TODO: REACT-SPRING
-    // TweenLite.to(shaderConfig.uniforms.dispFactor, 1, {
-    //   value: Number(showLight),
-    //   ease: Power4.easeOut,
-    //   onUpdate: invalidate,
-    //   onComplete: invalidate,
-    // });
-  }, [showLight, ready]);
-
-  const handleResize = debounce(() => {
-    const geometryWidth = window.innerWidth;
-    const geometryHeight = window.innerWidth / ASPECT;
-    set([geometryWidth, geometryHeight]);
-  }, 200);
-
-  React.useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   return (
     <group>
       <mesh rotation={[0, 0, 0]}>
         <boxGeometry attach="geometry" args={[...dimensions, 0] as [number, number, number]} />
-        <shaderMaterial attach="material" args={[shaderConfig]} />
+        <shaderMaterial attach="material" args={[shaderConfig]} uniforms-dispFactor={light} />
       </mesh>
     </group>
   );
@@ -153,6 +99,7 @@ export const Video = ({ src, onVideoPlay, onVideoEnd, onMouseEnter, onMouseLeave
   const [ended, setEnded] = useState<boolean>(false);
   const keys = useKeyDown();
   const orientation = useOrientation();
+  const { on } = useSpring({ on: light ? 1.0 : 0.0 });
 
   const showLight = () => {
     ref.current!.play();
@@ -178,14 +125,14 @@ export const Video = ({ src, onVideoPlay, onVideoEnd, onMouseEnter, onMouseLeave
   }, [keys]);
 
   React.useEffect(() => {
-    if (ref.current === null) {
+    if (ref.current === null || (ref.current && ref.current.readyState < 2)) {
       return;
     }
 
     if (orientation === 'portrait') {
       ref.current.pause();
     } else {
-      ref.current.play();
+      ref.current.play().catch(); // swallow autoplay errors
     }
   }, [ref, orientation]);
 
@@ -215,17 +162,14 @@ export const Video = ({ src, onVideoPlay, onVideoEnd, onMouseEnter, onMouseLeave
         />
         <audio ref={audioRef} src={tone} autoPlay muted={light || ended} loop />
 
-        <div className={s.video__render}>
-          <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>
-            <VideoObject
-              angle={Math.PI * 4}
-              videoRef={ref}
-              displacementMap={DisplacementMap}
-              showLight={light}
-            />
-            <Wave erratic={!light} />
-          </Canvas>
-        </div>
+        {ref.current && ref.current.readyState > 1 && (
+          <div className={s.video__render}>
+            <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>
+              <VideoObject angle={Math.PI * 4} videoRef={ref} displacementMap={DisplacementMap} light={on} />
+              <Wave erratic={on} />
+            </Canvas>
+          </div>
+        )}
       </div>
     </div>
   );
