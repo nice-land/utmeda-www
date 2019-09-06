@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { config, useSpring, animated as a } from 'react-spring';
+import { useSpring, animated as a } from 'react-spring';
 import { useMove } from 'react-use-gesture';
 
 import Play from 'assets/svg/play.svg';
@@ -21,6 +21,8 @@ export const Cursor = () => {
     set({ hovering: Number(isMediaHovered) });
   }, [isMediaHovered]);
 
+  const opacity = hovering.interpolate({ range: [0, 1], output: [1, 0] });
+
   return (
     <a.div
       className={s.cursor}
@@ -29,13 +31,13 @@ export const Cursor = () => {
       <a.div
         className={s.cursor__inner}
         style={{
-          opacity: hovering.interpolate({ range: [0, 1], output: [1, 0] }),
+          opacity,
         }}
       />
       <a.div
         className={s.cursor__stroke}
         style={{
-          opacity: hovering.interpolate({ range: [0, 1], output: [1, 0] }),
+          opacity,
           transform: hovering
             .interpolate({ range: [0, 1], output: [1, 1.3] })
             .interpolate((r) => `scale(${r})`),
