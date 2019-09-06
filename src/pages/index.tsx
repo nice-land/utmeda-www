@@ -11,6 +11,7 @@ interface IProps {
 
 function index({ intl }: IProps) {
   const steps: IStep[] = [
+    { num: 0, title: intl.formatMessage({ id: 'steps.one.title' }), poster: require('assets/posters/1_bright@2x.jpg') },
     { num: 1, title: intl.formatMessage({ id: 'steps.one.title' }), poster: require('assets/posters/1_bright@2x.jpg') },
     { num: 2, title: intl.formatMessage({ id: 'steps.two.title' }), poster: require('assets/posters/2_bright@2x.jpg') },
     { num: 3, title: intl.formatMessage({ id: 'steps.three.title' }), poster: require('assets/posters/3_bright@2x.jpg') },

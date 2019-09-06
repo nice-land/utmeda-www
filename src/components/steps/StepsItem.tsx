@@ -40,10 +40,10 @@ export const StepsItem = injectIntl(({ count, link, text, media, intl, setActive
 
   useEffect(() => {
 
-    if (active) {
-      setActive(index);
-      // console.log(active, index);
-    }
+    // if (active) {
+    //   setActive(index);
+    //   // console.log(active, index);
+    // }
 
   }, [active]);
 

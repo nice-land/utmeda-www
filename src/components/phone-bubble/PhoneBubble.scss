@@ -6,7 +6,7 @@
   right: 20px;
   z-index: 100;
 
-  @media (min-width: $min-768) {
+  @media (min-width: $min-desktop) {
     bottom: 75px;
     right: 50px;
   }
