@@ -1,31 +1,29 @@
-import {
-  Vector2,
-} from 'three';
+import { Vector2 } from 'three';
 
 const fragmentShader = `
 uniform float dt;
 uniform vec2 dimensions;
+uniform float random;
 uniform float erratic; // [0, 1]
 
 #define PI 3.141592
-#define LINE_THICKNESS 0.01
+#define LINE_THICKNESS 0.005
 
 float rand(float x){
   return fract(sin(x)*1.0);
 }
 
 float plot(vec2 st, float pct) {
-  return smoothstep(pct - LINE_THICKNESS, pct, st.y) -
-        smoothstep(pct, pct + LINE_THICKNESS, st.y);
+  return smoothstep(pct - LINE_THICKNESS, pct, st.y) - smoothstep(pct, pct + LINE_THICKNESS, st.y);
 }
 
 void main() {
   vec2 st = gl_FragCoord.st/dimensions;
 
   float y_displacement = 0.2;
-  float frequency = 50.0;
-  float amplitude = 0.1;
-  float angle = (dt + st.x) * frequency;
+  float frequency = 25.0 + 50.0 * random;
+  float amplitude = mix(0.05, 0.01, random);
+  float angle = (dt * 0.1 + st.x) * frequency;
 
   float x = sin(angle) * amplitude * erratic + y_displacement;
 
@@ -44,7 +42,6 @@ void main() {
 `;
 
 export default (dimensions: [number, number]) => {
-
   return {
     uniforms: {
       dimensions: {
@@ -58,6 +55,10 @@ export default (dimensions: [number, number]) => {
       erratic: {
         type: 'f',
         value: 1,
+      },
+      random: {
+        type: 'f',
+        value: Math.random(),
       },
     },
 
