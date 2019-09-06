@@ -1,8 +1,6 @@
 import React, { cloneElement, useRef, useEffect, useState, Children } from 'react';
-import { TweenLite, Power4 } from 'gsap';
 
 import { useKeyDown } from 'hooks/use-keydown';
-import 'utils/gsap/ScrollToPlugin';
 
 import s from './ScrollWrapper.scss';
 
@@ -40,12 +38,12 @@ export const ScrollWrapper = ({ children, className, snap }: IProps) => {
       return;
     }
 
-    const width = container.current.scrollWidth;
+    // const width = container.current.scrollWidth;
 
-    TweenLite.to(container.current!, 0.5, {
-      scrollTo: { x: (width / slidesCount) * activeSlide },
-      ease: Power4.easeInOut,
-    });
+    // TweenLite.to(container.current!, 0.5, {
+    //   scrollTo: { x: (width / slidesCount) * activeSlide },
+    //   ease: Power4.easeInOut,
+    // });
   };
 
   useEffect(() => {

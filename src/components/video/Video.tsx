@@ -3,16 +3,15 @@ import { useThree, useRender } from 'react-three-fiber';
 import React, { useState } from 'react';
 import DisplacementMap from 'assets/images/displacementmap.png';
 import { useKeyDown } from 'hooks/use-keydown';
-import { TweenLite, Power4, Linear } from 'gsap';
+// import { TweenLite, Power4, Linear } from 'gsap';
 import { useOrientation } from 'hooks/use-orientation';
-import { useAnimationFrame } from 'hooks/use-animation-frame';
 import { debounce } from 'lodash';
+import { Vector3, Vector2 } from 'three';
 
 import s from './Video.scss';
 
 import createWaveShader from './createWaveShader';
 import createRippleShader from './createRippleShader';
-import { Vector3, Vector2 } from 'three';
 
 // tslint:disable-next-line:no-var-requires
 const tone: string = require('assets/videos/tone.mp3');
@@ -49,12 +48,13 @@ const Wave = ({ erratic }: { erratic: boolean }) => {
   });
 
   React.useEffect(() => {
-    TweenLite.to(shaderConfig.uniforms.erratic, 1, {
-      value: erratic ? 1.0 : 0.01,
-      ease: Power4.easeOut,
-      onUpdate: invalidate,
-      onComplete: invalidate,
-    });
+    // TODO: REACT-SPRING
+    // TweenLite.to(shaderConfig.uniforms.erratic, 1, {
+    //   value: erratic ? 1.0 : 0.01,
+    //   ease: Power4.easeOut,
+    //   onUpdate: invalidate,
+    //   onComplete: invalidate,
+    // });
   }, [erratic, ready]);
 
   React.useEffect(() => {
@@ -101,12 +101,13 @@ const VideoObject = ({
   );
 
   React.useEffect(() => {
-    TweenLite.to(shaderConfig.uniforms.dispFactor, 1, {
-      value: Number(showLight),
-      ease: Power4.easeOut,
-      onUpdate: invalidate,
-      onComplete: invalidate,
-    });
+    // TODO: REACT-SPRING
+    // TweenLite.to(shaderConfig.uniforms.dispFactor, 1, {
+    //   value: Number(showLight),
+    //   ease: Power4.easeOut,
+    //   onUpdate: invalidate,
+    //   onComplete: invalidate,
+    // });
   }, [showLight, ready]);
 
   const handleResize = debounce(() => {

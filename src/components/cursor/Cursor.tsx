@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TweenLite, TimelineLite, Power4 } from 'gsap';
+// import { TweenLite, TimelineLite, Power4 } from 'gsap';
 
 import Play from 'assets/svg/play.svg';
 import Mouse from 'assets/svg/mouse.svg';
@@ -41,11 +41,11 @@ class CursorComponent extends React.PureComponent<ICursorComponentProps> {
   }
 
   componentWillReceiveProps(nextProps: ICursorComponentProps) {
-    if (nextProps.context.isMediaHovered) {
-      this.handleMouseOver.play();
-    } else {
-      this.handleMouseOver.reverse();
-    }
+    // if (nextProps.context.isMediaHovered) {
+    //   this.handleMouseOver.play();
+    // } else {
+    //   this.handleMouseOver.reverse();
+    // }
   }
 
   componentWillUnmount() {
@@ -63,74 +63,74 @@ class CursorComponent extends React.PureComponent<ICursorComponentProps> {
     const circle = this.svgCircleRef.current;
     const play = this.svgIconRef.current;
     const inner = this.innerRef.current;
-    const timeline = new TimelineLite();
-    const ease = Power4.easeInOut;
+    // const timeline = new TimelineLite();
+    // const ease = Power4.easeInOut;
 
     if (!stroke || !circle || !inner || !play) {
       return;
     }
 
-    timeline.addLabel('start', 0);
+    // timeline.addLabel('start', 0);
 
-    timeline.fromTo(
-      stroke,
-      0.6,
-      {
-        opacity: 1,
-        scale: 1,
-      },
-      {
-        opacity: 0,
-        scale: 1.3,
-        ease,
-      },
-    );
+    // timeline.fromTo(
+    //   stroke,
+    //   0.6,
+    //   {
+    //     opacity: 1,
+    //     scale: 1,
+    //   },
+    //   {
+    //     opacity: 0,
+    //     scale: 1.3,
+    //     ease,
+    //   },
+    // );
 
-    timeline.fromTo(
-      circle,
-      0.6,
-      {
-        opacity: 0,
-        scale: 1.2,
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        ease,
-      },
-      'start',
-    );
+    // timeline.fromTo(
+    //   circle,
+    //   0.6,
+    //   {
+    //     opacity: 0,
+    //     scale: 1.2,
+    //   },
+    //   {
+    //     opacity: 1,
+    //     scale: 1,
+    //     ease,
+    //   },
+    //   'start',
+    // );
 
-    timeline.fromTo(
-      inner,
-      0.6,
-      {
-        opacity: 1,
-      },
-      {
-        opacity: 0,
-        ease,
-      },
-      'start',
-    );
+    // timeline.fromTo(
+    //   inner,
+    //   0.6,
+    //   {
+    //     opacity: 1,
+    //   },
+    //   {
+    //     opacity: 0,
+    //     ease,
+    //   },
+    //   'start',
+    // );
 
-    timeline.fromTo(
-      play,
-      0.6,
-      {
-        opacity: 0,
-        scale: 0.8,
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        ease,
-      },
-      'start',
-    );
+    // timeline.fromTo(
+    //   play,
+    //   0.6,
+    //   {
+    //     opacity: 0,
+    //     scale: 0.8,
+    //   },
+    //   {
+    //     opacity: 1,
+    //     scale: 1,
+    //     ease,
+    //   },
+    //   'start',
+    // );
 
-    this.overCache = timeline;
-    return timeline;
+    // this.overCache = timeline;
+    // return timeline;
   }
 
   onInit = () => {
@@ -144,14 +144,14 @@ class CursorComponent extends React.PureComponent<ICursorComponentProps> {
       return;
     }
 
-    TweenLite.to(
-      cursor,
-      0.25,
-      {
-        x: e.pageX,
-        y: e.pageY,
-      },
-    );
+    // TweenLite.to(
+    //   cursor,
+    //   0.25,
+    //   {
+    //     x: e.pageX,
+    //     y: e.pageY,
+    //   },
+    // );
   }
 
   handleMouseSpeed = (e: MouseEvent) => {
