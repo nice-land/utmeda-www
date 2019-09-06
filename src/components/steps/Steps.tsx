@@ -13,8 +13,10 @@ interface IProps {
 }
 
 export const Steps = ({ title, list }: IProps) => {
+  const width = typeof window === "undefined" ? 720 : window.innerWidth * 0.7;
+
   return (
-    <Slider items={list} width={window.innerWidth * 0.7} visible={1.3}>
+    <Slider items={list} width={width} visible={1.3}>
         {(step: any, i: number) =>
           i === 0 ? (
             <div className={s.steps__title}>
