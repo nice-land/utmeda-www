@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { injectIntl, Link, FormattedMessage } from 'gatsby-plugin-intl';
-import { TimelineLite, Power4 } from 'gsap';
+
 
 import Twitter from 'assets/svg/twitter.svg';
 import Facebook from 'assets/svg/facebook.svg';
@@ -51,19 +51,20 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
   };
 
   const handleVideoEnd = () => {
-    const timeline = new TimelineLite();
-    const slide = slideRef.current;
-    const ease = Power4.easeInOut;
+    // TODO: REACT-SPRING
+    // const timeline = new TimelineLite();
+    // const slide = slideRef.current;
+    // const ease = Power4.easeInOut;
 
-    if (!slide) {
-      return;
-    }
+    // if (!slide) {
+    //   return;
+    // }
 
-    timeline.to(slide, 0.45, {
-      opacity: 1,
-      x: 0,
-      ease,
-    });
+    // timeline.to(slide, 0.45, {
+    //   opacity: 1,
+    //   x: 0,
+    //   ease,
+    // });
   };
 
   const handleMouseEnter = () => {
