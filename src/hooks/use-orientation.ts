@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 type Orientation = 'portrait' | 'landscape';
 
 export const useOrientation = (): Orientation => {
-  const [landscape, set] = useState(false);
+  const [landscape, set] = useState(true);
 
   const handleOrientationChange = (ev: MediaQueryListEvent) => set(ev.matches);
 
