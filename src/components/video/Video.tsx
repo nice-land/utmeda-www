@@ -1,88 +1,17 @@
 import { Canvas } from 'components/canvas/Canvas';
-import { useThree, useRender } from 'react-three-fiber';
 import React, { useState } from 'react';
 import DisplacementMap from 'assets/images/displacementmap.png';
 import { useKeyDown } from 'hooks/use-keydown';
-import { useSpring, a } from 'react-spring/three';
+import { useSpring } from 'react-spring/three';
 import { useOrientation } from 'hooks/use-orientation';
 import { Vector3 } from 'three';
 
 import s from './Video.scss';
-
-import createWaveShader from './createWaveShader';
-import createRippleShader from './createRippleShader';
+import { VideoObject } from './VideoObject';
+import { Wave } from './Wave';
 
 // tslint:disable-next-line:no-var-requires
 const tone: string = require('assets/videos/tone.mp3');
-
-interface IProps {
-  videoRef: React.RefObject<HTMLVideoElement>;
-  angle: number;
-  light: any;
-  displacementMap: any;
-  intensity1?: number;
-  intensity2?: number;
-  angle2?: number;
-}
-
-const ASPECT = 1.7777777;
-
-const Wave = ({ erratic }: { erratic: any }) => {
-  const { size } = useThree();
-  const dimensions: [number, number] = [size.width, size.width / ASPECT];
-
-  const shaderConfig = React.useMemo(() => createWaveShader(dimensions), []);
-
-  useRender((_, dt) => {
-    shaderConfig.uniforms.dt.value = dt;
-    shaderConfig.uniforms.random.value = Math.random() * 0.2;
-  });
-
-  return (
-    <group>
-      <a.mesh rotation={[0, 0, 0]} position={[0, 0, 1]}>
-        <a.planeGeometry attach="geometry" args={dimensions} />
-        <a.shaderMaterial
-          attach="material"
-          args={[shaderConfig]}
-          uniforms-erratic-value={erratic.interpolate({ range: [0, 1], output: [1, 0] })}
-        />
-      </a.mesh>
-    </group>
-  );
-};
-
-const VideoObject = ({
-  videoRef,
-  angle,
-  displacementMap,
-  light,
-  intensity1 = 0.2,
-  intensity2 = 0.2,
-  angle2 = -3 * angle,
-}: IProps) => {
-  const { size } = useThree();
-
-  const dimensions = [size.width, size.width / ASPECT];
-
-  if (videoRef.current === null) {
-    return null;
-  }
-
-  const shaderConfig = React.useMemo(
-    () => createRippleShader(videoRef.current!, intensity1, intensity2, angle, angle2, displacementMap),
-    [videoRef, intensity1, intensity2, angle, angle2, displacementMap],
-  );
-
-  return (
-    <group>
-      <mesh rotation={[0, 0, 0]}>
-        <boxGeometry attach="geometry" args={[...dimensions, 0] as [number, number, number]} />
-        <shaderMaterial attach="material" args={[shaderConfig]} uniforms-dispFactor={light} />
-      </mesh>
-    </group>
-  );
-};
 
 interface IVideoProps {
   src: string;

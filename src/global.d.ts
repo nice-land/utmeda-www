@@ -6,3 +6,6 @@ declare module '*.jpg';
 
 declare module 'gatsby-plugin-intl';
 
+declare module 'react-spring/three' {
+  export * from 'react-spring';
+}
