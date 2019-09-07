@@ -63,10 +63,11 @@
       bottom: 0;
       right: 0;
       width: auto;
+      pointer-events: none;
       opacity: 0;
       max-width: auto;
       transform: translateY(0%);
-      
+
       transition: all 0.5s ease-in-out, opacity 0.5s ease-in 1s;
     }
   }

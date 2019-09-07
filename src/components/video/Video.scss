@@ -8,7 +8,6 @@
   user-select: none;
   &.playing {
     opacity: 1;
-    pointer-events: all;
   }
 
   &::before {
@@ -20,7 +19,6 @@
   }
 
   &__content {
-    pointer-events: none;
     user-select: none;
     @include fit;
   }
