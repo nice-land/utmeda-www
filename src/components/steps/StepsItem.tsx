@@ -7,12 +7,14 @@ import { animated as a } from "react-spring";
 import { Content } from "./Content";
 import s from "./StepsItem.scss";
 import { Video } from "components/video/Video";
+import { PostVideo } from "./PostVideo";
 
 interface IProps {
   intl: any;
   count: string;
   link: string;
   text: string;
+  title: string;
   media: string;
   index: number;
   spring: any;
@@ -27,6 +29,8 @@ export const StepsItem = injectIntl(
     count,
     link,
     text,
+    title,
+    index,
     media,
     intl,
     active,
@@ -35,6 +39,8 @@ export const StepsItem = injectIntl(
     video
   }: IProps) => {
     const { mouseEnter, mouseLeave } = useContext(AppContext);
+
+    const [videoEnded, setVideoEnded] = useState(false);
 
     const handleMouseEnter = () => {
       mouseEnter({
@@ -55,8 +61,11 @@ export const StepsItem = injectIntl(
       if (!active) {
         onClick();
       } else {
-        //onClose();
       }
+    };
+
+    const handleVideoEnd = () => {
+      setVideoEnded(true);
     };
 
     return (
@@ -67,7 +76,7 @@ export const StepsItem = injectIntl(
             to={link}
             onClick={handleClick}
           >
-            <Content count={count} text={text} />
+            <Content count={count} text={title} />
 
             <a.div
               className={s.stepsItem__media}
@@ -82,8 +91,15 @@ export const StepsItem = injectIntl(
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               src={video}
-              onVideoEnd={onClose}
+              onVideoEnd={handleVideoEnd}
               onVideoPlay={() => void 0}
+            />
+
+            <PostVideo
+              visible={active && videoEnded}
+              nextNum={index + 1}
+              nextTitle="Lorem ipsum dolor sit amet"
+              text={text}
             />
           </Link>
         </Container>

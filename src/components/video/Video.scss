@@ -3,7 +3,7 @@
 .video {
   @include fit;
   opacity: 0;
-  pointer-events: none;
+
   overflow: hidden;
   user-select: none;
   &.playing {
@@ -20,6 +20,8 @@
   }
 
   &__content {
+    pointer-events: none;
+    user-select: none;
     @include fit;
   }
 

@@ -1,20 +1,29 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { InlineMarkdown } from 'components/inline-markdown/InlineMarkdown';
+import { InlineMarkdown } from "components/inline-markdown/InlineMarkdown";
 
-import s from './Content.scss';
+import s from "./Content.scss";
 
 interface IContentProps {
   count: string | number;
   text: string;
+  onClick?(): void;
 }
 
-export const Content = ({ count, text }: IContentProps) => (
-  <div className={s.content}>
-    <span className={s.content__count}>{count}</span>
+export const Content = ({ count, text, onClick }: IContentProps) => {
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
 
-    <span className={s.content__link}>
-      <InlineMarkdown source={text} />
-    </span>
-  </div>
-);
+  return (
+    <div className={s.content} onClick={handleClick}>
+      <span className={s.content__count}>{count}</span>
+
+      <span className={s.content__link}>
+        <InlineMarkdown source={text} />
+      </span>
+    </div>
+  );
+};

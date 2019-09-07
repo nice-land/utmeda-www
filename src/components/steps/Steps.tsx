@@ -6,6 +6,7 @@ import Slider from "components/slider/Slider";
 import { StepsItem } from "./StepsItem";
 
 import s from "./Steps.scss";
+import { AppContext } from "components/app-layout/AppLayout";
 
 interface IProps {
   title: string;
@@ -16,7 +17,7 @@ export const Steps = ({ title, list }: IProps) => {
   const [width, setWidth] = React.useState(
     typeof window === "undefined" ? 720 : window.innerWidth * 0.7
   );
-  const [active, setActive] = React.useState<number | null>(null);
+  const context = React.useContext(AppContext) as any;
 
   const handleResize = debounce(() => {
     setWidth(window.innerWidth * 0.7);
@@ -30,7 +31,12 @@ export const Steps = ({ title, list }: IProps) => {
   }, []);
 
   return (
-    <Slider items={[{}, ...list]} active={active} width={width} visible={1.3}>
+    <Slider
+      items={[{}, ...list]}
+      active={context.activeStep}
+      width={width}
+      visible={1.3}
+    >
       {(step: any, i: number, a: boolean, x: any) =>
         i === 0 ? (
           <div className={s.steps__title}>
@@ -40,15 +46,17 @@ export const Steps = ({ title, list }: IProps) => {
           <StepsItem
             key={i}
             index={i}
-            text={step.title}
+            title={step.title}
+            text={step.text}
+            
             count={i.toString().padStart(2, "0")}
             link={`/${i}`}
             media={step.poster}
             spring={x}
             video={step.video}
             active={a}
-            onClose={() => setActive(null)}
-            onClick={() => setActive(i)}
+            onClose={() => context.setActiveStep(null)}
+            onClick={() => context.setActiveStep(i)}
           />
         )
       }

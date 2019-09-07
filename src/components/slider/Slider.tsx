@@ -57,8 +57,8 @@ export default function Slider({
       if (active !== null) {
         return;
       }
-
-      offset.current -= x;
+        
+      offset.current -= x * 20;
 
       runSprings(offset.current);
     },
