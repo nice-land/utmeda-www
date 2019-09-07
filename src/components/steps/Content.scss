@@ -3,7 +3,7 @@
 .content {
   position: relative;
   z-index: 4;
-
+  user-select: none;
   max-width: (550px/$font-size) * 1em;
 
   &__count {
@@ -35,6 +35,7 @@
   }
 
   &__link {
+    user-select: none;
     @include responsive-font(54, 80);
     @include variable-font(700, bold, 0, normal);
 

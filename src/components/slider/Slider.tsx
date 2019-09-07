@@ -26,7 +26,7 @@ export default function Slider({
   children
 }: IProps) {
   const [springs, set] = useSprings(items.length, (i: number) => ({
-    x: (i < items.length - 1 ? i : -1) * width,
+    x: i * width,
     width
   }));
   const keys = useKeyDown();
@@ -41,7 +41,7 @@ export default function Slider({
           x: active === i ? 0 : -y + width * i,
           width: active === i ? window.innerWidth : width,
           config: {
-            tension: active === i ? 300 * i : 100 * i,
+            tension: active === i ? 300 * i : 50 * i + 50,
             friction: 30 + i * 40
           }
         };
@@ -53,21 +53,21 @@ export default function Slider({
   const offset = useRef(0);
 
   const bind = useGesture({
-    onDrag: ({ local: [x], vxvy: [vx] }) => {
+    onDrag: ({ vxvy: [x] }) => {
       if (active !== null) {
         return;
       }
 
-      offset.current += -vx;
+      offset.current -= x;
 
       runSprings(offset.current);
     },
-    onWheel: ({ local: [, y], vxvy: [, vy] }) => {
+    onWheel: ({ delta: [, vy] }) => {
       if (active !== null) {
         return;
       }
 
-      offset.current += vy * 10;
+      offset.current += vy;
 
       runSprings(offset.current);
     }
@@ -89,9 +89,12 @@ export default function Slider({
     if (keys.includes(37)) {
       offset.current = Math.max(0, offset.current - width);
     } else if (keys.includes(39) || keys.includes(32)) {
-      offset.current = Math.min((items.length - 1) * width, offset.current + width);
+      offset.current = Math.min(
+        (items.length - 1) * width,
+        offset.current + width
+      );
     }
-    console.log(offset.current)
+    console.log(offset.current);
 
     runSprings(offset.current);
   }, [keys, active, runSprings]);

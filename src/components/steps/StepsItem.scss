@@ -27,7 +27,7 @@
   &__media {
     margin-top: -25px;
     z-index: 3;
-
+    user-select: none;
     @media (min-width: $min-768) {
       position: absolute;
       top: 50%;
