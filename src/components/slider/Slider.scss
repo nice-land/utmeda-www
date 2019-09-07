@@ -1,6 +1,5 @@
 @import '~styles/config';
 
-
 .slider {
   &__container {
     position: relative;
@@ -12,5 +11,10 @@
     position: absolute;
     height: 100%;
     will-change: transform;
+    z-index: 2;
+
+    &Active {
+      z-index: 3;
+    }
   }
 }

@@ -11,7 +11,7 @@ export const Wave = ({ erratic }: { erratic: any }) => {
   const shaderConfig = React.useMemo(() => createWaveShader(dimensions), []);
 
   useRender((_, dt) => {
-    shaderConfig.uniforms.dt.value = dt;
+    shaderConfig.uniforms.dt.value = dt % 1000;
     shaderConfig.uniforms.random.value = Math.random() * 0.2;
   });
 
@@ -22,7 +22,7 @@ export const Wave = ({ erratic }: { erratic: any }) => {
         <a.shaderMaterial
           attach="material"
           args={[shaderConfig]}
-          uniforms-erratic-value={erratic.interpolate({ range: [0, 1], output: [1, 0] })}
+          uniforms-erratic-value={erratic.interpolate({ range: [0, 1], output: [0.8, 0.025] })}
         />
       </a.mesh>
     </group>

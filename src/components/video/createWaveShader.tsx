@@ -21,9 +21,9 @@ void main() {
   vec2 st = gl_FragCoord.st/dimensions;
 
   float y_displacement = 0.2;
-  float frequency = 25.0 + 50.0 * random;
+  float frequency = 220.0 + 440.0 * random;
   float amplitude = mix(0.05, 0.01, random);
-  float angle = (dt * 0.1 + st.x) * frequency;
+  float angle = st.x * frequency;
 
   float x = sin(angle) * amplitude * erratic + y_displacement;
 
