@@ -32,6 +32,10 @@ export const Video = ({
   onMouseLeave,
   onVideoCanPlay
 }: IVideoProps) => {
+  // if (typeof window === "undefined") {
+  //   return null;
+  // }
+
   const ref = React.useRef<HTMLVideoElement>(null);
   const audioRef = React.useRef<HTMLAudioElement>(null);
   const [light, setLight] = React.useState(false);
@@ -59,7 +63,7 @@ export const Video = ({
   };
 
   React.useEffect(() => {
-    if (!playing) {
+    if (!playing || typeof window === "undefined") {
       return;
     }
 
@@ -72,7 +76,7 @@ export const Video = ({
   }, [playing, keys]);
 
   React.useEffect(() => {
-    if (!ref.current) {
+    if (!ref.current || typeof window === "undefined") {
       return;
     }
 
@@ -84,7 +88,7 @@ export const Video = ({
   }, [playing, ref, orientation]);
 
   React.useEffect(() => {
-    if (!ref.current) {
+    if (!ref.current || typeof window === "undefined") {
       return;
     }
 

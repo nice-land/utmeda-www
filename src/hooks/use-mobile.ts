@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
 export const useMobile = (): boolean => {
+  if (typeof window === "undefined") {
+    return false;
+  }
+  
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

@@ -26,6 +26,10 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
   }, 200);
 
   React.useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
     if (initialStep) {
       setTimeout(() => context.setActiveStep(initialStep), 500);
     }

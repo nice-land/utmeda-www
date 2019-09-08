@@ -29,8 +29,6 @@ export default ({ children }: IAppLayoutProps) => {
   const [activeStep, setActiveStep] = React.useState<number | null>(null);
   const timer = React.useRef<any>(null);
 
-  const isMobile = useMobile();
-
   const mouseEnter = ({
     text,
     icon
@@ -90,12 +88,10 @@ export default ({ children }: IAppLayoutProps) => {
           <Language />
         </Header>
 
-        {!isMobile && <Cursor />}
+        <Cursor />
         <PhoneBubble url="https://utmeda.is" />
         {children}
       </AppContext.Provider>
-
-      <Footer />
 
       {isDev && <Devtools />}
     </div>

@@ -22,7 +22,7 @@
   "scripts": {
     "dev": "gatsby develop",
     "build": "gatsby build",
-    "start": "gatsby serve --port ${PORT:-3000}",
+    "start": "gatsby serve",
     "clean": "rimraf .cache public",
     "lint": "npm run tslint && npm run stylelint",
     "tslint": "tslint --fix 'src/**/*.{ts,tsx}' -p .",

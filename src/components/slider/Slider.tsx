@@ -46,6 +46,10 @@ export default function Slider({
   visible = 4,
   children
 }: IProps) {
+  // if (typeof window === "undefined") {
+  //   return null;
+  // }
+
   const [springs, set] = useSprings(items.length, (i: number) => ({
     x: i * width,
     width
@@ -112,7 +116,6 @@ export default function Slider({
         offset.current + width
       );
     }
-    console.log(offset.current);
 
     runSprings(offset.current);
   }, [keys, active, runSprings]);
