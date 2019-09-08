@@ -23,7 +23,9 @@ export const PostVideo = ({ visible, text, nextTitle, nextNum }: IProps) => {
     <div className={s(s.postVideo, { visible })}>
       <p className={s.postVideo__text}>{text}</p>
 
-      <Content count={nextNum} text={nextTitle} onClick={handleNextClick} />
+      <div className={s.postVideo__next}>
+        <Content count={(nextNum+'').padStart(2, '0')} text={nextTitle} onClick={handleNextClick} />
+      </div>
     </div>
   );
 };

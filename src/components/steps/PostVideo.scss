@@ -19,12 +19,42 @@
   transition-property: transform, opacity;
 
   &__text {
+    @include rf(36, 60);
     width: 50%;
+    text-align: center;
+  }
+
+  &__next {
+    position: absolute;
+    right: 10%;
+    transform: rotate(0deg);
+
+    animation: wiggle 4s infinite;
   }
 
   &.visible {
     pointer-events: all;
     opacity: 1;
     transform: translate3d(20%, 0, 0);
+  }
+
+  $wiggles: 5;
+  $wiggle-freq: 7;
+  @keyframes wiggle {
+    @for $i from 1 through $wiggles {
+      0% {
+        transform: rotate(0deg);
+      }
+      #{$i * $wiggle-freq}% {
+        @if $i % 2 == 1 {
+          transform: rotate(5deg);
+        } @else {
+          transform: rotate(-5deg);
+        }
+      }
+      #{$wiggle-freq * $wiggles}% {
+        transform: rotate(0deg);
+      }
+    }
   }
 }

@@ -20,6 +20,7 @@ interface IVideoProps {
   onVideoEnd(): void;
   onMouseEnter(): void;
   onMouseLeave(): void;
+  onVideoCanPlay(): void;
 }
 
 export const Video = ({
@@ -28,7 +29,8 @@ export const Video = ({
   onVideoPlay,
   onVideoEnd,
   onMouseEnter,
-  onMouseLeave
+  onMouseLeave,
+  onVideoCanPlay
 }: IVideoProps) => {
   const ref = React.useRef<HTMLVideoElement>(null);
   const audioRef = React.useRef<HTMLAudioElement>(null);
@@ -51,6 +53,8 @@ export const Video = ({
 
   const handleEnded = () => {
     setEnded(true);
+    ref.current!.pause();
+    ref.current!.currentTime = 0;
     onVideoEnd();
   };
 
@@ -68,25 +72,22 @@ export const Video = ({
   }, [playing, keys]);
 
   React.useEffect(() => {
-    if (
-      !playing ||
-      ref.current === null ||
-      (ref.current && ref.current.readyState < 2)
-    ) {
+    if (!ref.current) {
       return;
     }
 
     if (orientation === "portrait") {
       ref.current.pause();
-    } else {
+    } else if (ref.current.readyState >= 2) {
       ref.current.play().catch(); // swallow autoplay errors
     }
   }, [playing, ref, orientation]);
 
   React.useEffect(() => {
-    if (ref.current === null || (ref.current && ref.current.readyState < 2)) {
+    if (!ref.current) {
       return;
     }
+
     if (!playing) {
       ref.current.pause();
       ref.current!.currentTime = 0;
@@ -111,6 +112,7 @@ export const Video = ({
           className={s.video__video}
           ref={ref}
           src={src}
+          onCanPlayThrough={onVideoCanPlay}
           playsInline
           onPlay={onVideoPlay}
           onEnded={handleEnded}

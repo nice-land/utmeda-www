@@ -1,8 +1,7 @@
 import { injectIntl, Link } from "gatsby-plugin-intl";
 import { Container } from "components/container/Container";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { AppContext } from "components/app-layout/AppLayout";
-import { animated as a } from "react-spring";
 
 import { Content } from "./Content";
 import s from "./StepsItem.scss";
@@ -34,18 +33,24 @@ export const StepsItem = injectIntl(
     media,
     intl,
     active,
-    onClose,
+
     onClick,
     video
   }: IProps) => {
     const { mouseEnter, mouseLeave } = useContext(AppContext);
 
+    const [playing, setPlaying] = useState(false);
     const [videoEnded, setVideoEnded] = useState(false);
+
+    const handleVideoCanPlay = () => {
+      console.log(playing);
+      setPlaying(true);
+    };
 
     const handleMouseEnter = () => {
       mouseEnter({
-        text: intl.formatMessage({ id: "step_watch" }),
-        icon: "play"
+        text: intl.formatMessage({ id: active ? "step_click" : "step_watch" }),
+        icon: active ? "mouse" : "play"
       });
     };
 
@@ -56,20 +61,18 @@ export const StepsItem = injectIntl(
     const handleClick = e => {
       e.preventDefault();
 
-      mouseLeave();
-
       if (!active) {
         onClick();
-      } else {
       }
     };
 
     const handleVideoEnd = () => {
+      setPlaying(false);
       setVideoEnded(true);
     };
 
     return (
-      <div className={s(s.stepsItem, { active })}>
+      <div className={s(s.stepsItem, { active, playing })}>
         <Container>
           <Link
             className={s.stepsItem__wrapper}
@@ -78,21 +81,22 @@ export const StepsItem = injectIntl(
           >
             <Content count={count} text={title} />
 
-            <a.div
+            <div
               className={s.stepsItem__media}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
               <img src={media} alt="" />
-            </a.div>
+            </div>
 
             <Video
-              playing={active}
+              playing={active && playing}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               src={video}
               onVideoEnd={handleVideoEnd}
               onVideoPlay={() => void 0}
+              onVideoCanPlay={handleVideoCanPlay}
             />
 
             <PostVideo

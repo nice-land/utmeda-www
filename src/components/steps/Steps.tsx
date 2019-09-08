@@ -18,12 +18,16 @@ export const Steps = ({ title, list }: IProps) => {
     typeof window === "undefined" ? 720 : window.innerWidth * 0.7
   );
   const context = React.useContext(AppContext) as any;
+  
+
 
   const handleResize = debounce(() => {
     setWidth(window.innerWidth * 0.7);
   }, 200);
 
   React.useEffect(() => {
+    context.setActiveStep(10);
+
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -32,6 +36,7 @@ export const Steps = ({ title, list }: IProps) => {
 
   return (
     <Slider
+      immediate
       items={[{}, ...list]}
       active={context.activeStep}
       width={width}

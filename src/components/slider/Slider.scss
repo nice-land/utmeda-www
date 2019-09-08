@@ -1,6 +1,10 @@
-@import '~styles/config';
+@import "~styles/config";
 
 .slider {
+  perspective: 1000px;
+  perspective-origin: center;
+  height: 100vh;
+
   &__container {
     position: relative;
     height: 100%;

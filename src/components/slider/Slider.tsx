@@ -14,34 +14,69 @@ interface IProps {
   ) => React.ReactNode;
   items: any[];
   width: number;
+  immediate?: boolean;
   active: number | null;
   visible: number;
 }
+
+const transform = (x: any, width: number, active: boolean) =>
+  interpolate(
+    [
+      x.interpolate((x: any) => `translate3d(${x}px,0,0) `),
+      x
+        .interpolate({
+          range: [-width, 0, width],
+          output: [-5.0, 0, 5.0]
+        })
+        .interpolate((x: any) => `rotate3d(0, 1, 0, ${x}deg)`),
+      x
+        .interpolate({
+          range: [-width, 0, width],
+          output: [1.0, active ? 1.0 : 1.1, 1.0]
+        })
+        .interpolate((x: any) => `scale3d(${x}, ${x}, 1)`)
+    ],
+    (translate, rotate, scale) => `${translate} ${rotate} ${scale}`
+  );
 
 export default function Slider({
   items,
   width = 700,
   active,
+  immediate,
   visible = 4,
   children
 }: IProps) {
   const [springs, set] = useSprings(items.length, (i: number) => ({
     x: i * width,
-    width
+    width,
+    immediate
   }));
   const keys = useKeyDown();
-
-  const transform = (x: any) =>
-    x.interpolate((x: any) => `translate3d(${x}px,0,0)`);
+  const [firstImmediate, setFirstImmediate] = useState([
+    ...new Array(items.length).fill(immediate)
+  ]);
 
   const runSprings = useCallback(
     y => {
+      const currentPos = Math.floor(y / width);
+
       set((i: number) => {
         return {
           x: active === i ? 0 : -y + width * i,
           width: active === i ? window.innerWidth : width,
+          immediate: firstImmediate[i] || Math.abs(currentPos - i) > 3,
+          onRest: () => {
+            if (firstImmediate[i]) {
+              setFirstImmediate(arr => [
+                ...arr.slice(0, i),
+                false,
+                ...arr.slice(i + 1)
+              ]);
+            }
+          },
           config: {
-            tension: active === i ? 300 * i : 50 * i + 50,
+            tension: active === i ? 300 * i : 100 * i + 50,
             friction: 30 + i * 40
           }
         };
@@ -57,7 +92,7 @@ export default function Slider({
       if (active !== null) {
         return;
       }
-        
+
       offset.current -= x * 20;
 
       runSprings(offset.current);
@@ -109,7 +144,7 @@ export default function Slider({
           })}
           style={{
             width: spring.width,
-            transform: transform(spring.x)
+            transform: transform(spring.x, width, active === 1)
           }}
           children={children(items[i], i, active === i, spring.x)}
         />
