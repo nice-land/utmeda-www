@@ -2,6 +2,7 @@ import React from "react";
 import { injectIntl } from "gatsby-plugin-intl";
 import { IStep } from "utils/interfaces";
 import { Steps } from "./Steps";
+import Helmet from "react-helmet";
 
 interface IProps {
   initialStep?: number;
@@ -83,10 +84,17 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
   ];
 
   return (
-    <Steps
-      initialStep={initialStep}
-      list={steps}
-      title={intl.formatMessage({ id: "title" })}
-    />
+    <>
+      <Helmet>
+        {steps.map(s => (
+          <link rel="preload" href={s.video} key={s.num} as="video" />
+        ))}
+      </Helmet>
+      <Steps
+        initialStep={initialStep}
+        list={steps}
+        title={intl.formatMessage({ id: "title" })}
+      />
+    </>
   );
 });

@@ -3,6 +3,9 @@
 .postVideo {
   @include fit;
 
+  right: unset;
+  width: 80vw;
+
   background: black;
   z-index: 4;
 
@@ -24,7 +27,7 @@
 
   &__next {
     position: absolute;
-    right: 0;
+    left: 90%;
     flex: 0 0 40%;
     width: auto;
 

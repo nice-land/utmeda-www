@@ -1,10 +1,11 @@
-@import '~styles/config';
+@import "~styles/config";
 
 .content {
   position: relative;
   z-index: 4;
   user-select: none;
-  max-width: (550px/$font-size) * 1em;
+  
+  width: (550px / $font-size) * 1em;
 
   &__count {
     @include responsive-font(14, 18);
@@ -17,7 +18,7 @@
     height: 2em;
 
     &::after {
-      content: '';
+      content: "";
 
       display: block;
 
@@ -39,7 +40,8 @@
     @include responsive-font(40, 80);
     @include variable-font(700, bold, 0, normal);
 
-    > em { // stylelint-disable-line
+    > em {
+      // stylelint-disable-line
       @include variable-font(900, 900, 0, normal);
 
       font-style: normal;
