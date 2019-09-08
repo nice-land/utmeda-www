@@ -1,4 +1,4 @@
-@import '~styles/config';
+@import "~styles/config";
 
 .header {
   @include responsive-font(20, 24);
@@ -29,7 +29,7 @@
 
     width: 100%;
 
-    @media (min-width: $min-tablet) {
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
       padding: 40px 0;
     }
   }
@@ -38,7 +38,7 @@
     margin-right: 20px;
     text-decoration: none;
 
-    @media (min-width: $min-tablet) {
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
       margin-right: 0;
     }
   }
@@ -46,18 +46,20 @@
   &__item {
     margin-left: 1rem;
 
-    @media (min-width: $min-tablet) {
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
       margin-right: 2rem;
       margin-left: 0;
     }
 
-    a { // stylelint-disable-line
+    a {
+      // stylelint-disable-line
       text-decoration: none;
       text-transform: lowercase;
       font-weight: 550;
 
-      &::after { // stylelint-disable-line
-        content: '';
+      &::after {
+        // stylelint-disable-line
+        content: "";
         display: block;
         margin-top: 5px;
         width: 100%;
@@ -69,7 +71,8 @@
         transition: transform 200ms ease-in;
       }
 
-      &:hover::after {  // stylelint-disable-line
+      &:hover::after {
+        // stylelint-disable-line
         transform: scaleX(1);
       }
     }
@@ -88,7 +91,7 @@
     margin-left: auto;
     padding-top: 8px;
 
-    @media (min-width: $min-tablet) {
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
       flex-direction: row;
     }
   }

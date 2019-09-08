@@ -43,38 +43,21 @@ export default function Slider({
   items,
   width = 700,
   active,
-  immediate,
   visible = 4,
   children
 }: IProps) {
   const [springs, set] = useSprings(items.length, (i: number) => ({
     x: i * width,
-    width,
-    immediate
+    width
   }));
   const keys = useKeyDown();
-  const [firstImmediate, setFirstImmediate] = useState([
-    ...new Array(items.length).fill(immediate)
-  ]);
 
   const runSprings = useCallback(
     y => {
-      const currentPos = Math.floor(y / width);
-
       set((i: number) => {
         return {
           x: active === i ? 0 : -y + width * i,
           width: active === i ? window.innerWidth : width,
-          immediate: firstImmediate[i] || Math.abs(currentPos - i) > 3,
-          onRest: () => {
-            if (firstImmediate[i]) {
-              setFirstImmediate(arr => [
-                ...arr.slice(0, i),
-                false,
-                ...arr.slice(i + 1)
-              ]);
-            }
-          },
           config: {
             tension: active === i ? 300 * i : 100 * i + 50,
             friction: 30 + i * 40

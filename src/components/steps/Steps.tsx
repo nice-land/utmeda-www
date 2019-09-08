@@ -10,23 +10,25 @@ import { AppContext } from "components/app-layout/AppLayout";
 
 interface IProps {
   title: string;
+  initialStep?: number;
   list: IStep[];
 }
 
-export const Steps = ({ title, list }: IProps) => {
+export const Steps = ({ title, list, initialStep }: IProps) => {
   const [width, setWidth] = React.useState(
     typeof window === "undefined" ? 720 : window.innerWidth * 0.7
   );
-  const context = React.useContext(AppContext) as any;
-  
 
+  const context = React.useContext(AppContext) as any;
 
   const handleResize = debounce(() => {
     setWidth(window.innerWidth * 0.7);
   }, 200);
 
   React.useEffect(() => {
-    context.setActiveStep(10);
+    if (initialStep) {
+      setTimeout(() => context.setActiveStep(initialStep), 500);
+    }
 
     window.addEventListener("resize", handleResize);
     return () => {
@@ -36,7 +38,6 @@ export const Steps = ({ title, list }: IProps) => {
 
   return (
     <Slider
-      immediate
       items={[{}, ...list]}
       active={context.activeStep}
       width={width}
@@ -53,7 +54,6 @@ export const Steps = ({ title, list }: IProps) => {
             index={i}
             title={step.title}
             text={step.text}
-            
             count={i.toString().padStart(2, "0")}
             link={`/${i}`}
             media={step.poster}
@@ -62,6 +62,7 @@ export const Steps = ({ title, list }: IProps) => {
             active={a}
             onClose={() => context.setActiveStep(null)}
             onClick={() => context.setActiveStep(i)}
+            next={list[i]} // a bit weird, but we have an edge case for the title, which "is" the first element in the list
           />
         )
       }

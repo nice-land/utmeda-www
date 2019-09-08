@@ -3,13 +3,12 @@ import { AppContext } from "components/app-layout/AppLayout";
 
 import s from "./PostVideo.scss";
 import { Content } from "./Content";
-import { useSpring } from "react-spring";
 
 interface IProps {
   visible: boolean;
   text: string;
-  nextTitle: string;
-  nextNum: number;
+  nextTitle?: string;
+  nextNum?: number;
 }
 
 export const PostVideo = ({ visible, text, nextTitle, nextNum }: IProps) => {
@@ -23,9 +22,15 @@ export const PostVideo = ({ visible, text, nextTitle, nextNum }: IProps) => {
     <div className={s(s.postVideo, { visible })}>
       <p className={s.postVideo__text}>{text}</p>
 
-      <div className={s.postVideo__next}>
-        <Content count={(nextNum+'').padStart(2, '0')} text={nextTitle} onClick={handleNextClick} />
-      </div>
+      {nextNum && nextTitle && (
+        <div className={s.postVideo__next}>
+          <Content
+            count={(nextNum + "").padStart(2, "0")}
+            text={nextTitle}
+            onClick={handleNextClick}
+          />
+        </div>
+      )}
     </div>
   );
 };

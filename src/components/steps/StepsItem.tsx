@@ -19,6 +19,10 @@ interface IProps {
   spring: any;
   active: boolean;
   video: string;
+  next?: {
+    num: number;
+    title: string;
+  };
   onClose(): void;
   onClick(): void;
 }
@@ -29,11 +33,10 @@ export const StepsItem = injectIntl(
     link,
     text,
     title,
-    index,
     media,
     intl,
     active,
-
+    next,
     onClick,
     video
   }: IProps) => {
@@ -43,7 +46,6 @@ export const StepsItem = injectIntl(
     const [videoEnded, setVideoEnded] = useState(false);
 
     const handleVideoCanPlay = () => {
-      console.log(playing);
       setPlaying(true);
     };
 
@@ -58,8 +60,10 @@ export const StepsItem = injectIntl(
       mouseLeave();
     };
 
-    const handleClick = e => {
-      e.preventDefault();
+    const handleClick = (e?: React.MouseEvent) => {
+      if (e) {
+        e.preventDefault();
+      }
 
       if (!active) {
         onClick();
@@ -101,8 +105,8 @@ export const StepsItem = injectIntl(
 
             <PostVideo
               visible={active && videoEnded}
-              nextNum={index + 1}
-              nextTitle="Lorem ipsum dolor sit amet"
+              nextNum={next && next.num}
+              nextTitle={next && next.title}
               text={text}
             />
           </Link>
