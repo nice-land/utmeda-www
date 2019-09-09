@@ -1,7 +1,7 @@
 @import '~styles/config';
 
 .bubble {
-  @include rf(18, 20);
+  @include rf(14, 20);
 
   display: flex;
   justify-content: flex-end;
@@ -14,6 +14,10 @@
   max-width: 300px;
 
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+    max-width: 200px;
+  }
 
   &.incoming {
     justify-content: flex-start;
