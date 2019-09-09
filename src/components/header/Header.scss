@@ -16,7 +16,8 @@
     padding-right: 20px;
 
     @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
-      @include container;
+      padding-left: 40px;
+      padding-right: 40px;
     }
   }
 
@@ -56,7 +57,7 @@
     }
 
     a {
-      @include responsive-font(14, 24);
+      @include responsive-font(14, 20);
 
       // stylelint-disable-line
       text-decoration: none;
