@@ -67,7 +67,7 @@ export const StepsItem = injectIntl(
     return (
       <div className={s(s.stepsItem, { active, playing })}>
         <Container>
-          <Link className={s.stepsItem__wrapper} to={link} onClick={handleClick}>
+          <div className={s.stepsItem__wrapper} to={link} onClick={handleClick}>
             <Content count={count} text={title} />
 
             <div
@@ -95,7 +95,7 @@ export const StepsItem = injectIntl(
               nextTitle={next && next.title}
               text={text}
             />
-          </Link>
+          </div>
         </Container>
       </div>
     );

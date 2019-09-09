@@ -1,17 +1,13 @@
-import React, { useRef, useCallback, useEffect, useState } from "react";
-import { useSprings, animated, useSpring, interpolate } from "react-spring";
-import { useGesture } from "react-use-gesture";
+import React, { useRef, useCallback, useEffect, useState } from 'react';
+import { useSprings, animated, useSpring, interpolate } from 'react-spring';
+import { useGesture } from 'react-use-gesture';
 
-import s from "./Slider.scss";
-import { useKeyDown } from "hooks/use-keydown";
+import s from './Slider.scss';
+import { useKeyDown } from 'hooks/use-keydown';
+import { clamp } from 'lodash';
 
 interface IProps {
-  children: (
-    item: any,
-    i: number,
-    active: boolean,
-    spring: any
-  ) => React.ReactNode;
+  children: (item: any, i: number, active: boolean, spring: any) => React.ReactNode;
   items: any[];
   width: number;
   immediate?: boolean;
@@ -26,73 +22,68 @@ const transform = (x: any, width: number, active: boolean) =>
       x
         .interpolate({
           range: [-width, 0, width],
-          output: [-5.0, 0, 5.0]
+          output: [-5.0, 0, 5.0],
         })
         .interpolate((x: any) => `rotate3d(0, 1, 0, ${x}deg)`),
       x
         .interpolate({
           range: [-width, 0, width],
-          output: [1.0, active ? 1.0 : 1.1, 1.0]
+          output: [1.0, active ? 1.0 : 1.1, 1.0],
         })
-        .interpolate((x: any) => `scale3d(${x}, ${x}, 1)`)
+        .interpolate((x: any) => `scale3d(${x}, ${x}, 1)`),
     ],
-    (translate, rotate, scale) => `${translate} ${rotate} ${scale}`
+    (translate, rotate, scale) => `${translate} ${rotate} ${scale}`,
   );
 
-export default function Slider({
-  items,
-  width = 700,
-  active,
-  visible = 4,
-  children
-}: IProps) {
+export default function Slider({ items, width = 700, active, visible = 4, children }: IProps) {
   // if (typeof window === "undefined") {
   //   return null;
   // }
 
   const [springs, set] = useSprings(items.length, (i: number) => ({
     x: i * width,
-    width
+    width,
   }));
   const keys = useKeyDown();
+  const offset = useRef(0);
 
   const runSprings = useCallback(
-    y => {
+    (y) => {
       set((i: number) => {
         return {
           x: active === i ? 0 : -y + width * i,
           width: active === i ? window.innerWidth : width,
           config: {
             tension: active === i ? 300 * i : 100 * i + 50,
-            friction: 30 + i * 40
-          }
+            friction: 30 + i * 40,
+          },
         };
       });
     },
-    [width, active, visible, set, items.length]
+    [width, active, visible, set, items.length],
   );
 
-  const offset = useRef(0);
-
   const bind = useGesture({
-    onDrag: ({ vxvy: [x] }) => {
+    onDrag: ({ xy: [cx], previous: [px] }) => {
       if (active !== null) {
         return;
       }
+      offset!.current = clamp(offset!.current - (cx * 5) + (px * 5), 0, width * (items.length - 1));
 
-      offset.current -= x * 20;
+      runSprings(offset!.current);
 
-      runSprings(offset.current);
+      return offset!.current;
     },
-    onWheel: ({ delta: [, vy] }) => {
+    onWheel: ({ xy: [, cy], previous: [, py] }) => {
       if (active !== null) {
         return;
       }
+      offset!.current = clamp(offset!.current + cy - py, 0, width * (items.length - 1));
 
-      offset.current += vy;
+      runSprings(offset!.current);
 
-      runSprings(offset.current);
-    }
+      return offset!.current;
+    },
   });
 
   useEffect(() => {
@@ -111,10 +102,7 @@ export default function Slider({
     if (keys.includes(37)) {
       offset.current = Math.max(0, offset.current - width);
     } else if (keys.includes(39) || keys.includes(32)) {
-      offset.current = Math.min(
-        (items.length - 1) * width,
-        offset.current + width
-      );
+      offset.current = Math.min((items.length - 1) * width, offset.current + width);
     }
 
     runSprings(offset.current);
@@ -126,11 +114,11 @@ export default function Slider({
         <animated.div
           key={i}
           className={s(s.slider__item, {
-            [s.slider__itemActive]: i === active
+            [s.slider__itemActive]: i === active,
           })}
           style={{
             width: spring.width,
-            transform: transform(spring.x, width, active === 1)
+            transform: transform(spring.x, width, active === 1),
           }}
           children={children(items[i], i, active === i, spring.x)}
         />

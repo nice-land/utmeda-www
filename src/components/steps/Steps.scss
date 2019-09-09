@@ -4,25 +4,25 @@
   &__title {
     display: flex;
     flex-direction: column;
+    justify-content: center;
 
     position: relative;
 
     margin-bottom: 80px;
+    height: 100%;
 
     @media (min-width: $min-tablet) {
       flex-direction: row;
       align-items: center;
-      justify-content: center;
 
       margin-bottom: 0;
 
-      height: 100%;
       width: 100%;
     }
 
     &Content {
       user-select: none;
-      @include responsive-font(300, 450);
+      @include responsive-font(150, 450);
       font-weight: 600;
       line-height: 0.8;
       letter-spacing: -0.01em;
