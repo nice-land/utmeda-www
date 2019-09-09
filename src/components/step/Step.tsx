@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { injectIntl, Link, FormattedMessage } from 'gatsby-plugin-intl';
 
-
 import Twitter from 'assets/svg/twitter.svg';
 import Facebook from 'assets/svg/facebook.svg';
-import { Video } from 'components/video/Video';
 
+import { Video } from 'components/video/Video';
 import { InlineMarkdown } from 'components/inline-markdown/InlineMarkdown';
 import { Content } from 'components/steps/Content';
 import { ScrollWrapper } from 'components/scroll-wrapper/ScrollWrapper';

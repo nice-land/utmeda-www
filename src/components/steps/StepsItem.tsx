@@ -1,15 +1,17 @@
-import { injectIntl, Link } from 'gatsby-plugin-intl';
-import { Container } from 'components/container/Container';
 import React, { useState, useContext, useEffect } from 'react';
+import { injectIntl } from 'gatsby-plugin-intl';
+import { Container } from 'components/container/Container';
 import { AppContext } from 'components/app-layout/AppLayout';
-import { useSpring, animated } from 'react-spring';
+import { useSpring } from 'react-spring';
 
+import { Share } from 'components/share/Share';
 import { Video } from 'components/video/Video';
+import { IBubble } from 'components/bubbles/Bubbles';
 
 import { Content } from './Content';
 import { PostVideo } from './PostVideo';
+
 import s from './StepsItem.scss';
-import { IBubble } from 'components/bubbles/Bubbles';
 
 interface IProps {
   intl: any;
@@ -32,11 +34,12 @@ interface IProps {
 }
 
 export const StepsItem = injectIntl(
-  ({ count, link, text, title, media, intl, active, next, onClick, video, bubbles }: IProps) => {
+  ({ count, link, text, title, media, intl, active, next, onClick, video, bubbles, index }: IProps) => {
     const { mouseEnter, mouseLeave } = useContext(AppContext);
     const [playing, setPlaying] = useState(false);
     const [videoEnded, setVideoEnded] = useState(false);
     const [contentProps, setContentProps] = useSpring(() => ({ opacity: 1, pointerEvents: 'all' }));
+    const [shareProps, setShareProps] = useSpring(() => ({ opacity: 0, pointerEvents: 'all' }));
 
     const handleVideoCanPlay = () => {
       setPlaying(true);
@@ -73,6 +76,11 @@ export const StepsItem = injectIntl(
         opacity: active ? 0 : 1,
         pointerEvents: active ? 'none' : 'all',
       });
+
+      setShareProps({
+        opacity: active ? 1 : 0,
+        pointerEvents: active ? 'all' : 'all',
+      });
     }, [active]);
 
     return (
@@ -83,6 +91,12 @@ export const StepsItem = injectIntl(
               count={count}
               text={title}
               style={contentProps}
+            />
+
+            <Share
+              title={title}
+              num={index}
+              style={shareProps}
             />
 
             <div

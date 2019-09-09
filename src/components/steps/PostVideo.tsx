@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
-import { AppContext } from "components/app-layout/AppLayout";
+import React, { useContext } from 'react';
 
-import s from "./PostVideo.scss";
-import { Content } from "./Content";
+import { AppContext } from 'components/app-layout/AppLayout';
+
+import { Content } from './Content';
+import s from './PostVideo.scss';
 
 interface IProps {
   visible: boolean;
@@ -25,7 +26,7 @@ export const PostVideo = ({ visible, text, nextTitle, nextNum }: IProps) => {
       {nextNum && nextTitle && (
         <div className={s.postVideo__next}>
           <Content
-            count={(nextNum + "").padStart(2, "0")}
+            count={(nextNum + '').padStart(2, '0')}
             text={nextTitle}
             onClick={handleNextClick}
           />

@@ -77,9 +77,11 @@ export default ({ children }: IAppLayoutProps) => {
           <Link to="/" onClick={handleClick}>
             <FormattedMessage id="navigation.steps" defaultMessage="Skrefin" />
           </Link>
+
           <Link to="/about">
             <FormattedMessage id="navigation.about" defaultMessage="Um átakið" />
           </Link>
+
           <Language />
         </Header>
 

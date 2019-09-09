@@ -3,7 +3,7 @@
 .postVideo {
   @include fit;
 
-  background: black;
+  background: #000;
   z-index: 4;
 
   display: flex;
@@ -51,9 +51,9 @@
       }
       #{$i * $wiggle-freq}% {
         @if $i % 2 == 1 {
-          transform: rotate(5deg);
+          transform: rotate(3deg);
         } @else {
-          transform: rotate(-5deg);
+          transform: rotate(-3deg);
         }
       }
       #{$wiggle-freq * $wiggles}% {
