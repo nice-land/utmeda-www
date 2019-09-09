@@ -11,6 +11,10 @@
 
   transform: translateY(-50%);
 
+  @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+    left: 100px;
+  }
+
   &__link {
     display: flex;
     align-items: center;

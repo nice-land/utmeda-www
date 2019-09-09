@@ -45,7 +45,7 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
           key: '1',
           scene: 'both',
           timestamp: 9,
-          duration: 6,
+          duration: 9,
           type: 'incoming',
           msg: intl.formatMessage({ id: 'steps.four.bubbles.play' }),
         },
@@ -150,7 +150,7 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
         {
           key: '22',
           scene: 'both',
-          timestamp: 12.17,
+          timestamp: 13,
           duration: 5,
           type: 'call',
           msg: intl.formatMessage({ id: 'steps.ten.bubbles.call' }),
@@ -165,7 +165,7 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
         {
           key: '30',
           scene: 'both',
-          timestamp: 18,
+          timestamp: 19,
           duration: 8,
           type: 'incoming',
           msg: intl.formatMessage({ id: 'steps.ten.bubbles.1717' }),

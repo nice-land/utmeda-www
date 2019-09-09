@@ -1,7 +1,6 @@
 import { Canvas } from 'components/canvas/Canvas';
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import DisplacementMap from 'assets/images/displacementmap.png';
-import { useKeyDown } from 'hooks/use-keydown';
 import { useSpring } from 'react-spring/three';
 import { Vector3 } from 'three';
 import { Bubbles, IBubble } from 'components/bubbles/Bubbles';

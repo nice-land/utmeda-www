@@ -5,12 +5,19 @@
   flex-direction: column;
 
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 20%;
+  left: 40%;
   z-index: 10;
 
-  min-width: 400px;
+  min-width: 250px;
   min-height: 400px;
+
+  @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+    top: 50%;
+    left: 50%;
+    min-width: 400px;
+    min-height: 400px;
+  }
 
   &__bubble {
     align-self: flex-end;

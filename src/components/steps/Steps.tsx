@@ -34,7 +34,8 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
     }
 
     if (initialStep) {
-      setTimeout(() => context.setActiveStep(initialStep, list[initialStep].title), 500);
+      const initialTitle = list && list[initialStep] && list[initialStep].title;
+      setTimeout(() => context.setActiveStep(initialStep, initialTitle), 500);
     }
 
     window.addEventListener('resize', handleResize);
