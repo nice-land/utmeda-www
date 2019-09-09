@@ -12,6 +12,7 @@ import { Content } from './Content';
 import { PostVideo } from './PostVideo';
 
 import s from './StepsItem.scss';
+import { useOrientation } from 'hooks/use-orientation';
 
 interface IProps {
   intl: any;
@@ -41,10 +42,12 @@ const isPlayable = async (ref: IVideoRef | null): Promise<boolean> => {
 
   try {
     await ref.play();
+    console.log('IS PLAYABLE');
     ref.pause();
     ref.setTime(0);
     return true;
   } catch (e) {
+    console.log('IS NOT PLAYABLE');
     return false;
   }
 };
@@ -68,6 +71,8 @@ export const StepsItem = injectIntl(
     const { mouseEnter, mouseLeave } = useContext(AppContext);
     const [playing, setPlaying] = useState(false);
     const [light, setLight] = useState(false);
+    const orientation = useOrientation();
+    const [showPlayButton, setShowPlayButton] = useState(false);
     const [videoEnded, setVideoEnded] = useState(false);
     const [contentProps, setContentProps] = useSpring(() => ({ opacity: 1, pointerEvents: 'all' }));
     const [shareProps, setShareProps] = useSpring(() => ({ opacity: 0, pointerEvents: 'all' }));
@@ -126,8 +131,9 @@ export const StepsItem = injectIntl(
         return;
       }
 
-      ref.current.setTime(0);
-      ref.current.play();
+      ref.current.play().catch(() => {
+        setShowPlayButton(true);
+      });
 
       setShareProps({
         opacity: 1,
@@ -147,7 +153,7 @@ export const StepsItem = injectIntl(
         return;
       }
 
-      if (playing && ref.current.paused) {
+      if (playing) {
         setMediaProps({
           opacity: 0,
           delay: 1250,
@@ -156,7 +162,24 @@ export const StepsItem = injectIntl(
       } else if (!playing) {
         ref.current.pause();
       }
-    }, [playing, ref.current]);
+    }, [playing]);
+
+    useEffect(() => {
+      if (!ref.current) {
+        return;
+      }
+
+      if (orientation === 'portrait') {
+        ref.current.pause();
+      } else if (ref.current.paused && !videoEnded) {
+        ref.current.play();
+      }
+    }, [orientation]);
+
+    const handlePlayPress = () => {
+      setPlaying(true);
+      setShowPlayButton(false);
+    };
 
     useEffect(() => {
       if (!active) {
@@ -173,10 +196,13 @@ export const StepsItem = injectIntl(
         });
         setMediaProps({ opacity: 1, immediate: true });
         setVideoEnded(false);
+        setPlaying(false);
       } else {
         isPlayable(ref.current).then((result) => {
           if (result) {
             setPlaying(true);
+          } else {
+            setShowPlayButton(true);
           }
         });
       }
@@ -211,7 +237,17 @@ export const StepsItem = injectIntl(
                 onVideoEnd={handleVideoEnd}
               />
             )}
-
+            {showPlayButton && (
+              <button
+                className={s.stepsItem__play}
+                onClick={() => {
+                  ref.current.play();
+                  handlePlayPress();
+                }}
+              >
+                Spila
+              </button>
+            )}
             <PostVideo
               visible={active && videoEnded}
               nextNum={next && next.num}

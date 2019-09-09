@@ -26,10 +26,11 @@
     z-index: 3;
     width: percentage(1000/1500);
     user-select: none;
-    transition: 0.5s;
-    transition-property: right, bottom, left, width, height;
+    opacity: 1;
+    transition: 0.5s ease-in-out;
+    transition-property: right, bottom, left, width, height, opacity;
 
-    transform: translateY(-50%);
+    transform: translate3d(0%, -50%, 110px);
 
     &::before {
       content: '';
@@ -55,7 +56,15 @@
 
       width: auto;
       pointer-events: none;
-      transform: translateY(0%);
+      transform: translate3d(0%, 0%, 110px);
     }
+  }
+
+  &__play {
+    position: absolute;
+    transform: translate3d(-50%, -50%, 121px);
+    z-index: 4;
+    top: 50%;
+    left: 50%;
   }
 }

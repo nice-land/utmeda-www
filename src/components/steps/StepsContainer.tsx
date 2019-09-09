@@ -201,7 +201,7 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
     <>
       <Helmet>
         {steps.map((s) => (
-          <link rel="preload" href={s.video} key={s.num} as="video" />
+          <link rel="preload" href={s.video} key={s.num} />
         ))}
       </Helmet>
       <Steps initialStep={initialStep} list={steps} title={intl.formatMessage({ id: 'title' })} />

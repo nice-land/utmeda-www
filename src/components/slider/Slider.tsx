@@ -1,10 +1,12 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react';
-import { useSprings, animated, useSpring, interpolate } from 'react-spring';
+import React, { useRef, useCallback, useEffect } from 'react';
+import { useSprings, animated, interpolate } from 'react-spring';
 import { useGesture } from 'react-use-gesture';
+import { useKeyDown } from 'hooks/use-keydown';
+import { usePrevious } from 'hooks/use-previous';
+import { clamp } from 'lodash';
+import { useOrientation } from 'hooks/use-orientation';
 
 import s from './Slider.scss';
-import { useKeyDown } from 'hooks/use-keydown';
-import { clamp } from 'lodash';
 
 interface IProps {
   children: (item: any, i: number, active: boolean, spring: any) => React.ReactNode;
@@ -39,7 +41,9 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
   // if (typeof window === "undefined") {
   //   return null;
   // }
-
+  const orientation = useOrientation();
+  const previous = usePrevious(orientation);
+  
   const [springs, set] = useSprings(items.length, (i: number) => ({
     x: i * width,
     width,
@@ -53,6 +57,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
         return {
           x: active === i ? 0 : -y + width * i,
           width: active === i ? window.innerWidth : width,
+          immediate: orientation !== previous,
           config: {
             tension: active === i ? 300 * i : 100 * i + 50,
             friction: 30 + i * 40,
@@ -60,7 +65,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
         };
       });
     },
-    [width, active, visible, set, items.length],
+    [width, active, visible, set, orientation, items.length],
   );
 
   const bind = useGesture({

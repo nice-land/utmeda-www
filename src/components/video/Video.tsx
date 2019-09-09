@@ -41,7 +41,7 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
     const [ended, setEnded] = useState<boolean>(false);
     const [currentTime, setCurrentTime] = useState<number>(0);
 
-    const { on } = useSpring({ on: light  ? 1.0 : 0.0 });
+    const { on } = useSpring({ on: light ? 1.0 : 0.0 });
 
     useImperativeHandle(outerRef, () => ({
       play: () => ref.current!.play(),
@@ -103,19 +103,20 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
             <Bubbles bubbles={bubbles} currentTime={currentTime} scene={light ? 'light' : 'dark'} />
           )}
 
-          <div className={s.video__render}>
-            <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>
-              {ref.current && (
+          {ref.current && (
+            <div className={s.video__render}>
+              <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>
                 <VideoObject
                   angle={Math.PI * 4}
                   videoRef={ref}
                   displacementMap={DisplacementMap}
                   light={on}
                 />
-              )}
-              {!ended && <Wave erratic={on} />}
-            </Canvas>
-          </div>
+
+                {!ended && <Wave erratic={on} />}
+              </Canvas>
+            </div>
+          )}
         </div>
       </div>
     );
