@@ -36,7 +36,7 @@ export const StepsItem = injectIntl(
     const { mouseEnter, mouseLeave } = useContext(AppContext);
     const [playing, setPlaying] = useState(false);
     const [videoEnded, setVideoEnded] = useState(false);
-    const [contentProps, setContentProps] = useSpring(() => ({ opacity: 1 }));
+    const [contentProps, setContentProps] = useSpring(() => ({ opacity: 1, pointerEvents: 'all' }));
 
     const handleVideoCanPlay = () => {
       setPlaying(true);
@@ -69,7 +69,10 @@ export const StepsItem = injectIntl(
     };
 
     useEffect(() => {
-      setContentProps({ opacity: active ? 0 : 1 });
+      setContentProps({
+        opacity: active ? 0 : 1,
+        pointerEvents: active ? 'none' : 'all',
+      });
     }, [active]);
 
     return (
