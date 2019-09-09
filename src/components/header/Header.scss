@@ -10,11 +10,6 @@
   right: 0;
   z-index: $zindex-header;
 
-  background-color: $color-background;
-
-  @media (min-width: $min-tablet) {
-    background-color: initial;
-  }
 
   &__container {
     @include container;
