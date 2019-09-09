@@ -6,11 +6,12 @@ import s from './PhoneBubble.scss';
 
 interface IPhoneBubbleProps {
   url: string;
+  position?: 'relative' | 'fixed';
 }
 
-export const PhoneBubble = ({ url }: IPhoneBubbleProps) => (
+export const PhoneBubble = ({ url, position }: IPhoneBubbleProps) => (
   <a
-    className={s.phoneBubble}
+    className={s(s.phoneBubble, position)}
     href={url}
     target="_blank"
     rel="noopener noreferrer"
@@ -18,3 +19,7 @@ export const PhoneBubble = ({ url }: IPhoneBubbleProps) => (
     <Bubble />
   </a>
 );
+
+PhoneBubble.defaultProps = {
+  position: 'fixed',
+};

@@ -1,12 +1,14 @@
 import { injectIntl, Link } from 'gatsby-plugin-intl';
 import { Container } from 'components/container/Container';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from 'components/app-layout/AppLayout';
+import { useSpring, animated } from 'react-spring';
+
+import { Video } from 'components/video/Video';
 
 import { Content } from './Content';
-import s from './StepsItem.scss';
-import { Video } from 'components/video/Video';
 import { PostVideo } from './PostVideo';
+import s from './StepsItem.scss';
 
 interface IProps {
   intl: any;
@@ -30,9 +32,9 @@ interface IProps {
 export const StepsItem = injectIntl(
   ({ count, link, text, title, media, intl, active, next, onClick, video }: IProps) => {
     const { mouseEnter, mouseLeave } = useContext(AppContext);
-
     const [playing, setPlaying] = useState(false);
     const [videoEnded, setVideoEnded] = useState(false);
+    const [contentProps, setContentProps] = useSpring(() => ({ opacity: 1 }));
 
     const handleVideoCanPlay = () => {
       setPlaying(true);
@@ -64,11 +66,19 @@ export const StepsItem = injectIntl(
       setVideoEnded(true);
     };
 
+    useEffect(() => {
+      setContentProps({ opacity: active ? 0 : 1 });
+    }, [active]);
+
     return (
       <div className={s(s.stepsItem, { active, playing })}>
         <Container>
-          <div className={s.stepsItem__wrapper} to={link} onClick={handleClick}>
-            <Content count={count} text={title} />
+          <div className={s.stepsItem__wrapper} onClick={handleClick}>
+            <Content
+              count={count}
+              text={title}
+              style={contentProps}
+            />
 
             <div
               className={s.stepsItem__media}

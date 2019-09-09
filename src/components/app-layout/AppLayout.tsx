@@ -26,6 +26,7 @@ export default ({ children }: IAppLayoutProps) => {
   const [isMediaHovered, setMediaHovered] = React.useState(false);
   const [activeStep, setActiveStep] = React.useState<number | null>(null);
   const timer = React.useRef<any>(null);
+  const isMobile = useMobile();
 
   const mouseEnter = ({ text, icon }: { text: string | undefined; icon: 'play' | 'mouse' }) => {
     clearTimeout(timer.current);
@@ -83,7 +84,7 @@ export default ({ children }: IAppLayoutProps) => {
         </Header>
 
         <Cursor />
-        <PhoneBubble url="https://utmeda.is" />
+        {!isMobile && <PhoneBubble url="https://utmeda.is" />}
         {children}
       </AppContext.Provider>
 

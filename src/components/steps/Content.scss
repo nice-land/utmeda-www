@@ -38,10 +38,10 @@
   }
 
   &__link {
-    user-select: none;
-    @include responsive-font(40, 80);
+    @include responsive-font(24, 80);
     // @include variable-font(700, bold, 0, normal);
 
+    user-select: none;
     font-weight: 600;
 
     > em {

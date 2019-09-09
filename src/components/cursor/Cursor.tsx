@@ -6,10 +6,10 @@ import Play from "assets/svg/play.svg";
 import Mouse from "assets/svg/mouse.svg";
 
 import { AppContext } from "components/app-layout/AppLayout";
+import { useMobile } from "hooks/use-mobile";
 
 import { Circle } from "./Circle";
 import s from "./Cursor.scss";
-import { useMobile } from "hooks/use-mobile";
 
 export const Cursor = () => {
   const isMobile = useMobile();
