@@ -1,12 +1,14 @@
-@import '~styles/config';
+@import "~styles/config";
 
 .video {
   @include fit;
+  opacity: 1;
 
   overflow: hidden;
+  user-select: none;
 
   &::before {
-    content: '';
+    content: "";
 
     display: block;
 
@@ -14,11 +16,8 @@
   }
 
   &__content {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    user-select: none;
+    @include fit;
   }
 
   &__video {

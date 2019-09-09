@@ -46,13 +46,14 @@
 
     &Copy {
       @include rf(12, 14);
-      @include variable-font(600, bold, 0, normal);
+      // @include variable-font(600, bold, 0, normal);
 
       margin-top: 15px;
       margin-left: -2px;
 
       text-transform: uppercase;
       letter-spacing: 2px;
+      font-weight: 600;
 
       transform: rotate(-90deg);
     }

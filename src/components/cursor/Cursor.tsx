@@ -9,18 +9,19 @@ import { AppContext } from "components/app-layout/AppLayout";
 
 import { Circle } from "./Circle";
 import s from "./Cursor.scss";
+import { useMobile } from "hooks/use-mobile";
 
 export const Cursor = () => {
-  if (typeof window === "undefined") {
-    return null;
-  }
+  const isMobile = useMobile();
 
   const { cursorText, cursorIcon, isMediaHovered } = useContext(AppContext);
   const [{ xy, hovering }, set] = useSpring(() => ({
     xy: [0, 0],
     hovering: 0
   }));
-  const bind = useMove(d => set({ xy: d.xy }), { domTarget: window });
+  const bind = useMove(d => set({ xy: d.xy }), {
+    domTarget: typeof window === "undefined" ? null : window
+  });
 
   useEffect(bind as any, [bind]);
 
@@ -37,7 +38,7 @@ export const Cursor = () => {
 
   return (
     <a.div
-      className={s.cursor}
+      className={s(s.cursor, { isMobile })}
       style={{
         transform: xy.interpolate(
           (x: number, y: number) => `translate3D(${x}px, ${y}px, 0)`

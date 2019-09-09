@@ -1,0 +1,49 @@
+@import '~styles/config';
+
+.bubble {
+  @include rf(18, 20);
+
+  display: flex;
+  justify-content: flex-end;
+
+  margin-bottom: 10px;
+  width: 100%;
+  min-width: 200px;
+  max-width: 300px;
+
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  &.incoming {
+    justify-content: flex-start;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__message {
+    padding: 10px;
+    border-radius: 10px;
+    border-bottom-right-radius: 0;
+
+    background: #147efb;
+    color: #fff;
+  }
+
+  &.incoming &__message {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 0;
+    background: #8e8e93;
+    color: #000;
+  }
+
+  &__subline {
+    @include rf(14, 16);
+
+    margin-top: 4px;
+
+    color: #8e8e93;
+  }
+}
+

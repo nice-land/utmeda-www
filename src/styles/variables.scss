@@ -12,9 +12,9 @@ $page-width: 1290px;
 $page-limit: $page-width + ($container-gutter-desktop * 2);
 
 // Fonts
-$font-family: 'Jost', sans-serif;
+$font-family: 'Futura', sans-serif;
 $font-family-variable: 'JostVariable', sans-serif;
-$font-heading: 'Jost', sans-serif;
+$font-heading: 'Futura', sans-serif;
 $font-size: 80px;
 $font-size-min: 60px;
 $line-height: (85/80);
@@ -70,6 +70,7 @@ $max-360: 359px;
 $min-mobile: $min-420;
 $min-tablet: $min-720;
 $min-desktop: $min-1080;
+$min-desktop-height: $min-768;
 
 // Segment
 $segment-padding-mobile: $gutter * 3;

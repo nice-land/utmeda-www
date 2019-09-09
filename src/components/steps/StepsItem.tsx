@@ -1,74 +1,106 @@
-import React, { useEffect } from 'react';
 import { injectIntl, Link } from 'gatsby-plugin-intl';
-import { useInView } from 'react-intersection-observer';
-
 import { Container } from 'components/container/Container';
+import React, { useState, useContext } from 'react';
 import { AppContext } from 'components/app-layout/AppLayout';
 
 import { Content } from './Content';
 import s from './StepsItem.scss';
+import { Video } from 'components/video/Video';
+import { PostVideo } from './PostVideo';
+import { IBubble } from 'components/bubbles/Bubbles';
 
 interface IProps {
   intl: any;
   count: string;
   link: string;
   text: string;
+  title: string;
   media: string;
   index: number;
-  setActive: (args: number) => void;
+  spring: any;
+  active: boolean;
+  video: string;
+  next?: {
+    num: number;
+    title: string;
+  };
+  onClose(): void;
+  onClick(): void;
+  bubbles?: IBubble[];
 }
 
-export const StepsItem = injectIntl(({ count, link, text, media, intl, setActive, index }: IProps) => {
-  const { mouseEnter, mouseLeave } = React.useContext(AppContext);
-  const threshold = 0.5;
-  const [ref, active] = useInView({ threshold });
+export const StepsItem = injectIntl(
+  ({ count, link, text, title, media, intl, active, next, onClick, video, bubbles }: IProps) => {
+    const { mouseEnter, mouseLeave } = useContext(AppContext);
 
-  const handleMouseEnter = () => {
-    mouseEnter({
-      text: intl.formatMessage({ id: 'step_watch' }),
-      icon: 'play',
-    });
-  };
+    const [playing, setPlaying] = useState(false);
+    const [videoEnded, setVideoEnded] = useState(false);
 
-  const handleMouseLeave = () => {
-    mouseLeave();
-  };
+    const handleVideoCanPlay = () => {
+      setPlaying(true);
+    };
 
-  const handleClick = () => {
-    mouseLeave();
-  };
+    const handleMouseEnter = () => {
+      mouseEnter({
+        text: intl.formatMessage({ id: active ? 'step_click' : 'step_watch' }),
+        icon: active ? 'mouse' : 'play',
+      });
+    };
 
-  useEffect(() => {
+    const handleMouseLeave = () => {
+      mouseLeave();
+    };
 
-    // if (active) {
-    //   setActive(index);
-    //   // console.log(active, index);
-    // }
+    const handleClick = (e?: React.MouseEvent) => {
+      if (e) {
+        e.preventDefault();
+      }
 
-  }, [active]);
+      if (!active) {
+        onClick();
+      }
+    };
 
-  return (
-    <div className={s.stepsItem} ref={ref}>
-      <Container>
-        <Link
-          className={s.stepsItem__wrapper}
-          to={link}
-          onClick={handleClick}
-        >
-          <Content
-            count={count}
-            text={text}
-          />
+    const handleVideoEnd = () => {
+      setPlaying(false);
+      setVideoEnded(true);
+    };
 
-          <div
-            className={s.stepsItem__media}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <img src={media} alt="" />
-          </div>
-        </Link>
-      </Container>
-    </div>
-  );
-});
+    return (
+      <div className={s(s.stepsItem, { active, playing })}>
+        <Container>
+          <Link className={s.stepsItem__wrapper} to={link} onClick={handleClick}>
+            <Content count={count} text={title} />
+
+            <div
+              className={s.stepsItem__media}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <img src={media} alt="" />
+            </div>
+
+            <Video
+              active={active}
+              playing={active && playing}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              src={video}
+              onVideoEnd={handleVideoEnd}
+              onVideoPlay={() => void 0}
+              onVideoCanPlay={handleVideoCanPlay}
+              bubbles={bubbles}
+            />
+
+            <PostVideo
+              visible={active && videoEnded}
+              nextNum={next && next.num}
+              nextTitle={next && next.title}
+              text={text}
+            />
+          </Link>
+        </Container>
+      </div>
+    );
+  },
+);

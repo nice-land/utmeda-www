@@ -1,7 +1,11 @@
-@import '~styles/config';
-
+@import "~styles/config";
 
 .slider {
+  perspective: 1000px;
+  perspective-origin: center;
+  height: 100vh;
+  overflow: hidden;
+
   &__container {
     position: relative;
     height: 100%;
@@ -12,5 +16,10 @@
     position: absolute;
     height: 100%;
     will-change: transform;
+    z-index: 2;
+
+    &Active {
+      z-index: 3;
+    }
   }
 }

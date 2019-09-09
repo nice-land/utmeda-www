@@ -21,6 +21,7 @@
     }
 
     &Content {
+      user-select: none;
       @include responsive-font(300, 450);
       font-weight: 600;
       line-height: 0.8;

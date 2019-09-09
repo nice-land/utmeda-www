@@ -4,6 +4,10 @@ import * as React from 'react';
  * Custom hooks that return the keys that are pressed on the keyboard
  */
 export const useKeyDown = () => {
+  if (typeof window === "undefined") {
+    return [];
+  }
+  
   const [keys, setKeys] = React.useState<number[]>([]);
 
   const handleKeyDown = ({ keyCode }: KeyboardEvent) => {

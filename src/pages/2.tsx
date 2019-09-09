@@ -1,36 +1,23 @@
-import * as React from 'react';
-import { injectIntl } from 'gatsby-plugin-intl';
+import * as React from "react";
+import { injectIntl } from "gatsby-plugin-intl";
 
-import { Step } from 'components/step/Step';
-import { Helmet } from 'components/helmet/Helmet';
+import { StepsContainer } from "components/steps/StepsContainer";
+import { Helmet } from "components/helmet/Helmet";
 
 interface IProps {
   intl: any;
 }
 
 function one({ intl }: IProps) {
-  const title = intl.formatMessage({ id: 'steps.two.title' });
-  const socialTitle = intl.formatMessage({ id: 'steps.two.socialTitle' });
-  const text = intl.formatMessage({ id: 'steps.two.text' });
-  const video: string = require('assets/videos/two.mp4');
-  const poster: string = require('assets/posters/2_bright@2x.jpg');
-  const socialPoster: string = require('assets/posters/2_bright@2x.jpg');
+  const socialTitle = intl.formatMessage({ id: "steps.two.socialTitle" });
+  const text = intl.formatMessage({ id: "steps.two.text" });
+  const socialPoster: string = require("assets/posters/2_bright@2x.jpg");
 
   return (
     <>
-      <Helmet
-        title={socialTitle}
-        description={text}
-        image={socialPoster}
-      />
-
-      <Step
-        num={2}
-        title={title}
-        text={text}
-        video={video}
-        poster={poster}
-      />
+      <Helmet title={socialTitle} description={text} image={socialPoster} />
+      
+      <StepsContainer initialStep={2} />
     </>
   );
 }

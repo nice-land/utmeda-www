@@ -1,11 +1,23 @@
 @import '~styles/config';
 
 .bubbles {
+  display: flex;
+  flex-direction: column;
+
   position: absolute;
   top: 50%;
   left: 50%;
   z-index: 10;
-  color: pink;
-}
 
-// 11-17
+  min-width: 400px;
+  min-height: 400px;
+
+
+  &__bubble {
+    align-self: flex-end;
+
+    &.incoming {
+      align-self: flex-start;
+    }
+  }
+}
