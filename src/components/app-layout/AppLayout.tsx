@@ -69,7 +69,6 @@ export default ({ children }: IAppLayoutProps) => {
     window.addEventListener('popstate', (e) => {
       const { state } = e;
       const active = state && state.i ? state.i : null;
-      console.log('active :', active);
       setActive(active);
     });
 
