@@ -1,20 +1,21 @@
-import { Canvas } from "components/canvas/Canvas";
-import React, { useState } from "react";
-import DisplacementMap from "assets/images/displacementmap.png";
-import { useKeyDown } from "hooks/use-keydown";
-import { useSpring } from "react-spring/three";
-import { useOrientation } from "hooks/use-orientation";
-import { Vector3 } from "three";
+import { Canvas } from 'components/canvas/Canvas';
+import React, { useState } from 'react';
+import DisplacementMap from 'assets/images/displacementmap.png';
+import { useKeyDown } from 'hooks/use-keydown';
+import { useSpring } from 'react-spring/three';
+import { useOrientation } from 'hooks/use-orientation';
+import { Vector3 } from 'three';
 
-import s from "./Video.scss";
-import { VideoObject } from "./VideoObject";
-import { Wave } from "./Wave";
+import s from './Video.scss';
+import { VideoObject } from './VideoObject';
+import { Wave } from './Wave';
 
 // tslint:disable-next-line:no-var-requires
-const tone: string = require("assets/videos/tone.mp3");
+const tone: string = require('assets/videos/tone.mp3');
 
 interface IVideoProps {
   src: string;
+  active: boolean;
   playing: boolean;
   onVideoPlay(): void;
   onVideoEnd(): void;
@@ -24,13 +25,14 @@ interface IVideoProps {
 }
 
 export const Video = ({
+  active,
   playing,
   src,
   onVideoPlay,
   onVideoEnd,
   onMouseEnter,
   onMouseLeave,
-  onVideoCanPlay
+  onVideoCanPlay,
 }: IVideoProps) => {
   // if (typeof window === "undefined") {
   //   return null;
@@ -45,13 +47,20 @@ export const Video = ({
   const { on } = useSpring({ on: light ? 1.0 : 0.0 });
 
   const showLight = (e?: Event) => {
-    e && e.stopPropagation();
-    ref.current!.play();
+    if (e) {
+      e.stopPropagation();
+    }
+
+    if (ref.current) {
+      ref.current!.play();
+    }
     setLight(true);
   };
 
   const showDark = (e?: Event) => {
-    e && e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
     setLight(false);
   };
 
@@ -63,7 +72,7 @@ export const Video = ({
   };
 
   React.useEffect(() => {
-    if (!playing || typeof window === "undefined") {
+    if (!ref.current || !playing || typeof window === 'undefined') {
       return;
     }
 
@@ -76,11 +85,11 @@ export const Video = ({
   }, [playing, keys]);
 
   React.useEffect(() => {
-    if (!ref.current || typeof window === "undefined") {
+    if (!ref.current || typeof window === 'undefined') {
       return;
     }
 
-    if (orientation === "portrait") {
+    if (orientation === 'portrait') {
       ref.current.pause();
     } else if (ref.current.readyState >= 2) {
       ref.current.play().catch(); // swallow autoplay errors
@@ -88,7 +97,7 @@ export const Video = ({
   }, [playing, ref, orientation]);
 
   React.useEffect(() => {
-    if (!ref.current || typeof window === "undefined") {
+    if (!ref.current || typeof window === 'undefined') {
       return;
     }
 
@@ -111,43 +120,36 @@ export const Video = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div className={s.video__content}>
-        <video
-          className={s.video__video}
-          ref={ref}
-          src={src}
-          onCanPlayThrough={onVideoCanPlay}
-          playsInline
-          onPlay={onVideoPlay}
-          onEnded={handleEnded}
-          onTouchStart={showLight as any}
-          onTouchEnd={showDark as any}
-        />
-        <audio
-          ref={audioRef}
-          src={tone}
-          autoPlay
-          muted={!playing || light || ended}
-          loop
-        />
+      {active && (
+        <div className={s.video__content}>
+          <video
+            className={s.video__video}
+            ref={ref}
+            src={src}
+            onCanPlayThrough={onVideoCanPlay}
+            playsInline
+            onPlay={onVideoPlay}
+            onEnded={handleEnded}
+            onTouchStart={showLight as any}
+            onTouchEnd={showDark as any}
+          />
+          <audio ref={audioRef} src={tone} autoPlay muted={!playing || light || ended} loop />
 
-        {playing && (
-          <div className={s.video__render}>
-            <Canvas
-              orthographic={true}
-              camera={{ position: new Vector3(0, 0, 10) }}
-            >
-              <VideoObject
-                angle={Math.PI * 4}
-                videoRef={ref}
-                displacementMap={DisplacementMap}
-                light={on}
-              />
-              <Wave erratic={on} />
-            </Canvas>
-          </div>
-        )}
-      </div>
+          {playing && (
+            <div className={s.video__render}>
+              <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>
+                <VideoObject
+                  angle={Math.PI * 4}
+                  videoRef={ref}
+                  displacementMap={DisplacementMap}
+                  light={on}
+                />
+                <Wave erratic={on} />
+              </Canvas>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

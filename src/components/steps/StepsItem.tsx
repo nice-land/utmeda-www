@@ -1,12 +1,12 @@
-import { injectIntl, Link } from "gatsby-plugin-intl";
-import { Container } from "components/container/Container";
-import React, { useState, useContext } from "react";
-import { AppContext } from "components/app-layout/AppLayout";
+import { injectIntl, Link } from 'gatsby-plugin-intl';
+import { Container } from 'components/container/Container';
+import React, { useState, useContext } from 'react';
+import { AppContext } from 'components/app-layout/AppLayout';
 
-import { Content } from "./Content";
-import s from "./StepsItem.scss";
-import { Video } from "components/video/Video";
-import { PostVideo } from "./PostVideo";
+import { Content } from './Content';
+import s from './StepsItem.scss';
+import { Video } from 'components/video/Video';
+import { PostVideo } from './PostVideo';
 
 interface IProps {
   intl: any;
@@ -28,18 +28,7 @@ interface IProps {
 }
 
 export const StepsItem = injectIntl(
-  ({
-    count,
-    link,
-    text,
-    title,
-    media,
-    intl,
-    active,
-    next,
-    onClick,
-    video
-  }: IProps) => {
+  ({ count, link, text, title, media, intl, active, next, onClick, video }: IProps) => {
     const { mouseEnter, mouseLeave } = useContext(AppContext);
 
     const [playing, setPlaying] = useState(false);
@@ -51,8 +40,8 @@ export const StepsItem = injectIntl(
 
     const handleMouseEnter = () => {
       mouseEnter({
-        text: intl.formatMessage({ id: active ? "step_click" : "step_watch" }),
-        icon: active ? "mouse" : "play"
+        text: intl.formatMessage({ id: active ? 'step_click' : 'step_watch' }),
+        icon: active ? 'mouse' : 'play',
       });
     };
 
@@ -78,11 +67,7 @@ export const StepsItem = injectIntl(
     return (
       <div className={s(s.stepsItem, { active, playing })}>
         <Container>
-          <Link
-            className={s.stepsItem__wrapper}
-            to={link}
-            onClick={handleClick}
-          >
+          <Link className={s.stepsItem__wrapper} to={link} onClick={handleClick}>
             <Content count={count} text={title} />
 
             <div
@@ -94,6 +79,7 @@ export const StepsItem = injectIntl(
             </div>
 
             <Video
+              active={active}
               playing={active && playing}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
@@ -113,5 +99,5 @@ export const StepsItem = injectIntl(
         </Container>
       </div>
     );
-  }
+  },
 );
