@@ -15,10 +15,13 @@ const tone: string = require('assets/videos/tone.mp3');
 
 interface IVideoProps {
   src: string;
+  light: boolean;
   onVideoPlay?(): void;
   onVideoEnd(): void;
   onMouseEnter(): void;
   onMouseLeave(): void;
+  onPointerDown(): void;
+  onPointerUp(): void;
   onVideoCanPlay?(): void;
   bubbles?: IBubble[];
 }
@@ -33,15 +36,25 @@ export interface IVideoRef {
 
 export const Video = forwardRef<IVideoRef, IVideoProps>(
   (
-    { src, onVideoPlay, onVideoEnd, onMouseEnter, onMouseLeave, onVideoCanPlay, bubbles }: IVideoProps,
+    {
+      src,
+      onVideoPlay,
+      onVideoEnd,
+      onMouseEnter,
+      onMouseLeave,
+      onVideoCanPlay,
+      bubbles,
+      light,
+      onPointerDown,
+      onPointerUp,
+    }: IVideoProps,
     outerRef,
   ) => {
     const ref = React.useRef<HTMLVideoElement>(null);
     const audioRef = React.useRef<HTMLAudioElement>(null);
-    const [light, setLight] = React.useState(false);
+
     const [ended, setEnded] = useState<boolean>(false);
     const [currentTime, setCurrentTime] = useState<number>(0);
-    const keys = useKeyDown();
 
     const { on } = useSpring({ on: light ? 1.0 : 0.0 });
 
@@ -56,21 +69,6 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
         return ref.current!.currentTime;
       },
     }));
-
-    const showLight = (e?: Event) => {
-      if (e) {
-        e.stopPropagation();
-      }
-
-      setLight(true);
-    };
-
-    const showDark = (e?: Event) => {
-      if (e) {
-        e.stopPropagation();
-      }
-      setLight(false);
-    };
 
     const handleEnded = () => {
       setEnded(true);
@@ -88,27 +86,14 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
       setCurrentTime(ref.current.currentTime);
     };
 
-    React.useEffect(() => {
-      if (!ref.current || typeof window === 'undefined') {
-        return;
-      }
-
-      // on space
-      if (!ref.current.paused && keys.includes(32)) {
-        showLight();
-      } else if (!ref.current.paused && !keys.includes(32)) {
-        showDark();
-      }
-    }, [ref.current, keys]);
-
     return (
       <div
         className={s.video}
-        onMouseDown={showLight as any}
-        onMouseUp={showDark as any}
-        onTouchStart={showLight as any}
-        onTouchEnd={showDark as any}
-        onTouchCancel={showDark as any}
+        onMouseDown={onPointerDown}
+        onMouseUp={onPointerUp}
+        onTouchStart={onPointerDown}
+        onTouchEnd={onPointerUp}
+        onTouchCancel={onPointerUp}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
@@ -121,8 +106,6 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
             playsInline
             onPlay={onVideoPlay}
             onEnded={handleEnded}
-            onTouchStart={showLight as any}
-            onTouchEnd={showDark as any}
             onTimeUpdate={onTimeUpdate}
           />
           <audio

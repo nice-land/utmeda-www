@@ -1,11 +1,10 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useSprings, animated, useSpring, interpolate } from 'react-spring';
 import { useGesture } from 'react-use-gesture';
-import { clamp } from 'lodash';
-
-import { useKeyDown } from 'hooks/use-keydown';
 
 import s from './Slider.scss';
+import { useKeyDown } from 'hooks/use-keydown';
+import { clamp } from 'lodash';
 
 interface IProps {
   children: (item: any, i: number, active: boolean, spring: any) => React.ReactNode;
@@ -69,7 +68,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
       if (active !== null) {
         return;
       }
-      offset!.current = clamp(offset!.current - (cx * 5) + (px * 5), 0, width * (items.length - 1));
+      offset!.current = clamp(offset!.current - cx * 5 + px * 5, 0, width * (items.length - 1));
 
       runSprings(offset!.current);
 
