@@ -34,7 +34,7 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
     }
 
     if (initialStep) {
-      setTimeout(() => context.setActiveStep(initialStep), 500);
+      setTimeout(() => context.setActiveStep(initialStep, list[initialStep].title), 500);
     }
 
     window.addEventListener('resize', handleResize);
@@ -61,15 +61,15 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
             index={i}
             title={step.title}
             text={step.text}
-            count={i.toString().padStart(2, "0")}
+            count={i.toString().padStart(2, '0')}
             link={`/${i}`}
             media={step.poster}
             spring={x}
             video={step.video}
             bubbles={step.bubbles}
             active={a}
-            onClose={() => context.setActiveStep(null)}
-            onClick={() => context.setActiveStep(i)}
+            onClose={() => context.setActiveStep(null, title)}
+            onClick={() => context.setActiveStep(i, step.title)}
             next={list[i]} // a bit weird, but we have an edge case for the title, which "is" the first element in the list
           />
         )

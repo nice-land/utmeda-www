@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Link, FormattedMessage } from 'gatsby-plugin-intl';
 
 import { Header } from 'components/header/Header';
-import { Footer } from 'components/footer/Footer';
 import { Language } from 'components/language/Language';
 import { Devtools } from 'components/devtools/Devtools';
 import { PhoneBubble } from 'components/phone-bubble/PhoneBubble';
@@ -24,7 +23,7 @@ export default ({ children }: IAppLayoutProps) => {
   const [cursorText, setCursorText] = React.useState<undefined | string | string[]>();
   const [cursorIcon, setCursorIcon] = React.useState<undefined | string>();
   const [isMediaHovered, setMediaHovered] = React.useState(false);
-  const [activeStep, setActiveStep] = React.useState<number | null>(null);
+  const [activeStep, setActive] = React.useState<number | null>(null);
   const timer = React.useRef<any>(null);
   const isMobile = useMobile();
 
@@ -49,13 +48,32 @@ export default ({ children }: IAppLayoutProps) => {
   };
 
   const handleClick = (e) => {
-    setActiveStep(null);
+    setActive(null);
   };
 
   const onContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
     return false;
   };
+
+  const setActiveStep = (i: number | null, title: string) => {
+    if (!i) {
+      history.pushState({ i }, title, '/');
+    } else {
+      history.pushState({ i }, title, `/${i}`);
+    }
+    setActive(i);
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('popstate', (e) => {
+      const { state } = e;
+      const active = state && state.i ? state.i : null;
+      console.log('active :', active);
+      setActive(active);
+    });
+
+  }, []);
 
   return (
     <div className={s.layout} onContextMenuCapture={onContextMenu}>
