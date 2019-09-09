@@ -22,7 +22,12 @@
     "four": {
       "title": "Get enough _sleep_, _eat_ well and _exercise_.",
       "socialTitle": "4. Get enough sleep, eat well and exercise.",
-      "text": "Take good care of yourself. Physical health supports mental well-being."
+      "text": "Take good care of yourself. Physical health supports mental well-being.",
+      "bubbles": {
+        "play": "Want to play football?",
+        "yes": "Yeah!",
+        "no": "Nope"
+      }
     },
     "five": {
       "title": "Learn to say _no_.",

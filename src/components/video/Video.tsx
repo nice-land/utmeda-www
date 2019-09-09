@@ -5,6 +5,7 @@ import { useKeyDown } from 'hooks/use-keydown';
 import { useSpring } from 'react-spring/three';
 import { useOrientation } from 'hooks/use-orientation';
 import { Vector3 } from 'three';
+import { Bubbles, IBubble } from 'components/bubbles/Bubbles';
 
 import s from './Video.scss';
 import { VideoObject } from './VideoObject';
@@ -22,6 +23,7 @@ interface IVideoProps {
   onMouseEnter(): void;
   onMouseLeave(): void;
   onVideoCanPlay(): void;
+  bubbles?: IBubble[];
 }
 
 export const Video = ({
@@ -33,6 +35,7 @@ export const Video = ({
   onMouseEnter,
   onMouseLeave,
   onVideoCanPlay,
+  bubbles,
 }: IVideoProps) => {
   // if (typeof window === "undefined") {
   //   return null;
@@ -42,6 +45,7 @@ export const Video = ({
   const audioRef = React.useRef<HTMLAudioElement>(null);
   const [light, setLight] = React.useState(false);
   const [ended, setEnded] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = React.useState<number>(0);
   const keys = useKeyDown();
   const orientation = useOrientation();
   const { on } = useSpring({ on: light ? 1.0 : 0.0 });
@@ -69,6 +73,14 @@ export const Video = ({
     ref.current!.pause();
     ref.current!.currentTime = 0;
     onVideoEnd();
+  };
+
+  const onTimeUpdate = () => {
+    if (ref.current === null) {
+      return;
+    }
+
+    setCurrentTime(ref.current.currentTime);
   };
 
   React.useEffect(() => {
@@ -132,9 +144,12 @@ export const Video = ({
             onEnded={handleEnded}
             onTouchStart={showLight as any}
             onTouchEnd={showDark as any}
+            onTimeUpdate={onTimeUpdate}
           />
           <audio ref={audioRef} src={tone} autoPlay muted={!playing || light || ended} loop />
-
+          {bubbles && (
+            <Bubbles bubbles={bubbles} currentTime={currentTime} scene={light ? 'light' : 'dark'} />
+          )}
           {playing && (
             <div className={s.video__render}>
               <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>

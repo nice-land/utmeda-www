@@ -10,6 +10,7 @@ import { InlineMarkdown } from 'components/inline-markdown/InlineMarkdown';
 import { Content } from 'components/steps/Content';
 import { ScrollWrapper } from 'components/scroll-wrapper/ScrollWrapper';
 import { AppContext } from 'components/app-layout/AppLayout';
+import { IBubble } from 'components/bubbles/Bubbles';
 
 import s from './Step.scss';
 
@@ -21,9 +22,10 @@ interface IProps {
   text: string;
   video: string;
   intl: any;
+  bubbles: IBubble[];
 }
 
-export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
+export const Step = injectIntl(({ num, title, text, video, intl, bubbles }: IProps) => {
   const steps = [
     intl.formatMessage({ id: 'steps.one.title' }),
     intl.formatMessage({ id: 'steps.two.title' }),
@@ -108,6 +110,7 @@ export const Step = injectIntl(({ num, title, text, video, intl }: IProps) => {
         onVideoEnd={handleVideoEnd}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        bubbles={bubbles}
       />
 
       <div className={s.step__slide} ref={slideRef}>

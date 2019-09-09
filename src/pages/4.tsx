@@ -1,14 +1,13 @@
 import * as React from "react";
 import { injectIntl } from "gatsby-plugin-intl";
-
-import { Helmet } from "components/helmet/Helmet";
+import { Helmet } from 'components/helmet/Helmet';
 import { StepsContainer } from "components/steps/StepsContainer";
 
 interface IProps {
   intl: any;
 }
 
-function one({ intl }: IProps) {
+function four({ intl }: IProps) {
   const socialTitle = intl.formatMessage({ id: "steps.four.socialTitle" });
   const text = intl.formatMessage({ id: "steps.four.text" });
   const socialPoster: string = require("assets/posters/4_bright@2x.jpg");
@@ -22,4 +21,4 @@ function one({ intl }: IProps) {
   );
 }
 
-export default injectIntl(one);
+export default injectIntl(four);

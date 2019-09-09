@@ -1,3 +1,5 @@
+import { IBubble } from "components/bubbles/Bubbles";
+
 export interface IIntlProps {
   languages: string[];
   language: string;
@@ -10,4 +12,5 @@ export interface IStep {
   text?: string;
   video?: string;
   num: number;
+  bubbles?: IBubble[];
 }

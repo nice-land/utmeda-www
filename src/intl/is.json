@@ -22,7 +22,12 @@
     "four": {
       "title": "_Sofðu_ nóg, _borðaðu_ fjölbreytt og _hreyfðu_ þig.",
       "socialTitle": "4. Sofðu nóg, borðaðu fjölbreytt og hreyfðu þig.",
-      "text": "Farðu vel með þig. Líkamlegt heilbrigði ýtir undir andlega vellíðan."
+      "text": "Farðu vel með þig. Líkamlegt heilbrigði ýtir undir andlega vellíðan.",
+      "bubbles": {
+        "play": "Kemuru í fótbolta?",
+        "yes": "Yeah!",
+        "no": "Nope"
+      }
     },
     "five": {
       "title": "Lærðu að segja _nei_.",

@@ -9,6 +9,7 @@ import { Video } from 'components/video/Video';
 import { Content } from './Content';
 import { PostVideo } from './PostVideo';
 import s from './StepsItem.scss';
+import { IBubble } from 'components/bubbles/Bubbles';
 
 interface IProps {
   intl: any;
@@ -27,10 +28,11 @@ interface IProps {
   };
   onClose(): void;
   onClick(): void;
+  bubbles?: IBubble[];
 }
 
 export const StepsItem = injectIntl(
-  ({ count, link, text, title, media, intl, active, next, onClick, video }: IProps) => {
+  ({ count, link, text, title, media, intl, active, next, onClick, video, bubbles }: IProps) => {
     const { mouseEnter, mouseLeave } = useContext(AppContext);
     const [playing, setPlaying] = useState(false);
     const [videoEnded, setVideoEnded] = useState(false);
@@ -97,6 +99,7 @@ export const StepsItem = injectIntl(
               onVideoEnd={handleVideoEnd}
               onVideoPlay={() => void 0}
               onVideoCanPlay={handleVideoCanPlay}
+              bubbles={bubbles}
             />
 
             <PostVideo
