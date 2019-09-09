@@ -32,7 +32,7 @@
       width: 10px;
 
       border-radius: 50%;
-      background-color: #8e8e93;
+      background-color: #fff;
     }
 
     &::after {
@@ -74,14 +74,14 @@
     border-radius: 12px;
     border-bottom-right-radius: 0;
 
-    background: #147efb;
+    background: $color-primary;
     color: #fff;
   }
 
   &.incoming &__message {
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 0;
-    background: #8e8e93;
+    background: #fff;
     color: #000;
   }
 
@@ -94,7 +94,7 @@
 
     margin-top: 4px;
 
-    color: #8e8e93;
+    color: #fff;
   }
 }
 
