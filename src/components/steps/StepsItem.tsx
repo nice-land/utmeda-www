@@ -50,7 +50,21 @@ const isPlayable = async (ref: IVideoRef | null): Promise<boolean> => {
 };
 
 export const StepsItem = injectIntl(
-  ({ count, link, text, title, media, intl, active, next, onClick, video, bubbles, index }: IProps) => {
+  ({
+    count,
+    link,
+    text,
+    title,
+    onClose,
+    media,
+    intl,
+    active,
+    next,
+    onClick,
+    video,
+    bubbles,
+    index,
+  }: IProps) => {
     const { mouseEnter, mouseLeave } = useContext(AppContext);
     const [playing, setPlaying] = useState(false);
     const [light, setLight] = useState(false);
@@ -101,6 +115,10 @@ export const StepsItem = injectIntl(
       }
 
       setLight(keys.includes(32));
+
+      if (keys.includes(27)) {
+        onClose();
+      }
     }, [keys, active, playing]);
 
     const playVideo = () => {
@@ -132,7 +150,7 @@ export const StepsItem = injectIntl(
       if (playing && ref.current.paused) {
         setMediaProps({
           opacity: 0,
-          delay: 1500,
+          delay: 1250,
           onRest: playVideo,
         });
       } else if (!playing) {
