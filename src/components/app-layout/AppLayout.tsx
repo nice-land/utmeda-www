@@ -84,7 +84,7 @@ export default ({ children }: IAppLayoutProps) => {
         </Header>
 
         <Cursor />
-        {!isMobile && <PhoneBubble url="https://utmeda.is" />}
+        {!isMobile && <PhoneBubble url="https://svarbox.teljari.is/?c=1137" />}
         {children}
       </AppContext.Provider>
 

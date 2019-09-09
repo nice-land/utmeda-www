@@ -31,7 +31,7 @@ export const Header = ({ children }: IHeaderProps) => {
               <Logo />
             </Link>
 
-            {isMobile && <PhoneBubble position="relative" url="https://utmeda.is" />}
+            {isMobile && <PhoneBubble position="relative" url="https://svarbox.teljari.is/?c=1137" />}
           </div>
 
           <ul className={s.header__navigation}>
