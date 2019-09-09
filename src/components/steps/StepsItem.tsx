@@ -1,12 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { injectIntl } from 'gatsby-plugin-intl';
+import { injectIntl, Link } from 'gatsby-plugin-intl';
 import { Container } from 'components/container/Container';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { AppContext } from 'components/app-layout/AppLayout';
 import { useSpring } from 'react-spring';
-
 import { Share } from 'components/share/Share';
-import { Video } from 'components/video/Video';
 import { IBubble } from 'components/bubbles/Bubbles';
+import { Video, IVideoRef } from 'components/video/Video';
 
 import { Content } from './Content';
 import { PostVideo } from './PostVideo';
@@ -41,9 +40,7 @@ export const StepsItem = injectIntl(
     const [contentProps, setContentProps] = useSpring(() => ({ opacity: 1, pointerEvents: 'all' }));
     const [shareProps, setShareProps] = useSpring(() => ({ opacity: 0, pointerEvents: 'all' }));
 
-    const handleVideoCanPlay = () => {
-      setPlaying(true);
-    };
+    const ref = useRef<IVideoRef>(null);
 
     const handleMouseEnter = () => {
       mouseEnter({
@@ -56,6 +53,10 @@ export const StepsItem = injectIntl(
       mouseLeave();
     };
 
+    const handleCanPlay = () => {
+      setPlaying(true);
+    };
+
     const handleClick = (e?: React.MouseEvent) => {
       if (e) {
         e.preventDefault();
@@ -63,41 +64,58 @@ export const StepsItem = injectIntl(
 
       if (!active) {
         onClick();
+      } else {
+        setPlaying(true);
       }
     };
 
     const handleVideoEnd = () => {
       setPlaying(false);
+
       setVideoEnded(true);
     };
 
     useEffect(() => {
+      if (!ref.current) {
+        return;
+      }
+
+      if (playing) {
+        try {
+          ref.current.setTime(0);
+          ref.current.play().catch();
+        } catch (e) {
+          console.log(e);
+        }
+      } else {
+        ref.current.pause();
+      }
+    }, [playing, ref.current]);
+
+    useEffect(() => {
+      setShareProps({
+        opacity: active ? 1 : 0,
+        pointerEvents: 'all',
+      });
+
       setContentProps({
         opacity: active ? 0 : 1,
+        delay: active ? 3000 : 0,
         pointerEvents: active ? 'none' : 'all',
       });
 
-      setShareProps({
-        opacity: active ? 1 : 0,
-        pointerEvents: active ? 'all' : 'all',
-      });
+      if (!active) {
+        setVideoEnded(false);
+      }
     }, [active]);
 
     return (
       <div className={s(s.stepsItem, { active, playing })}>
         <Container>
           <div className={s.stepsItem__wrapper} onClick={handleClick}>
-            <Content
-              count={count}
-              text={title}
-              style={contentProps}
-            />
+            <Content count={count} text={title} style={contentProps} />
 
-            <Share
-              title={title}
-              num={index}
-              style={shareProps}
-            />
+            <Share title={title} num={index} style={shareProps} />
 
             <div
               className={s.stepsItem__media}
@@ -106,18 +124,16 @@ export const StepsItem = injectIntl(
             >
               <img src={media} alt="" />
             </div>
-
-            <Video
-              active={active}
-              playing={active && playing}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              src={video}
-              onVideoEnd={handleVideoEnd}
-              onVideoPlay={() => void 0}
-              onVideoCanPlay={handleVideoCanPlay}
-              bubbles={bubbles}
-            />
+            {active && (
+              <Video
+                ref={ref}
+                onMouseEnter={handleMouseEnter}
+                onVideoCanPlay={handleCanPlay}
+                onMouseLeave={handleMouseLeave}
+                src={video}
+                onVideoEnd={handleVideoEnd}
+              />
+            )}
 
             <PostVideo
               visible={active && videoEnded}

@@ -1,9 +1,8 @@
 import { Canvas } from 'components/canvas/Canvas';
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import DisplacementMap from 'assets/images/displacementmap.png';
 import { useKeyDown } from 'hooks/use-keydown';
 import { useSpring } from 'react-spring/three';
-import { useOrientation } from 'hooks/use-orientation';
 import { Vector3 } from 'three';
 import { Bubbles, IBubble } from 'components/bubbles/Bubbles';
 
@@ -16,123 +15,103 @@ const tone: string = require('assets/videos/tone.mp3');
 
 interface IVideoProps {
   src: string;
-  active: boolean;
-  playing: boolean;
-  onVideoPlay(): void;
+  onVideoPlay?(): void;
   onVideoEnd(): void;
   onMouseEnter(): void;
   onMouseLeave(): void;
-  onVideoCanPlay(): void;
+  onVideoCanPlay?(): void;
   bubbles?: IBubble[];
 }
 
-export const Video = ({
-  active,
-  playing,
-  src,
-  onVideoPlay,
-  onVideoEnd,
-  onMouseEnter,
-  onMouseLeave,
-  onVideoCanPlay,
-  bubbles,
-}: IVideoProps) => {
-  // if (typeof window === "undefined") {
-  //   return null;
-  // }
+export interface IVideoRef {
+  play(): Promise<void>;
+  pause(): void;
+  paused: boolean;
+  setTime(t: number): void;
+  currentTime: number;
+}
 
-  const ref = React.useRef<HTMLVideoElement>(null);
-  const audioRef = React.useRef<HTMLAudioElement>(null);
-  const [light, setLight] = React.useState(false);
-  const [ended, setEnded] = useState<boolean>(false);
-  const [currentTime, setCurrentTime] = React.useState<number>(0);
-  const keys = useKeyDown();
-  const orientation = useOrientation();
-  const { on } = useSpring({ on: light ? 1.0 : 0.0 });
+export const Video = forwardRef<IVideoRef, IVideoProps>(
+  (
+    { src, onVideoPlay, onVideoEnd, onMouseEnter, onMouseLeave, onVideoCanPlay, bubbles }: IVideoProps,
+    outerRef,
+  ) => {
+    const ref = React.useRef<HTMLVideoElement>(null);
+    const audioRef = React.useRef<HTMLAudioElement>(null);
+    const [light, setLight] = React.useState(false);
+    const [ended, setEnded] = useState<boolean>(false);
+    const [currentTime, setCurrentTime] = useState<number>(0);
+    const keys = useKeyDown();
 
-  const showLight = (e?: Event) => {
-    if (e) {
-      e.stopPropagation();
-    }
+    const { on } = useSpring({ on: light ? 1.0 : 0.0 });
 
-    if (ref.current) {
-      ref.current!.play();
-    }
-    setLight(true);
-  };
+    useImperativeHandle(outerRef, () => ({
+      play: () => ref.current!.play(),
+      pause: () => ref.current!.pause(),
+      get paused() {
+        return ref.current!.paused;
+      },
+      setTime: (t: number) => (ref.current!.currentTime = t),
+      get currentTime() {
+        return ref.current!.currentTime;
+      },
+    }));
 
-  const showDark = (e?: Event) => {
-    if (e) {
-      e.stopPropagation();
-    }
-    setLight(false);
-  };
+    const showLight = (e?: Event) => {
+      if (e) {
+        e.stopPropagation();
+      }
 
-  const handleEnded = () => {
-    setEnded(true);
-    ref.current!.pause();
-    ref.current!.currentTime = 0;
-    onVideoEnd();
-  };
+      setLight(true);
+    };
 
-  const onTimeUpdate = () => {
-    if (ref.current === null) {
-      return;
-    }
+    const showDark = (e?: Event) => {
+      if (e) {
+        e.stopPropagation();
+      }
+      setLight(false);
+    };
 
-    setCurrentTime(ref.current.currentTime);
-  };
+    const handleEnded = () => {
+      setEnded(true);
 
-  React.useEffect(() => {
-    if (!ref.current || !playing || typeof window === 'undefined') {
-      return;
-    }
+      if (onVideoEnd) {
+        onVideoEnd();
+      }
+    };
 
-    // on space
-    if (playing && keys.includes(32)) {
-      showLight();
-    } else if (playing && !keys.includes(32)) {
-      showDark();
-    }
-  }, [playing, keys]);
+    const onTimeUpdate = () => {
+      if (ref.current === null) {
+        return;
+      }
 
-  React.useEffect(() => {
-    if (!ref.current || typeof window === 'undefined') {
-      return;
-    }
+      setCurrentTime(ref.current.currentTime);
+    };
 
-    if (orientation === 'portrait') {
-      ref.current.pause();
-    } else if (ref.current.readyState >= 2) {
-      ref.current.play().catch(); // swallow autoplay errors
-    }
-  }, [playing, ref, orientation]);
+    React.useEffect(() => {
+      if (!ref.current || typeof window === 'undefined') {
+        return;
+      }
 
-  React.useEffect(() => {
-    if (!ref.current || typeof window === 'undefined') {
-      return;
-    }
+      // on space
+      if (!ref.current.paused && keys.includes(32)) {
+        showLight();
+      } else if (!ref.current.paused && !keys.includes(32)) {
+        showDark();
+      }
+    }, [ref.current, keys]);
 
-    if (!playing) {
-      ref.current.pause();
-      ref.current!.currentTime = 0;
-    } else {
-      ref.current.play().catch(); // swallow autoplay errors
-    }
-  }, [playing, ref.current]);
-
-  return (
-    <div
-      className={s(s.video, { playing })}
-      onMouseDown={showLight as any}
-      onMouseUp={showDark as any}
-      onTouchStart={showLight as any}
-      onTouchEnd={showDark as any}
-      onTouchCancel={showDark as any}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      {active && (
+    return (
+      <div
+        className={s.video}
+        onMouseDown={showLight as any}
+        onMouseUp={showDark as any}
+        onTouchStart={showLight as any}
+        onTouchEnd={showDark as any}
+        onTouchCancel={showDark as any}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         <div className={s.video__content}>
           <video
             className={s.video__video}
@@ -146,28 +125,26 @@ export const Video = ({
             onTouchEnd={showDark as any}
             onTimeUpdate={onTimeUpdate}
           />
-
-          <audio ref={audioRef} src={tone} autoPlay muted={!playing || light || ended} loop />
+          <audio
+            ref={audioRef}
+            src={tone}
+            autoPlay
+            muted={(ref.current && ref.current!.paused) || light || ended}
+            loop
+          />
 
           {bubbles && (
             <Bubbles bubbles={bubbles} currentTime={currentTime} scene={light ? 'light' : 'dark'} />
           )}
 
-          {playing && (
-            <div className={s.video__render}>
-              <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>
-                <VideoObject
-                  angle={Math.PI * 4}
-                  videoRef={ref}
-                  displacementMap={DisplacementMap}
-                  light={on}
-                />
-                <Wave erratic={on} />
-              </Canvas>
-            </div>
-          )}
+          <div className={s.video__render}>
+            <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>
+              <VideoObject angle={Math.PI * 4} videoRef={ref} displacementMap={DisplacementMap} light={on} />
+              <Wave erratic={on} />
+            </Canvas>
+          </div>
         </div>
-      )}
-    </div>
-  );
-};
+      </div>
+    );
+  },
+);
