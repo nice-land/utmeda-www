@@ -15,13 +15,11 @@ const tone: string = require('assets/videos/tone.mp3');
 interface IVideoProps {
   src: string;
   light: boolean;
-  onVideoPlay?(): void;
   onVideoEnd(): void;
   onMouseEnter(): void;
   onMouseLeave(): void;
   onPointerDown(): void;
   onPointerUp(): void;
-  onVideoCanPlay?(): void;
   bubbles?: IBubble[];
 }
 
@@ -35,27 +33,15 @@ export interface IVideoRef {
 
 export const Video = forwardRef<IVideoRef, IVideoProps>(
   (
-    {
-      src,
-      onVideoPlay,
-      onVideoEnd,
-      onMouseEnter,
-      onMouseLeave,
-      onVideoCanPlay,
-      bubbles,
-      light,
-      onPointerDown,
-      onPointerUp,
-    }: IVideoProps,
+    { src, onMouseEnter, onMouseLeave, onVideoEnd, bubbles, light, onPointerDown, onPointerUp }: IVideoProps,
     outerRef,
   ) => {
     const ref = React.useRef<HTMLVideoElement>(null);
     const audioRef = React.useRef<HTMLAudioElement>(null);
-
     const [ended, setEnded] = useState<boolean>(false);
     const [currentTime, setCurrentTime] = useState<number>(0);
 
-    const { on } = useSpring({ on: light ? 1.0 : 0.0 });
+    const { on } = useSpring({ on: light  ? 1.0 : 0.0 });
 
     useImperativeHandle(outerRef, () => ({
       play: () => ref.current!.play(),
@@ -101,9 +87,7 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
             className={s.video__video}
             ref={ref}
             src={src}
-            onCanPlayThrough={onVideoCanPlay}
             playsInline
-            onPlay={onVideoPlay}
             onEnded={handleEnded}
             onTimeUpdate={onTimeUpdate}
           />
@@ -121,8 +105,15 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
 
           <div className={s.video__render}>
             <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>
-              <VideoObject angle={Math.PI * 4} videoRef={ref} displacementMap={DisplacementMap} light={on} />
-              <Wave erratic={on} />
+              {ref.current && (
+                <VideoObject
+                  angle={Math.PI * 4}
+                  videoRef={ref}
+                  displacementMap={DisplacementMap}
+                  light={on}
+                />
+              )}
+              {!ended && <Wave erratic={on} />}
             </Canvas>
           </div>
         </div>
