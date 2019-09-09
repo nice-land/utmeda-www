@@ -34,17 +34,17 @@
     }
   }
 
+  &__inline {
+    display: flex;
+    flex-direction: row;
+  }
+
   &__link {
     display: flex;
     flex-direction: row;
     align-items: center;
 
-    margin-right: 20px;
     text-decoration: none;
-
-    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
-      margin-right: 0;
-    }
   }
 
   &__item {

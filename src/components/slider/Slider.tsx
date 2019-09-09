@@ -1,10 +1,11 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useSprings, animated, useSpring, interpolate } from 'react-spring';
 import { useGesture } from 'react-use-gesture';
+import { clamp } from 'lodash';
+
+import { useKeyDown } from 'hooks/use-keydown';
 
 import s from './Slider.scss';
-import { useKeyDown } from 'hooks/use-keydown';
-import { clamp } from 'lodash';
 
 interface IProps {
   children: (item: any, i: number, active: boolean, spring: any) => React.ReactNode;

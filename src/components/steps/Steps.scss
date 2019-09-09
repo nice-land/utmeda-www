@@ -3,17 +3,19 @@
 .steps {
   &__title {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 
     position: relative;
 
     margin-bottom: 80px;
+    padding-left: 160px;
+
     height: 100%;
 
-    @media (min-width: $min-tablet) {
-      flex-direction: row;
-      align-items: center;
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+      justify-content: center;
 
       margin-bottom: 0;
 
@@ -22,12 +24,17 @@
 
     &Content {
       user-select: none;
-      @include responsive-font(150, 450);
+
+      font-size: 120px;
       font-weight: 600;
       line-height: 0.8;
       letter-spacing: -0.01em;
       text-transform: lowercase;
       text-align: center;
+
+      @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+        @include responsive-font(120, 450);
+      }
     }
   }
 }

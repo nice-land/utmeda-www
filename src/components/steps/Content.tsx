@@ -23,9 +23,9 @@ export const Content = ({ count, text, onClick, style }: IContentProps) => {
     <animated.div className={s.content} onClick={handleClick} style={style}>
       <span className={s.content__count}>{count}</span>
 
-      <span className={s.content__link}>
+      <p className={s.content__link}>
         <InlineMarkdown source={text} />
-      </span>
+      </p>
     </animated.div>
   );
 };

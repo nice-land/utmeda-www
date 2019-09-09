@@ -26,10 +26,13 @@ export const Header = ({ children }: IHeaderProps) => {
     <header className={s.header}>
       <div className={s.header__container}>
         <div className={s.header__content}>
-          <Link to="/" className={s.header__link} onClick={handleClick}>
-            <Logo />
+          <div className={s.header__inline}>
+            <Link to="/" className={s.header__link} onClick={handleClick}>
+              <Logo />
+            </Link>
+
             {isMobile && <PhoneBubble position="relative" url="https://utmeda.is" />}
-          </Link>
+          </div>
 
           <ul className={s.header__navigation}>
             {Children.toArray(children).map((child: any, i: number) => (
