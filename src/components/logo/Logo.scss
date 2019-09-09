@@ -1,13 +1,14 @@
 @import '~styles/config';
 
 .logo {
-  @include variable-font(500, normal, 0, normal);
+  //@include variable-font(500, normal, 0, normal);
 
   position: relative;
 
   padding-bottom: 8px;
 
   font-size: 30px;
+  font-weight: 600;
   line-height: (18 / 30) * 1em;
   letter-spacing: -0.05em;
 
@@ -31,11 +32,12 @@
   }
 
   > em { // stylelint-disable-line
-    @include variable-font(900, bold, 0, normal);
+    // @include variable-font(900, bold, 0, normal);
     display: block;
 
     letter-spacing: 0;
 
+    font-weight: 600;
     color: $color-primary;
   }
 }
