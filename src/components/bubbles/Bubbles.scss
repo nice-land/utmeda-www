@@ -12,12 +12,15 @@
   min-width: 400px;
   min-height: 400px;
 
-
   &__bubble {
     align-self: flex-end;
 
     &.incoming {
       align-self: flex-start;
+    }
+
+    &.call {
+      width: 100%;
     }
   }
 }

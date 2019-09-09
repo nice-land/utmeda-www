@@ -6,6 +6,8 @@
   display: flex;
   justify-content: flex-end;
 
+  position: relative;
+
   margin-bottom: 10px;
   width: 100%;
   min-width: 200px;
@@ -17,14 +19,59 @@
     justify-content: flex-start;
   }
 
+  &.typing {
+    &::before,
+    &::after {
+      content: '';
+
+      position: absolute;
+      bottom: -2px;
+      left: -2px;
+
+      height: 10px;
+      width: 10px;
+
+      border-radius: 50%;
+      background-color: #8e8e93;
+    }
+
+    &::after {
+      left: -7px;
+      bottom: -7px;
+
+      height: 6px;
+      width: 6px;
+    }
+  }
+
   &__content {
     display: flex;
     flex-direction: column;
   }
 
+  &__dot {
+    display: inline-block;
+
+    margin: 4px 2px 2px;
+
+    height: 10px;
+    width: 10px;
+
+    border-radius: 50%;
+
+    opacity: 0.8;
+    background-color: #282829;
+
+    @for $i from 1 through 3 {
+      &:nth-of-type(#{$i}) {
+        animation: blinkDots 1s infinite ($i * 0.3333s);
+      }
+    }
+  }
+
   &__message {
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 12px;
     border-bottom-right-radius: 0;
 
     background: #147efb;
@@ -32,14 +79,18 @@
   }
 
   &.incoming &__message {
-    border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 12px;
     border-bottom-left-radius: 0;
     background: #8e8e93;
     color: #000;
   }
 
+  &.typing &__message {
+    border-radius: 12px;
+  }
+
   &__subline {
-    @include rf(14, 16);
+    @include rf(12, 14);
 
     margin-top: 4px;
 
@@ -47,3 +98,8 @@
   }
 }
 
+@keyframes blinkDots {
+  50% {
+    opacity: 0.3;
+  }
+}

@@ -13,14 +13,14 @@ export interface IBubble {
   timestamp: number;
   duration: number;
   type: 'incoming' | 'reply' | 'typing' | 'call';
-  msg: string;
+  msg?: string;
 }
 
 interface IProps {
   bubbles: IBubble[];
   currentTime: number;
   scene: 'both' | 'light' | 'dark';
-  all: boolean;
+  all?: boolean;
 }
 
 export const Bubbles = ({ bubbles, currentTime, scene, all = false }: IProps) => {
@@ -57,12 +57,13 @@ export const Bubbles = ({ bubbles, currentTime, scene, all = false }: IProps) =>
     <div className={s.bubbles}>
       {transitions.map(({ key, item, props }) => {
         const incoming = item.type === 'incoming' || item.type === 'typing' || item.type === 'call';
+        const call = item.type === 'call';
 
         return (
           <animated.div
             key={key}
             style={props}
-            className={s(s.bubbles__bubble, { incoming })}
+            className={s(s.bubbles__bubble, { incoming, call })}
           >
             <Bubble
               type={item.type}

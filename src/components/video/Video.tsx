@@ -146,10 +146,13 @@ export const Video = ({
             onTouchEnd={showDark as any}
             onTimeUpdate={onTimeUpdate}
           />
+
           <audio ref={audioRef} src={tone} autoPlay muted={!playing || light || ended} loop />
+
           {bubbles && (
             <Bubbles bubbles={bubbles} currentTime={currentTime} scene={light ? 'light' : 'dark'} />
           )}
+
           {playing && (
             <div className={s.video__render}>
               <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>

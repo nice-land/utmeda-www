@@ -1,0 +1,39 @@
+@import '~styles/config';
+
+.call {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 30px 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+
+  border-radius: 12px;
+
+  background-color: rgba(#666, 0.85);
+
+  &__name {
+    @include rf(18, 20);
+
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+
+    margin-left: 20px;
+  }
+
+  &__icon {
+    width: 42px;
+    height: 42px;
+
+    &:first-of-type {
+      margin-right: 10px;
+    }
+  }
+}

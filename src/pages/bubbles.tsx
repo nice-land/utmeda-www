@@ -38,6 +38,23 @@ function bubbles({ intl }: IProps) {
       type: 'reply',
       msg: intl.formatMessage({ id: 'steps.four.bubbles.no' }),
     },
+    // calling
+    {
+      key: '4',
+      scene: 'dark',
+      timestamp: 4,
+      duration: 3,
+      type: 'call',
+      msg: `Karen ${intl.formatMessage({ id: 'call' })}`,
+    },
+    // typing
+    {
+      key: '5',
+      scene: 'dark',
+      timestamp: 4,
+      duration: 3,
+      type: 'typing',
+    },
   ];
 
   return (
@@ -46,6 +63,7 @@ function bubbles({ intl }: IProps) {
         bubbles={bubbles}
         all
       />
+
       {/*
       <Video
         active={true}
