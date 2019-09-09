@@ -5,6 +5,7 @@ import { useKeyDown } from 'hooks/use-keydown';
 import { useSpring } from 'react-spring/three';
 import { useOrientation } from 'hooks/use-orientation';
 import { Vector3 } from 'three';
+import { Bubbles, IBubble } from 'components/bubbles/Bubbles';
 
 import s from './Video.scss';
 import { VideoObject } from './VideoObject';
@@ -19,13 +20,15 @@ interface IVideoProps {
   onVideoEnd(): void;
   onMouseEnter(): void;
   onMouseLeave(): void;
+  bubbles?: IBubble[];
 }
 
-export const Video = ({ src, onVideoPlay, onVideoEnd, onMouseEnter, onMouseLeave }: IVideoProps) => {
+export const Video = ({ src, onVideoPlay, onVideoEnd, onMouseEnter, onMouseLeave, bubbles }: IVideoProps) => {
   const ref = React.useRef<HTMLVideoElement>(null);
   const audioRef = React.useRef<HTMLAudioElement>(null);
   const [light, setLight] = React.useState(false);
   const [ended, setEnded] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = React.useState<number>(0);
   const keys = useKeyDown();
   const orientation = useOrientation();
   const { on } = useSpring({ on: light ? 1.0 : 0.0 });
@@ -42,6 +45,14 @@ export const Video = ({ src, onVideoPlay, onVideoEnd, onMouseEnter, onMouseLeave
   const handleEnded = () => {
     setEnded(true);
     onVideoEnd();
+  };
+
+  const onTimeUpdate = () => {
+    if (ref.current === null) {
+      return;
+    }
+
+    setCurrentTime(ref.current.currentTime);
   };
 
   React.useEffect(() => {
@@ -88,9 +99,12 @@ export const Video = ({ src, onVideoPlay, onVideoEnd, onMouseEnter, onMouseLeave
           onEnded={handleEnded}
           onTouchStart={showLight}
           onTouchEnd={showDark}
+          onTimeUpdate={onTimeUpdate}
         />
         <audio ref={audioRef} src={tone} autoPlay muted={light || ended} loop />
-
+        {bubbles && (
+          <Bubbles bubbles={bubbles} currentTime={currentTime} scene={light ? 'light' : 'dark'} />
+        )}
         {ref.current && ref.current.readyState > 1 && (
           <div className={s.video__render}>
             <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>
