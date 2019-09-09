@@ -57,6 +57,44 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
       text: intl.formatMessage({ id: 'steps.five.text' }),
       poster: require('assets/posters/5_bright@2x.jpg'),
       video: require('assets/videos/five.mp4'),
+      bubbles: [
+        // Can you work on Friday?
+        {
+          key: '1',
+          scene: 'both',
+          timestamp: 7.11,
+          duration: 4,
+          type: 'incoming',
+          msg: intl.formatMessage({ id: 'steps.five.bubbles.work' }),
+        },
+        // Can you work on Friday?
+        {
+          key: '2',
+          scene: 'both',
+          timestamp: 21.09,
+          duration: 9,
+          type: 'incoming',
+          msg: intl.formatMessage({ id: 'steps.five.bubbles.work' }),
+        },
+        // Yes
+        {
+          key: '3',
+          scene: 'dark',
+          timestamp: 25.17,
+          duration: 5,
+          type: 'reply',
+          msg: intl.formatMessage({ id: 'steps.five.bubbles.yes' }),
+        },
+        // No
+        {
+          key: '4',
+          scene: 'light',
+          timestamp: 25.17,
+          duration: 5,
+          type: 'reply',
+          msg: intl.formatMessage({ id: 'steps.five.bubbles.no' }),
+        },
+      ],
     },
     {
       num: 6,
@@ -92,6 +130,70 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
       text: intl.formatMessage({ id: 'steps.ten.text' }),
       poster: require('assets/posters/10_bright@2x.jpg'),
       video: require('assets/videos/ten.mp4'),
+      bubbles: [
+        {
+          key: '10',
+          scene: 'both',
+          timestamp: 3.15,
+          duration: 20.85,
+          type: 'incoming',
+          msg: intl.formatMessage({ id: 'steps.ten.bubbles.coming' }),
+        },
+        {
+          key: '20',
+          scene: 'both',
+          timestamp: 11.17,
+          duration: 12.83,
+          type: 'reply',
+          msg: intl.formatMessage({ id: 'steps.ten.bubbles.not-coming' }),
+        },
+        {
+          key: '22',
+          scene: 'both',
+          timestamp: 12.17,
+          duration: 5,
+          type: 'call',
+          msg: intl.formatMessage({ id: 'steps.ten.bubbles.call' }),
+        },
+        //{
+        //  key: '25',
+        //  scene: 'both',
+        //  timestamp: 19,
+        //  duration: 3,
+        //  type: 'typing',
+        //},
+        {
+          key: '30',
+          scene: 'both',
+          timestamp: 18,
+          duration: 8,
+          type: 'incoming',
+          msg: intl.formatMessage({ id: 'steps.ten.bubbles.1717' }),
+        },
+        {
+          key: '50',
+          scene: 'both',
+          timestamp: 21.15,
+          duration: 2,
+          type: 'typing',
+        },
+        {
+          key: '60',
+          scene: 'both',
+          timestamp: 23.15,
+          duration: 19.05,
+          type: 'incoming',
+          msg: intl.formatMessage({ id: 'steps.ten.bubbles.ok' }),
+        },
+        {
+          key: '70',
+          scene: 'light',
+          timestamp: 30.20,
+          duration: 12,
+          type: 'reply',
+          msg: intl.formatMessage({ id: 'steps.ten.bubbles.not-feeling-good' }),
+        },
+      ],
     },
   ];
 

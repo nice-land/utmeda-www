@@ -24,15 +24,18 @@
       "socialTitle": "4. Sofðu nóg, borðaðu fjölbreytt og hreyfðu þig.",
       "text": "Farðu vel með þig. Líkamlegt heilbrigði ýtir undir andlega vellíðan.",
       "bubbles": {
-        "play": "Kemuru í fótbolta?",
-        "yes": "Yeah!",
-        "no": "Nope"
+        "play": "Kemuru í fótbolta?"
       }
     },
     "five": {
       "title": "Lærðu að segja _nei_.",
       "socialTitle": "5 Lærðu að segja nei.",
-      "text": "Þú ert stjórnar í eigin lífi og þarft ekki að þóknast öðrum. Stundum er nei rétta svarið."
+      "text": "Þú ert stjórnar í eigin lífi og þarft ekki að þóknast öðrum. Stundum er nei rétta svarið.",
+      "bubbles": {
+        "work": "Getur þú unnið á föstudaginn?",
+        "yes": "Já, ekkert mál",
+        "no": "Nei, ég er upptekin"
+      }
     },
     "six": {
       "title": "Hugsaðu _jákvætt_ og njóttu.",
@@ -57,7 +60,16 @@
     "ten": {
       "title": "Segðu frá og leitaðu _hjálpar_ ef þér líður illa.",
       "socialTitle": "10. Segðu frá og leitaðu hjálpar ef þér líður illa.",
-      "text": "Fyrsta skrefið í átt að betri líðan er alltaf að segja frá. Þegar vandamál er fært í orð, er lausnin handan við hornið."
+      "text": "Fyrsta skrefið í átt að betri líðan er alltaf að segja frá. Þegar vandamál er fært í orð, er lausnin handan við hornið.",
+      "bubbles": {
+        "coming": "Ætlaru ekki að koma?",
+        "not-coming": "Nei sorrý, mér líður ekki vel",
+        "1717": "Ok. Þú veist þú getur alltaf talað við mig. Ef þú treystir þér ekki til þess getur þú líka farið inná spjallið hjá 1717.is",
+        "call": "Karen is calling",
+        "ok": "Er ekki allt í góðu?",
+        "no": "Nei",
+        "not-feeling-good": "Mér líður ekki vel"
+      }
     }
   },
   "orientation": {

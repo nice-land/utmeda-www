@@ -11,7 +11,7 @@ export const Wave = ({ erratic }: { erratic: any }) => {
   const shaderConfig = React.useMemo(() => createWaveShader(dimensions), []);
 
   useRender((_, dt) => {
-    shaderConfig.uniforms.dt.value = dt % 1000;
+    shaderConfig.uniforms.dt.value = dt / 10000;
     shaderConfig.uniforms.random.value = Math.random() * 0.2;
   });
 
