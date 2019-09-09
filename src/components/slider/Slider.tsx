@@ -18,7 +18,7 @@ interface IProps {
 const transform = (x: any, width: number, active: boolean) =>
   interpolate(
     [
-      x.interpolate((x: any) => `translate3d(${x}px,0,0) `),
+      x.interpolate((x: any) => `translate3d(${x}px,0,${active ? 0 : -100}px) `),
       x
         .interpolate({
           range: [-width, 0, width],
@@ -118,7 +118,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
           })}
           style={{
             width: spring.width,
-            transform: transform(spring.x, width, active === 1),
+            transform: transform(spring.x, width, active === i),
           }}
           children={children(items[i], i, active === i, spring.x)}
         />
