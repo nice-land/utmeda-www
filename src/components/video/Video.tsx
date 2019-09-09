@@ -55,7 +55,7 @@ export const Video = ({
       e.stopPropagation();
     }
 
-    if (ref.current) {
+    if (ref.current && !ended) {
       ref.current!.play();
     }
     setLight(true);
@@ -71,7 +71,7 @@ export const Video = ({
   const handleEnded = () => {
     setEnded(true);
     ref.current!.pause();
-    ref.current!.currentTime = 0;
+    // ref.current!.currentTime = 0;
     onVideoEnd();
   };
 
@@ -103,7 +103,7 @@ export const Video = ({
 
     if (orientation === 'portrait') {
       ref.current.pause();
-    } else if (ref.current.readyState >= 2) {
+    } else if (ref.current.readyState >= 2 && !ended) {
       ref.current.play().catch(); // swallow autoplay errors
     }
   }, [playing, ref, orientation]);
@@ -117,7 +117,9 @@ export const Video = ({
       ref.current.pause();
       ref.current!.currentTime = 0;
     } else {
-      ref.current.play().catch(); // swallow autoplay errors
+      if (!ended) {
+        ref.current.play().catch(); // swallow autoplay errors
+      }
     }
   }, [playing, ref.current]);
 
@@ -145,6 +147,7 @@ export const Video = ({
             onTouchStart={showLight as any}
             onTouchEnd={showDark as any}
             onTimeUpdate={onTimeUpdate}
+            muted
           />
 
           <audio ref={audioRef} src={tone} autoPlay muted={!playing || light || ended} loop />
@@ -162,7 +165,7 @@ export const Video = ({
                   displacementMap={DisplacementMap}
                   light={on}
                 />
-                <Wave erratic={on} />
+                {!ended && <Wave erratic={on} />}
               </Canvas>
             </div>
           )}
