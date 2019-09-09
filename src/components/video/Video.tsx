@@ -147,7 +147,6 @@ export const Video = ({
             onTouchStart={showLight as any}
             onTouchEnd={showDark as any}
             onTimeUpdate={onTimeUpdate}
-            muted
           />
 
           <audio ref={audioRef} src={tone} autoPlay muted={!playing || light || ended} loop />
