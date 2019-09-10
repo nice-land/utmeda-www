@@ -1,9 +1,0 @@
-@import '~styles/config';
-
-.footer {
-  min-height: 100px;
-
-  @media (min-width: $min-tablet) {
-    min-height: initial;
-  }
-}

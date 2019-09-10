@@ -2,6 +2,7 @@
 
 .header {
   @include responsive-font(20, 24);
+
   display: block;
 
   position: fixed;
@@ -10,9 +11,14 @@
   right: 0;
   z-index: $zindex-header;
 
-
   &__container {
-    @include container;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
   }
 
   &__content {
@@ -20,7 +26,7 @@
 
     align-items: center;
 
-    padding: 20px 0;
+    padding: 15px 0;
 
     width: 100%;
 
@@ -29,13 +35,17 @@
     }
   }
 
-  &__link {
-    margin-right: 20px;
-    text-decoration: none;
+  &__inline {
+    display: flex;
+    flex-direction: row;
+  }
 
-    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
-      margin-right: 0;
-    }
+  &__link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    text-decoration: none;
   }
 
   &__item {
@@ -47,6 +57,8 @@
     }
 
     a {
+      @include responsive-font(14, 20);
+
       // stylelint-disable-line
       text-decoration: none;
       text-transform: lowercase;

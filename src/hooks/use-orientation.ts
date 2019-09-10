@@ -9,21 +9,19 @@ export const useOrientation = (): Orientation => {
 
   const [landscape, set] = useState(true);
 
-  const handleOrientationChange = (ev: MediaQueryListEvent) => set(ev.matches);
-
-  useEffect(() => {
+  const handleOrientationChange = () => {
     const media = window.matchMedia("screen and (orientation: landscape)");
 
     set(media.matches);
+  };
 
-    if (media.addEventListener) {
-      media.addEventListener("change", handleOrientationChange);
-    }
+  useEffect(() => {
+    handleOrientationChange();
+
+    window.addEventListener('resize', handleOrientationChange);
 
     return () => {
-      if (media.removeEventListener) {
-        media.removeEventListener("change", handleOrientationChange);
-      }
+      window.removeEventListener('resize', handleOrientationChange);
     };
   }, []);
 

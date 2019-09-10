@@ -1,28 +1,25 @@
 @import '~styles/config';
 
 .logo {
-  //@include variable-font(500, normal, 0, normal);
-
   position: relative;
 
   padding-bottom: 8px;
 
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 600;
-  line-height: (18 / 30) * 1em;
+  line-height: (18 / 24) * 1em;
   letter-spacing: -0.05em;
 
-  @media (min-width: $min-tablet) {
+  @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
     font-size: 40px;
     line-height: (24 / 40) * 1em;
   }
-
 
   &::after {
     content: '';
     position: absolute;
 
-    bottom: 0;
+    bottom: -0.075em;
     left: 0.05em;
     right: 0;
 
@@ -32,7 +29,6 @@
   }
 
   > em { // stylelint-disable-line
-    // @include variable-font(900, bold, 0, normal);
     display: block;
 
     letter-spacing: 0;

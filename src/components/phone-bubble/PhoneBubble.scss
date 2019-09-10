@@ -1,16 +1,6 @@
 @import '~styles/config';
 
 .phoneBubble {
-  position: fixed;
-  bottom: 15px;
-  right: 20px;
-  z-index: 100;
-
-  @media (min-width: $min-desktop) {
-    bottom: 75px;
-    right: 50px;
-  }
-
   path { // stylelint-disable-line
     transition: 200ms fill ease-in-out;
   }
@@ -18,6 +8,26 @@
   &:hover {
     path { // stylelint-disable-line
       fill: $color-primary;
+    }
+  }
+
+  &.relative {
+    position: relative;
+
+    margin-left: 10px;
+
+    transform: scale(0.8);
+  }
+
+  &.fixed {
+    position: fixed;
+    bottom: 15px;
+    right: 20px;
+    z-index: 100;
+
+    @media (min-width: $min-desktop) {
+      bottom: 30px;
+      right: 50px;
     }
   }
 }

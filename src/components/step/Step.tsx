@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { injectIntl, Link, FormattedMessage } from 'gatsby-plugin-intl';
 
-
 import Twitter from 'assets/svg/twitter.svg';
 import Facebook from 'assets/svg/facebook.svg';
 import { Video } from 'components/video/Video';

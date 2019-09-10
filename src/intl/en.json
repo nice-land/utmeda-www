@@ -22,12 +22,20 @@
     "four": {
       "title": "Get enough _sleep_, _eat_ well and _exercise_.",
       "socialTitle": "4. Get enough sleep, eat well and exercise.",
-      "text": "Take good care of yourself. Physical health supports mental well-being."
+      "text": "Take good care of yourself. Physical health supports mental well-being.",
+      "bubbles": {
+        "play": "Want to play football?"
+      }
     },
     "five": {
       "title": "Learn to say _no_.",
       "socialTitle": "5. Learn to say no.",
-      "text": "You are the boss of your own life and you don’t need to please others. Sometimes no is the right answer."
+      "text": "You are the boss of your own life and you don’t need to please others. Sometimes no is the right answer.",
+      "bubbles": {
+        "work": "Can you work on Friday?",
+        "yes": "Yes, no problem",
+        "no": "No, I'm busy"
+      }
     },
     "six": {
       "title": "Have a _positive_ mindset and enjoy.",
@@ -52,7 +60,16 @@
     "ten": {
       "title": "Tell someone and seek _help_ if you don’t feel well.",
       "socialTitle": "10. Tell someone and seek help if you don’t feel well.",
-      "text": "The first step towards feeling better is always telling someone. When a problem is put into words, the solution is around the corner."
+      "text": "The first step towards feeling better is always telling someone. When a problem is put into words, the solution is around the corner.",
+      "bubbles": {
+        "coming": "Are you coming?",
+        "not-coming": "No sorry, I don't feel so good",
+        "1717": "Ok. You know you can always talk to me, but if you don't feel comfortable you can talk to a professional on 1717.is",
+        "call": "Karen is calling",
+        "ok": "Is everything alright?",
+        "no": "No",
+        "not-feeling-good": "I don’t feel well."
+      }
     }
   },
   "orientation": {
@@ -76,5 +93,6 @@
   "step_watch": "Watch",
   "loading": "Every story has two sides. Press the space bar to see the other side.",
   "transition": "Look at the other side.",
-  "step_click": "Hold"
+  "step_click": "Hold",
+  "call": "is calling..."
 }

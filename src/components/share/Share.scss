@@ -1,0 +1,64 @@
+@import '~styles/config';
+
+.share {
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  top: 50%;
+  left: 2vw;
+  z-index: 100;
+
+  transform: translateY(-50%);
+
+  @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+    left: 100px;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    padding: 0;
+    margin-bottom: 25px;
+
+    width: 44px;
+    height: 44px;
+
+    border: 1.5px solid #fff;
+    border-radius: 44px;
+
+    opacity: 1;
+    background-color: transparent;
+
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 0.6;
+    }
+
+    path { // stylelint-disable-line
+      fill: #fff;
+    }
+
+    > svg {
+      position: absolute;
+    }
+  }
+
+  &__copy {
+    @include rf(12, 14);
+
+    margin-top: 15px;
+    margin-left: -7px;
+
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+
+    transform: rotate(-90deg);
+  }
+}

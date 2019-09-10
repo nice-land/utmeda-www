@@ -1,10 +1,12 @@
-@import "~styles/config";
+@import '~styles/config';
 
 .slider {
+  height: 100vh;
+
+  overflow: hidden;
+
   perspective: 1000px;
   perspective-origin: center;
-  height: 100vh;
-  overflow: hidden;
 
   &__container {
     position: relative;
@@ -14,12 +16,25 @@
 
   &__item {
     position: absolute;
-    height: 100%;
-    will-change: transform;
     z-index: 2;
+
+    padding-top: 30px;
+    padding-right: 100px;
+
+    height: 100%;
+
+    will-change: transform;
+
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+      padding-top: 0;
+      padding-right: 50px;
+    }
 
     &Active {
       z-index: 3;
+
+      padding-top: 0;
+      padding-right: 0;
     }
   }
 }

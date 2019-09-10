@@ -1,4 +1,4 @@
-@import "~styles/config";
+@import '~styles/config';
 
 .stepsItem {
   // @include container;
@@ -20,23 +20,20 @@
   }
 
   &__media {
-    margin-top: -25px;
-    z-index: 3;
-    user-select: none;
-    transition: all 0.5s ease-in-out;
-
     position: absolute;
     top: 50%;
     right: 0;
-
-    margin-top: 0;
-
+    z-index: 3;
     width: percentage(1000/1500);
+    user-select: none;
+    opacity: 1;
+    transition: 0.5s ease-in-out;
+    transition-property: right, bottom, left, width, height, opacity;
 
-    transform: translateY(-50%);
+    transform: translate3d(0%, -50%, 110px);
 
     &::before {
-      content: "";
+      content: '';
 
       display: block;
 
@@ -57,16 +54,18 @@
       left: 0;
       bottom: 0;
       right: 0;
+
       width: auto;
       pointer-events: none;
-
-      max-width: auto;
-      transform: translateY(0%);
-      transition: all 0.5s ease-in-out, opacity 0.5s ease-in-out 1s;
+      transform: translate3d(0%, 0%, 110px);
     }
+  }
 
-    .active.playing & {
-      opacity: 0;
-    }
+  &__play {
+    position: absolute;
+    transform: translate3d(-50%, -50%, 121px);
+    z-index: 4;
+    top: 50%;
+    left: 50%;
   }
 }

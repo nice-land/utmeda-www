@@ -15,8 +15,8 @@ const languageName: ILanguages = {
   is: 'IS',
 };
 
-function onClickHandler(language: string): undefined {
-  return (e: any): undefined => {
+function onClickHandler(language: string) {
+  return (e: any) => {
     e.preventDefault();
     changeLocale(language === 'is' ? '' : language); // fix for default lang
   };
