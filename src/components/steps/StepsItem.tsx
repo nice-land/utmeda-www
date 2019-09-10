@@ -1,5 +1,6 @@
 import { injectIntl, Link } from 'gatsby-plugin-intl';
 import { Container } from 'components/container/Container';
+import { useResize } from 'hooks/use-resize';
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { AppContext } from 'components/app-layout/AppLayout';
 import { useSpring, animated as a } from 'react-spring';
@@ -52,7 +53,8 @@ const isPlayable = async (ref: IVideoRef | null): Promise<boolean> => {
   }
 };
 
-export const StepsItem = injectIntl(({
+export const StepsItem = injectIntl(
+  ({
     count,
     text,
     title,
@@ -76,9 +78,11 @@ export const StepsItem = injectIntl(({
     const [contentProps, setContentProps] = useSpring(() => ({ opacity: 1, pointerEvents: 'all' }));
     const [shareProps, setShareProps] = useSpring(() => ({ opacity: 0, pointerEvents: 'all' }));
     const [mediaProps, setMediaProps] = useSpring(() => ({ opacity: 1 }));
-
+    const isMobile = useResize();
     const keys = useKeyDown();
     const ref = useRef<IVideoRef>(null);
+
+    const videoSrc = isMobile ? video : videoDesktop;
 
     const handleMouseEnter = () => {
       mouseEnter({
@@ -125,11 +129,11 @@ export const StepsItem = injectIntl(({
     }, [keys, active, playing]);
 
     const playVideo = () => {
+      console.log('PLAY!', ref.current);
       if (!ref.current) {
         return;
       }
-
-      ref.current.play();
+      ref.current.play().catch((err) => {});
 
       setShareProps({
         opacity: 1,
@@ -173,8 +177,8 @@ export const StepsItem = injectIntl(({
     }, [orientation]);
 
     const handlePlayPress = () => {
+      ref.current!.play();
       setPlaying(true);
-      ref.current.play();
       setShowPlayButton(false);
     };
 
@@ -231,12 +235,11 @@ export const StepsItem = injectIntl(({
                 ref={ref}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
-                src={video}
-                srcDesktop={videoDesktop}
+                src={videoSrc}
                 onVideoEnd={handleVideoEnd}
               />
             )}
-            {showPlayButton && (
+            {showPlayButton && !playing && (
               <button className={s.stepsItem__play} onClick={handlePlayPress}>
                 Spila
               </button>

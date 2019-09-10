@@ -2,7 +2,7 @@ import { Canvas } from 'components/canvas/Canvas';
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import DisplacementMap from 'assets/images/displacementmap.png';
 import { useSpring } from 'react-spring/three';
-import { useResize } from 'hooks/use-resize';
+
 import { Vector3 } from 'three';
 import { Bubbles, IBubble } from 'components/bubbles/Bubbles';
 
@@ -15,10 +15,7 @@ const tone: string = require('assets/videos/tone.mp3');
 
 interface IVideoProps {
   src: string;
-  srcDesktop: string;
-  active: boolean;
-  playing: boolean;
-  onVideoPlay(): void;
+
   light: boolean;
   onVideoEnd(): void;
   onMouseEnter(): void;
@@ -38,15 +35,13 @@ export interface IVideoRef {
 
 export const Video = forwardRef<IVideoRef, IVideoProps>(
   (
-    { src, srcDesktop, onMouseEnter, onMouseLeave, onVideoEnd, bubbles, light, onPointerDown, onPointerUp }: IVideoProps,
+    { src, onMouseEnter, onMouseLeave, onVideoEnd, bubbles, light, onPointerDown, onPointerUp }: IVideoProps,
     outerRef,
   ) => {
     const ref = React.useRef<HTMLVideoElement>(null);
     const audioRef = React.useRef<HTMLAudioElement>(null);
     const [ended, setEnded] = useState<boolean>(false);
     const [currentTime, setCurrentTime] = useState<number>(0);
-    const isMobile = useResize();
-    const videoSource = isMobile ? src : srcDesktop;
 
     const { on } = useSpring({ on: light ? 1.0 : 0.0 });
 
@@ -93,8 +88,9 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
           <video
             className={s.video__video}
             ref={ref}
-            src={videoSource}
+            src={src}
             playsInline
+            autoPlay
             onEnded={handleEnded}
             onTimeUpdate={onTimeUpdate}
           />
