@@ -42,10 +42,7 @@ const transform = (x: any, width: number, active: boolean) =>
 export default function Slider({ items, width = 700, active, visible = 4, children }: IProps) {
   const orientation = useOrientation();
   const previous = usePrevious(orientation);
-  const [springs, set] = useSprings(items.length, (i: number) => ({
-    x: i * width,
-    width,
-  }));
+  const [springs, set] = useSprings(items.length, (i: number) => ({ x: i * width, width }));
   const keys = useKeyDown();
   const offset = useRef(0);
 

@@ -11,6 +11,7 @@ export interface IStep {
   poster: string;
   text?: string;
   video?: string;
+  videoDesktop?: string;
   num: number;
   bubbles?: IBubble[];
 }

@@ -39,6 +39,7 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
     }
 
     window.addEventListener('resize', handleResize);
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };

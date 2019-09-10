@@ -15,7 +15,6 @@ const tone: string = require('assets/videos/tone.mp3');
 
 interface IVideoProps {
   src: string;
-
   light: boolean;
   onVideoEnd(): void;
   onMouseEnter(): void;
