@@ -174,6 +174,7 @@ export const StepsItem = injectIntl(({
 
     const handlePlayPress = () => {
       setPlaying(true);
+      ref.current.play();
       setShowPlayButton(false);
     };
 

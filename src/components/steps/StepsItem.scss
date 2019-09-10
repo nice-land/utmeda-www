@@ -3,12 +3,11 @@
 .stepsItem {
   // @include container;
   display: flex;
-
-  position: relative;
-
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
+  position: relative;
 
   margin-bottom: 0;
 
@@ -62,10 +61,15 @@
   }
 
   &__play {
+    display: none;
     position: absolute;
-    transform: translate3d(-50%, -50%, 121px);
     z-index: 4;
-    top: 50%;
-    left: 50%;
+    bottom: 10%;
+    right: 10%;
+    transform: translate3d(-50%, -50%, 121px);
+
+    .active & {
+      display: block;
+    }
   }
 }
