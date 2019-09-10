@@ -7,12 +7,12 @@ import { Share } from 'components/share/Share';
 import { IBubble } from 'components/bubbles/Bubbles';
 import { Video, IVideoRef } from 'components/video/Video';
 import { useKeyDown } from 'hooks/use-keydown';
+import { useOrientation } from 'hooks/use-orientation';
 
 import { Content } from './Content';
 import { PostVideo } from './PostVideo';
 
 import s from './StepsItem.scss';
-import { useOrientation } from 'hooks/use-orientation';
 
 interface IProps {
   intl: any;
@@ -41,13 +41,12 @@ const isPlayable = async (ref: IVideoRef | null): Promise<boolean> => {
   }
 
   try {
+    const time = ref.currentTime;
     await ref.play();
-    console.log('IS PLAYABLE');
     ref.pause();
-    ref.setTime(0);
+    ref.setTime(time);
     return true;
   } catch (e) {
-    console.log('IS NOT PLAYABLE');
     return false;
   }
 };
@@ -55,7 +54,6 @@ const isPlayable = async (ref: IVideoRef | null): Promise<boolean> => {
 export const StepsItem = injectIntl(
   ({
     count,
-    link,
     text,
     title,
     onClose,
@@ -110,7 +108,6 @@ export const StepsItem = injectIntl(
 
     const handleVideoEnd = () => {
       setPlaying(false);
-
       setVideoEnded(true);
     };
 
@@ -131,9 +128,7 @@ export const StepsItem = injectIntl(
         return;
       }
 
-      ref.current.play().catch(() => {
-        setShowPlayButton(true);
-      });
+      ref.current.play();
 
       setShareProps({
         opacity: 1,
@@ -238,13 +233,7 @@ export const StepsItem = injectIntl(
               />
             )}
             {showPlayButton && (
-              <button
-                className={s.stepsItem__play}
-                onClick={() => {
-                  ref.current.play();
-                  handlePlayPress();
-                }}
-              >
+              <button className={s.stepsItem__play} onClick={handlePlayPress}>
                 Spila
               </button>
             )}
