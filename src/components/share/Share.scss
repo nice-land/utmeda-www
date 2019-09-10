@@ -23,13 +23,13 @@
     position: relative;
 
     padding: 0;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 
-    width: 44px;
-    height: 44px;
+    width: 36px;
+    height: 36px;
 
-    border: 1.5px solid #fff;
-    border-radius: 44px;
+    border: 2px solid #fff;
+    border-radius: 36px;
 
     opacity: 1;
     background-color: transparent;
@@ -46,6 +46,21 @@
 
     > svg {
       position: absolute;
+
+      transform: scale(0.8);
+
+      @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+        transform: scale(1);
+      }
+    }
+
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+      margin-bottom: 25px;
+
+      width: 44px;
+      height: 44px;
+
+      border-radius: 44px;
     }
   }
 
@@ -53,12 +68,16 @@
     @include rf(12, 14);
 
     margin-top: 15px;
-    margin-left: -7px;
+    margin-left: -5px;
 
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 600;
 
     transform: rotate(-90deg);
+
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+      margin-left: -7px;
+    }
   }
 }
