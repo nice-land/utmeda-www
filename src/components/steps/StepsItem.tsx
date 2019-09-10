@@ -227,7 +227,7 @@ export const StepsItem = injectIntl(
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <img src={media} alt="" />
+              <img draggable="false" src={media} alt="" />
             </a.div>
 
             {active && (
