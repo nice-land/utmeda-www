@@ -77,9 +77,11 @@ export const StepsItem = injectIntl(
     const orientation = useOrientation();
     const [showPlayButton, setShowPlayButton] = useState(false);
     const [videoEnded, setVideoEnded] = useState(false);
+    const [mouseMove, setMouseMove] = useState(false);
     const [contentProps, setContentProps] = useSpring(() => ({ opacity: 1, pointerEvents: 'all' }));
     const [shareProps, setShareProps] = useSpring(() => ({ opacity: 0, pointerEvents: 'all' }));
     const [mediaProps, setMediaProps] = useSpring(() => ({ opacity: 1 }));
+    const [xy, setXy] = useState({ x: 0, y: 0 });
     const isMobile = useResize();
     const keys = useKeyDown();
     const ref = useRef<IVideoRef>(null);
@@ -116,6 +118,21 @@ export const StepsItem = injectIntl(
       }
     };
 
+    const handleMouseUp = () => {
+      if (!mouseMove) {
+        handleClick();
+      }
+    };
+
+    const handleMouseDown = (e: any) => {
+      setXy({ x: e.screenX, y: e.screenY });
+      setMouseMove(false);
+    };
+
+    const handleMouseMove = (e: any) => {
+      setMouseMove(Math.abs(xy.x - e.screenX) > 5 || Math.abs(xy.y - e.screenY) > 5);
+    };
+
     const handleVideoEnd = () => {
       setPlaying(false);
       setVideoEnded(true);
@@ -137,6 +154,7 @@ export const StepsItem = injectIntl(
       if (!ref.current) {
         return;
       }
+
       ref.current.play().catch((err) => {});
 
       setShareProps({
@@ -217,7 +235,12 @@ export const StepsItem = injectIntl(
     return (
       <div className={s(s.stepsItem, { active, playing })}>
         <Container>
-          <div className={s.stepsItem__wrapper} onClick={handleClick}>
+          <div
+            className={s.stepsItem__wrapper}
+            onMouseUp={handleMouseUp}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+          >
             <Content count={count} text={title} style={contentProps} />
             <Share title={title} num={index} style={shareProps} />
 

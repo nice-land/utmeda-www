@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { debounce } from 'lodash';
 
 import { IStep } from 'utils/interfaces';
@@ -16,11 +16,11 @@ interface IProps {
 }
 
 export const Steps = ({ title, list, initialStep }: IProps) => {
-  const context = React.useContext(AppContext) as any;
+  const context = useContext(AppContext) as any;
   const isMobile = useMobile();
   const offset = isMobile ? 0.85 : 0.75;
 
-  const [width, setWidth] = React.useState(
+  const [width, setWidth] = useState(
     typeof window === 'undefined' ? 720 : window.innerWidth * offset,
   );
 
@@ -28,7 +28,7 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
     setWidth(window.innerWidth * offset);
   }, 200);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (typeof window === 'undefined') {
       return;
     }

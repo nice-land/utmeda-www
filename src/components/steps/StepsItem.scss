@@ -48,10 +48,7 @@
       width: 100%;
       height: 100%;
 
-      user-select: none;
-      -webkit-user-drag: none;
-      -moz-user-drag: none;
-      -ms-user-drag: none;
+      pointer-events: none;
 
       object-fit: cover;
     }
