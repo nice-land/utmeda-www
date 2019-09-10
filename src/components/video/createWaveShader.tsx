@@ -7,7 +7,7 @@ uniform float random;
 uniform float erratic; // [0, 1]
 
 #define PI 3.141592
-#define LINE_THICKNESS 0.005
+#define LINE_THICKNESS 0.0075
 
 float rand(float x){
   return fract(sin(x)*1.0);
@@ -21,15 +21,16 @@ void main() {
   vec2 st = gl_FragCoord.st/dimensions;
 
   float y_displacement = 0.2;
-  float frequency = 220.0 + 440.0 * random;
-  float amplitude = mix(0.05, 0.01, random);
+  float frequency =  220.0;
+  float amplitude = mix(0.075,0.025, random);
+
   float angle = st.x * frequency;
+  float angle2 = st.x * 120.0;
+  float angle3 = st.x * 130.0 + mix(0.5, 0.6, random) * 60.0;
 
-  float x = sin(angle) * amplitude * erratic + y_displacement;
+  float y = (sin(angle - mix(0.0, 4.0 * PI, dt)) * sin(angle2 - mix(0.0, 4.0 * PI, dt)) * sin(angle3 - mix(0.0, 4.0 * PI, dt))) * amplitude * erratic + y_displacement;
 
-  vec3 color = vec3(x);
-
-  float pct = plot(st, x);
+  float pct = plot(st, y);
 
   gl_FragColor = mix(vec4(0.0,0.0,0.0,0.0), vec4(1.0,1.0,1.0, 0.8), pct);
 }
@@ -49,8 +50,8 @@ export default (dimensions: [number, number]) => {
         value: new Vector2(dimensions[0], dimensions[1]),
       },
       dt: {
-        type: 'f',
-        value: 0.2,
+        type: 'i',
+        value: 0,
       },
       erratic: {
         type: 'f',

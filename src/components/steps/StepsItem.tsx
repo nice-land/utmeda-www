@@ -111,7 +111,7 @@ export const StepsItem = injectIntl(
 
       if (!active) {
         onClick();
-      } else {
+      } else if (!videoEnded) {
         setPlaying(true);
       }
     };
