@@ -6,13 +6,13 @@
 
   position: fixed;
   top: 50%;
-  left: 2vw;
+  left: 20px;
   z-index: 100;
 
   transform: translateY(-50%);
 
   @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
-    left: 100px;
+    left: 40px;
   }
 
   &__link {
