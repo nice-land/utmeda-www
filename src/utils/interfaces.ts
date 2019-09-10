@@ -1,4 +1,4 @@
-import { IBubble } from "components/bubbles/Bubbles";
+import { IBubble } from 'components/bubbles/Bubbles';
 
 export interface IIntlProps {
   languages: string[];

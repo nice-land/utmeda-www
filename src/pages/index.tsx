@@ -1,10 +1,8 @@
-import * as React from "react";
-import { injectIntl } from "gatsby-plugin-intl";
+import * as React from 'react';
+import { injectIntl } from 'gatsby-plugin-intl';
 
-import { IStep } from "utils/interfaces";
-import { Steps } from "components/steps/Steps";
-import { Helmet } from "components/helmet/Helmet";
-import { StepsContainer } from "components/steps/StepsContainer";
+import { Helmet } from 'components/helmet/Helmet';
+import { StepsContainer } from 'components/steps/StepsContainer';
 
 interface IProps {
   intl: any;
@@ -13,7 +11,7 @@ interface IProps {
 function index({ intl }: IProps) {
   return (
     <>
-      <Helmet title={intl.formatMessage({ id: "title" })} />
+      <Helmet title={intl.formatMessage({ id: 'title' })} />
       <StepsContainer />
     </>
   );

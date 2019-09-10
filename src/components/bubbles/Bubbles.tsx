@@ -3,7 +3,7 @@ import isEqual from 'lodash/isEqual';
 import sortBy from 'lodash/sortBy';
 import { useTransition, animated } from 'react-spring';
 
-import { Bubble } from '../bubble/Bubble';
+import { Bubble } from './Bubble';
 
 import s from './Bubbles.scss';
 

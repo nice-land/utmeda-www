@@ -1,8 +1,6 @@
 @import '~styles/config';
 
 .logo {
-  //@include variable-font(500, normal, 0, normal);
-
   position: relative;
 
   padding-bottom: 8px;
@@ -31,7 +29,6 @@
   }
 
   > em { // stylelint-disable-line
-    // @include variable-font(900, bold, 0, normal);
     display: block;
 
     letter-spacing: 0;

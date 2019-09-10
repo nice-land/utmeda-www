@@ -1,7 +1,8 @@
-import * as React from "react";
-import { injectIntl } from "gatsby-plugin-intl";
+import * as React from 'react';
+import { injectIntl } from 'gatsby-plugin-intl';
+
 import { Video } from 'components/video/Video';
-import { Bubbles } from "components/bubbles/Bubbles";
+import { Bubbles } from 'components/bubbles/Bubbles';
 
 interface IProps {
   intl: any;
@@ -82,5 +83,3 @@ function bubbles({ intl }: IProps) {
 }
 
 export default injectIntl(bubbles);
-
-
