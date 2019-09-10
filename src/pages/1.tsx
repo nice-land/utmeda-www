@@ -11,7 +11,7 @@ interface IProps {
 function one({ intl }: IProps) {
   const socialTitle = intl.formatMessage({ id: 'steps.one.socialTitle' });
   const text = intl.formatMessage({ id: 'steps.one.text' });
-  const socialPoster: string = require('assets/posters/1_bright@2x.jpg');
+  const socialPoster: string = require('assets/posters/share/1.jpg');
 
   return (
     <>
