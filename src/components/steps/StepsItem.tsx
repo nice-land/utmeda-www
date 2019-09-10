@@ -8,8 +8,10 @@ import { useOrientation } from 'hooks/use-orientation';
 import { Container } from 'components/container/Container';
 import { AppContext } from 'components/app-layout/AppLayout';
 import { Share } from 'components/share/Share';
+import Play from 'assets/svg/play.svg';
 import { IBubble } from 'components/bubbles/Bubbles';
 import { Video, IVideoRef } from 'components/video/Video';
+import { Circle } from 'components/cursor/Circle';
 
 import { Content } from './Content';
 import { PostVideo } from './PostVideo';
@@ -132,7 +134,6 @@ export const StepsItem = injectIntl(
     }, [keys, active, playing]);
 
     const playVideo = () => {
-      console.log('PLAY!', ref.current);
       if (!ref.current) {
         return;
       }
@@ -175,7 +176,7 @@ export const StepsItem = injectIntl(
       if (orientation === 'portrait') {
         ref.current.pause();
       } else if (ref.current.paused && !videoEnded) {
-        ref.current.play();
+        ref.current.play().catch((err) => {});
       }
     }, [orientation]);
 
@@ -243,11 +244,15 @@ export const StepsItem = injectIntl(
               />
             )}
 
-            {showPlayButton && !playing && (
-              <button className={s.stepsItem__play} onClick={handlePlayPress}>
-                Spila
-              </button>
-            )}
+            <button
+              className={s(s.stepsItem__play, { visible: showPlayButton && !playing })}
+              onClick={handlePlayPress}
+            >
+              <div className={s.stepsItem__playCircle}>
+                <Circle text="Spila" />
+              </div>
+              <Play className={s.stepsItem__playIcon} />
+            </button>
 
             <PostVideo
               visible={active && videoEnded}

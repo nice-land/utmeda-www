@@ -70,14 +70,47 @@
 
   &__play {
     display: none;
+    justify-content: center;
+    align-items: center;
+
     position: absolute;
     z-index: 4;
     bottom: 10%;
     right: 10%;
-    transform: translate3d(-50%, -50%, 121px);
+
+    width: 125px;
+    height: 125px;
+
+    border: 0;
+
+    pointer-events: none;
+    opacity: 0;
+    color: #fff;
+    background: transparent;
+    transition: opacity 0.3s ease-out;
+    transform: translate3d(0%, -50%, 121px);
+
+    &Icon {
+      position: absolute;
+      z-index: 4;
+      transform: translate3d(4px, 4px, 122px);
+    }
+
+    &Circle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 4;
+      transform: translate3d(0, 0, 125px);
+    }
 
     .active & {
-      display: block;
+      display: flex;
+    }
+
+    &.visible {
+      pointer-events: all;
+      opacity: 1;
     }
   }
 }
