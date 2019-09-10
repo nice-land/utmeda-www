@@ -21,6 +21,7 @@
   },
   "scripts": {
     "dev": "gatsby develop",
+    "dev-network": "gatsby develop -H 0.0.0.0 -p 8000",
     "build": "gatsby build",
     "start": "gatsby serve",
     "clean": "rimraf .cache public",
