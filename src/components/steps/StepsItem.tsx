@@ -1,18 +1,18 @@
-import { injectIntl, Link } from 'gatsby-plugin-intl';
-import { Container } from 'components/container/Container';
-import { useResize } from 'hooks/use-resize';
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import { AppContext } from 'components/app-layout/AppLayout';
+import { injectIntl } from 'gatsby-plugin-intl';
 import { useSpring, animated as a } from 'react-spring';
+
+import { useKeyDown } from 'hooks/use-keydown';
+import { useResize } from 'hooks/use-resize';
+import { useOrientation } from 'hooks/use-orientation';
+import { Container } from 'components/container/Container';
+import { AppContext } from 'components/app-layout/AppLayout';
 import { Share } from 'components/share/Share';
 import { IBubble } from 'components/bubbles/Bubbles';
 import { Video, IVideoRef } from 'components/video/Video';
-import { useKeyDown } from 'hooks/use-keydown';
-import { useOrientation } from 'hooks/use-orientation';
 
 import { Content } from './Content';
 import { PostVideo } from './PostVideo';
-
 import s from './StepsItem.scss';
 
 interface IProps {
@@ -81,7 +81,6 @@ export const StepsItem = injectIntl(
     const isMobile = useResize();
     const keys = useKeyDown();
     const ref = useRef<IVideoRef>(null);
-
     const videoSrc = isMobile ? video : videoDesktop;
 
     const handleMouseEnter = () => {
@@ -95,9 +94,13 @@ export const StepsItem = injectIntl(
       mouseLeave();
     };
 
-    const handlePointerDown = () => setLight(true);
+    const handlePointerDown = () => {
+      setLight(true);
+    };
 
-    const handlePointerUp = () => setLight(false);
+    const handlePointerUp = () => {
+      setLight(false);
+    };
 
     const handleClick = (e?: React.MouseEvent) => {
       if (e) {
@@ -137,13 +140,13 @@ export const StepsItem = injectIntl(
 
       setShareProps({
         opacity: 1,
-        delay: 3000,
+        delay: 400,
         pointerEvents: 'all',
       });
 
       setContentProps({
         opacity: 0,
-        delay: 3000,
+        delay: 200,
         pointerEvents: 'none',
       });
     };
@@ -156,7 +159,7 @@ export const StepsItem = injectIntl(
       if (playing) {
         setMediaProps({
           opacity: 0,
-          delay: 1250,
+          delay: 1200,
           onRest: playVideo,
         });
       } else if (!playing) {
@@ -195,6 +198,7 @@ export const StepsItem = injectIntl(
           delay: 0,
           pointerEvents: 'all',
         });
+
         setMediaProps({ opacity: 1, immediate: true });
         setVideoEnded(false);
         setPlaying(false);
@@ -214,7 +218,6 @@ export const StepsItem = injectIntl(
         <Container>
           <div className={s.stepsItem__wrapper} onClick={handleClick}>
             <Content count={count} text={title} style={contentProps} />
-
             <Share title={title} num={index} style={shareProps} />
 
             <a.div
@@ -239,11 +242,13 @@ export const StepsItem = injectIntl(
                 onVideoEnd={handleVideoEnd}
               />
             )}
+
             {showPlayButton && !playing && (
               <button className={s.stepsItem__play} onClick={handlePlayPress}>
                 Spila
               </button>
             )}
+
             <PostVideo
               visible={active && videoEnded}
               nextNum={next && next.num}

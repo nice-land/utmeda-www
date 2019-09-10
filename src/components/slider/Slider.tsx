@@ -1,11 +1,12 @@
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useSprings, animated, interpolate } from 'react-spring';
 import { useGesture } from 'react-use-gesture';
+import { clamp } from 'lodash';
+import { FullGestureState, Coordinates as Coords } from 'react-use-gesture/dist/types';
+
 import { useKeyDown } from 'hooks/use-keydown';
 import { usePrevious } from 'hooks/use-previous';
-import { clamp } from 'lodash';
 import { useOrientation } from 'hooks/use-orientation';
-import { FullGestureState, Coordinates as Coords } from 'react-use-gesture/dist/types';
 
 import s from './Slider.scss';
 
@@ -27,13 +28,13 @@ const transform = (x: any, width: number, active: boolean) =>
           range: [-width, 0, width],
           output: [-5.0, 0, 5.0],
         })
-        .interpolate((_x: any) => `rotate3d(0, 1, 0, ${_x}deg)`),
+        .interpolate((_x: any) => `rotate3d(0,1,0,${_x}deg)`),
       x
         .interpolate({
           range: [-width, 0, width],
           output: [1.0, active ? 1.0 : 1.1, 1.0],
         })
-        .interpolate((_x: any) => `scale3d(${_x}, ${_x}, 1)`),
+        .interpolate((_x: any) => `scale3d(${_x},${_x},1)`),
     ],
     (translate, rotate, scale) => `${translate} ${rotate} ${scale}`,
   );
@@ -74,8 +75,8 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
     if (active !== null) {
       return;
     }
-    const [currentX, previousX] = selector(h);
 
+    const [currentX, previousX] = selector(h);
     const [boostCurrent, boostPrev = boostCurrent] = boost;
 
     offset!.current = clamp(
@@ -121,9 +122,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
       {springs.map((spring, i) => (
         <animated.div
           key={i}
-          className={s(s.slider__item, {
-            [s.slider__itemActive]: i === active,
-          })}
+          className={s(s.slider__item, { [s.slider__itemActive]: i === active })}
           style={{
             width: spring.width,
             transform: transform(spring.x, width, active === i),

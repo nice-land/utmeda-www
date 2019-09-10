@@ -1,20 +1,20 @@
 import React, { useContext, useEffect } from 'react';
-import { useSpring, animated as a, config } from 'react-spring';
+import { useSpring, animated as a } from 'react-spring';
 import { useMove } from 'react-use-gesture';
 
 import Play from 'assets/svg/play.svg';
 import Mouse from 'assets/svg/mouse.svg';
 
-import { AppContext } from 'components/app-layout/AppLayout';
 import { useMobile } from 'hooks/use-mobile';
+import { AppContext } from 'components/app-layout/AppLayout';
 
 import { Circle } from './Circle';
 import s from './Cursor.scss';
 
 export const Cursor = () => {
   const isMobile = useMobile();
-
   const { cursorText, cursorIcon, isMediaHovered } = useContext(AppContext);
+
   const [{ xy, hovering }, set] = useSpring(() => ({
     xy: [0, 0],
     hovering: 0,
@@ -24,6 +24,7 @@ export const Cursor = () => {
       mass: 0.5,
     },
   }));
+
   const bind = useMove((d) => set({ xy: d.xy }), {
     domTarget: typeof window === 'undefined' ? null : window,
   });
@@ -43,14 +44,12 @@ export const Cursor = () => {
     <a.div
       className={s(s.cursor, { isMobile })}
       style={{
-        transform: xy.interpolate((x: number, y: number) => `translate3D(${x}px, ${y}px, 0)`),
+        transform: xy.interpolate((x: number, y: number) => `translate3d(${x}px,${y}px,0)`),
       }}
     >
       <a.div
         className={s.cursor__inner}
-        style={{
-          opacity,
-        }}
+        style={{ opacity }}
       />
       <a.div
         className={s.cursor__stroke}
