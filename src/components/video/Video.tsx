@@ -4,6 +4,7 @@ import DisplacementMap from 'assets/images/displacementmap.png';
 import { useKeyDown } from 'hooks/use-keydown';
 import { useSpring } from 'react-spring/three';
 import { useOrientation } from 'hooks/use-orientation';
+import { useResize } from 'hooks/use-resize';
 import { Vector3 } from 'three';
 
 import s from './Video.scss';
@@ -15,6 +16,7 @@ const tone: string = require('assets/videos/tone.mp3');
 
 interface IVideoProps {
   src: string;
+  srcDesktop: string;
   active: boolean;
   playing: boolean;
   onVideoPlay(): void;
@@ -28,6 +30,7 @@ export const Video = ({
   active,
   playing,
   src,
+  srcDesktop,
   onVideoPlay,
   onVideoEnd,
   onMouseEnter,
@@ -44,6 +47,8 @@ export const Video = ({
   const [ended, setEnded] = useState<boolean>(false);
   const keys = useKeyDown();
   const orientation = useOrientation();
+  const isMobile = useResize();
+  const videoSource = isMobile ? src : srcDesktop;
   const { on } = useSpring({ on: light ? 1.0 : 0.0 });
 
   const showLight = (e?: Event) => {
@@ -125,7 +130,7 @@ export const Video = ({
           <video
             className={s.video__video}
             ref={ref}
-            src={src}
+            src={videoSource}
             onCanPlayThrough={onVideoCanPlay}
             playsInline
             onPlay={onVideoPlay}
@@ -133,6 +138,7 @@ export const Video = ({
             onTouchStart={showLight as any}
             onTouchEnd={showDark as any}
           />
+
           <audio ref={audioRef} src={tone} autoPlay muted={!playing || light || ended} loop />
 
           {playing && (

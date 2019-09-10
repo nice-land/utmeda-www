@@ -63,6 +63,7 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
             media={step.poster}
             spring={x}
             video={step.video}
+            videoDesktop={step.videoDesktop}
             active={a}
             onClose={() => context.setActiveStep(null)}
             onClick={() => context.setActiveStep(i)}

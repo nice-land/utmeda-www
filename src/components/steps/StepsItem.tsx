@@ -19,6 +19,7 @@ interface IProps {
   spring: any;
   active: boolean;
   video: string;
+  videoDesktop: string;
   next?: {
     num: number;
     title: string;
@@ -28,7 +29,7 @@ interface IProps {
 }
 
 export const StepsItem = injectIntl(
-  ({ count, link, text, title, media, intl, active, next, onClick, video }: IProps) => {
+  ({ count, link, text, title, media, intl, active, next, onClick, video, videoDesktop }: IProps) => {
     const { mouseEnter, mouseLeave } = useContext(AppContext);
 
     const [playing, setPlaying] = useState(false);
@@ -84,6 +85,7 @@ export const StepsItem = injectIntl(
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               src={video}
+              srcDesktop={videoDesktop}
               onVideoEnd={handleVideoEnd}
               onVideoPlay={() => void 0}
               onVideoCanPlay={handleVideoCanPlay}
