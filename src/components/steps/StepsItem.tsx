@@ -2,13 +2,15 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import { injectIntl } from 'gatsby-plugin-intl';
 import { useSpring, animated as a } from 'react-spring';
 
+import Play from 'assets/svg/play.svg';
+import Mouse from 'assets/svg/mouse.svg';
+
 import { useKeyDown } from 'hooks/use-keydown';
 import { useResize } from 'hooks/use-resize';
 import { useOrientation } from 'hooks/use-orientation';
 import { Container } from 'components/container/Container';
 import { AppContext } from 'components/app-layout/AppLayout';
 import { Share } from 'components/share/Share';
-import Play from 'assets/svg/play.svg';
 import { IBubble } from 'components/bubbles/Bubbles';
 import { Video, IVideoRef } from 'components/video/Video';
 import { Circle } from 'components/cursor/Circle';
@@ -268,13 +270,26 @@ export const StepsItem = injectIntl(
             )}
 
             <button
-              className={s(s.stepsItem__play, { visible: showPlayButton && !playing })}
+              className={s(s.stepsItem__cursor, { visible: isMobile && playing })}
+              onTouchStart={handlePointerDown}
+              onTouchEnd={handlePointerUp}
+            >
+              <div className={s.stepsItem__cursorCircle}>
+                <Circle text={intl.formatMessage({ id: 'step_click' })} />
+              </div>
+
+              <Mouse className={s.stepsItem__cursorMouse} />
+            </button>
+
+            <button
+              className={s(s.stepsItem__cursor, { visible: showPlayButton && !playing })}
               onClick={handlePlayPress}
             >
-              <div className={s.stepsItem__playCircle}>
-                <Circle text="Spila" />
+              <div className={s.stepsItem__cursorCircle}>
+                <Circle text={intl.formatMessage({ id: 'step_watch' })} />
               </div>
-              <Play className={s.stepsItem__playIcon} />
+
+              <Play className={s.stepsItem__cursorPlay} />
             </button>
 
             <PostVideo

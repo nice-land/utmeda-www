@@ -4,19 +4,30 @@
   position: relative;
   top: 5px;
 
-  width: 125px;
-  height: 125px;
+  width: 110px;
+  height: 110px;
 
   animation: spin 12s infinite linear;
 
+  @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+    width: 125px;
+    height: 125px;
+  }
+
   text { // stylelint-disable-line
-    font-size: 46px;
+    user-select: none;
+
+    font-size: 52px;
     font-family: sans-serif;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 10px;
 
     fill: #fff;
+
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+      font-size: 46px;
+    }
   }
 }
 

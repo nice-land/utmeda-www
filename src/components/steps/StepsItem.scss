@@ -65,39 +65,50 @@
     }
   }
 
-  &__play {
+  &__cursor {
     display: none;
     justify-content: center;
     align-items: center;
 
     position: absolute;
     z-index: 4;
-    bottom: 10%;
-    right: 10%;
+    bottom: 8%;
+    right: 5%;
 
-    width: 125px;
-    height: 125px;
+    width: 110px;
+    height: 110px;
 
     border: 0;
 
     pointer-events: none;
+
     opacity: 0;
     color: #fff;
     background: transparent;
     transition: opacity 0.3s ease-out;
     transform: translate3d(0%, -50%, 121px);
 
-    &Icon {
+    outline: none;
+
+    &Play {
       position: absolute;
       z-index: 4;
       transform: translate3d(4px, 4px, 122px);
+    }
+
+    &Mouse {
+      position: absolute;
+      z-index: 4;
+      transform: translate3d(0, 2px, 0);
     }
 
     &Circle {
       display: flex;
       justify-content: center;
       align-items: center;
+
       z-index: 4;
+
       transform: translate3d(0, 0, 125px);
     }
 
@@ -108,6 +119,14 @@
     &.visible {
       pointer-events: all;
       opacity: 1;
+    }
+
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+      bottom: 10%;
+      right: 10%;
+
+      width: 125px;
+      height: 125px;
     }
   }
 }
