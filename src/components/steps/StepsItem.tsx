@@ -84,9 +84,9 @@ export const StepsItem = injectIntl(
     const isMobile = useResize();
     const keys = useKeyDown();
     const ref = useRef<IVideoRef>(null);
-    const bind = useDrag(({ direction: [x] }) => {
-      if (active && Math.abs(x) === 1) {
-        setActiveStep(Math.min(10, Math.max(1, activeStep + x)));
+    const bind = useDrag(({ direction: [x], delta: [dx] }) => {
+      if (active && Math.abs(dx) > window.innerWidth / 2) {
+        setActiveStep(Math.min(10, Math.max(1, activeStep + dx / Math.abs(dx))));
       }
     });
 
