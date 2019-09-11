@@ -9,9 +9,7 @@ export function useSlideWidth() {
   }
 
   const isMobile = useMobile();
-
-  const offset = isMobile ? 0.85 : 0.75;
-
+  const offset = isMobile ? 0.85 : 0.9;
   const [width, setWidth] = useState(window.innerWidth * offset);
 
   const handleResize = debounce(() => {

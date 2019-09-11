@@ -22,7 +22,7 @@ interface IProps {
 const transform = (x: any, width: number, active: boolean) =>
   interpolate(
     [
-      x.interpolate((_x: any) => `translate3d(${_x}px,0,${active ? 0 : -100}px) `),
+      x.interpolate((_x: any) => `translate3d(${_x}px,0,${active ? 0 : -100}px)`),
       x
         .interpolate({
           range: [-width, 0, width],
@@ -49,10 +49,26 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
   const runSprings = useCallback(
     (y) => {
       set((i: number) => {
+        const isFirst = i === 0;
+        const firstItemWidth = window.innerWidth * 0.75;
+        const diff = width - firstItemWidth;
+
+        let x;
+
+        if (active === i) {
+          x = 0;
+        } else if (i === 0) {
+          x = -y;
+        } else if (i === 1) {
+          x = -y + firstItemWidth;
+        } else {
+          x = -y - diff + width * i;
+        }
+
         return {
           opacity: 1,
-          x: active === i ? 0 : -y + width * i,
-          width: active === i ? window.innerWidth : width,
+          x,
+          width: active === i ? window.innerWidth : isFirst ? firstItemWidth : width,
           immediate: previous && orientation !== previous,
           config: {
             tension: active === i ? 300 * i : 100 * i + 50,
@@ -76,11 +92,13 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
 
     const [currentX, previousX] = selector(h);
     const [boostCurrent, boostPrev = boostCurrent] = boost;
+    const firstItemWidth = window.innerWidth * 0.75;
+    const diff = width - firstItemWidth;
 
     offset!.current = clamp(
       offset!.current + currentX * boostCurrent + previousX * boostPrev,
       0,
-      width * (items.length - 1),
+      width * (items.length - 1) - diff,
     );
 
     runSprings(offset!.current);
