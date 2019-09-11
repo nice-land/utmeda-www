@@ -19,6 +19,7 @@ import { PostVideo } from './PostVideo';
 
 import s from './StepsItem.scss';
 import { usePrevious } from 'hooks/use-previous';
+import { useDrag } from 'react-use-gesture';
 
 interface IProps {
   intl: any;
@@ -75,7 +76,7 @@ export const StepsItem = injectIntl(
     index,
   }: IProps) => {
     const [state, dispatch] = useReducer(reducer, null, init);
-    const { mouseEnter, mouseLeave } = useContext(AppContext);
+    const { mouseEnter, mouseLeave, setActiveStep, activeStep } = useContext(AppContext);
     const orientation = useOrientation();
     const [contentProps, setContentProps] = useSpring(() => ({ opacity: 1, pointerEvents: 'all' }));
     const [shareProps, setShareProps] = useSpring(() => ({ opacity: 0, pointerEvents: 'all' }));
@@ -83,6 +84,11 @@ export const StepsItem = injectIntl(
     const isMobile = useResize();
     const keys = useKeyDown();
     const ref = useRef<IVideoRef>(null);
+    const bind = useDrag(({ direction: [x] }) => {
+      if (active && Math.abs(x) === 1) {
+        setActiveStep(Math.min(10, Math.max(1, activeStep + x)));
+      }
+    });
 
     const videoSrc = isMobile ? video : videoDesktop;
 
@@ -272,7 +278,7 @@ export const StepsItem = injectIntl(
     }, [active]);
 
     return (
-      <div className={s(s.stepsItem, { active, playing: state.playState === 'playing' })}>
+      <a.div {...bind()} className={s(s.stepsItem, { active, playing: state.playState === 'playing' })}>
         <Container>
           <div
             className={s.stepsItem__wrapper}
@@ -347,7 +353,7 @@ export const StepsItem = injectIntl(
             />
           </div>
         </Container>
-      </div>
+      </a.div>
     );
   },
 );
