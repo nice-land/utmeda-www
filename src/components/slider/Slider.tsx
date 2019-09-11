@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useSprings, animated, interpolate } from 'react-spring';
 import { useGesture } from 'react-use-gesture';
 import { clamp } from 'lodash';
@@ -40,11 +40,23 @@ const transform = (x: any, width: number, active: boolean) =>
   );
 
 export default function Slider({ items, width = 700, active, visible = 4, children }: IProps) {
+  const [hasActive, setHasActive] = useState(false);
+
   const orientation = useOrientation();
   const previous = usePrevious(orientation);
   const [springs, set] = useSprings(items.length, (i: number) => ({ x: i * width, width, opacity: i === 0 ? 1 : 0 }));
   const keys = useKeyDown();
   const offset = useRef(0);
+
+  useEffect(() => {
+    if (active === null) {
+      setHasActive(false);
+    }
+  }, [active]);
+
+  useEffect(() => {
+    runSprings(offset.current);
+  }, []);
 
   const runSprings = useCallback(
     (y) => {
@@ -52,6 +64,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
         const isFirst = i === 0;
         const firstItemWidth = window.innerWidth * 0.75;
         const diff = width - firstItemWidth;
+        const immediate = (hasActive && active !== i + 1) || (previous && orientation !== previous);
 
         let x;
 
@@ -69,7 +82,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
           opacity: 1,
           x,
           width: active === i ? window.innerWidth : isFirst ? firstItemWidth : width,
-          immediate: previous && orientation !== previous,
+          immediate,
           config: {
             tension: active === i ? 300 * i : 100 * i + 50,
             friction: 30 + i * 40,
@@ -77,15 +90,14 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
         };
       });
     },
-    [width, active, visible, set, orientation, items.length],
+    [width, active, hasActive, visible, set, orientation, items.length],
   );
 
   type GestureSelector = (h: FullGestureState<Coords>) => [number, number];
 
-  const handleGesture = (
-    selector: GestureSelector,
-    boost: [number, number?] = [1, -1],
-  ) => (h: FullGestureState<Coords>) => {
+  const handleGesture = (selector: GestureSelector, boost: [number, number?] = [1, -1]) => (
+    h: FullGestureState<Coords>,
+  ) => {
     if (active !== null) {
       return;
     }

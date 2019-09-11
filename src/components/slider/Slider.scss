@@ -24,7 +24,11 @@
 
     height: 100%;
 
-    will-change: transform;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+
+    will-change: transform, opacity;
+
 
     @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
       padding-top: 0;

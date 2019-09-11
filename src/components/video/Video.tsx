@@ -21,6 +21,7 @@ interface IVideoProps {
   onMouseLeave(): void;
   onPointerDown(): void;
   onPointerUp(): void;
+  onGlReady?(): void;
   bubbles?: IBubble[];
 }
 
@@ -34,7 +35,7 @@ export interface IVideoRef {
 
 export const Video = forwardRef<IVideoRef, IVideoProps>(
   (
-    { src, onMouseEnter, onMouseLeave, onVideoEnd, bubbles, light, onPointerDown, onPointerUp }: IVideoProps,
+    { src, onMouseEnter, onMouseLeave, onVideoEnd, bubbles, light, onPointerDown, onPointerUp, onGlReady }: IVideoProps,
     outerRef,
   ) => {
     const ref = React.useRef<HTMLVideoElement>(null);
@@ -106,9 +107,9 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
             <Bubbles bubbles={bubbles} currentTime={currentTime} scene={light ? 'light' : 'dark'} />
           )}
 
-          {ref.current && (
+          {ref.current && ref.current.readyState > 1 && (
             <div className={s.video__render}>
-              <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }}>
+              <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }} onCreated={onGlReady}>
                 <VideoObject
                   angle={Math.PI * 4}
                   videoRef={ref}

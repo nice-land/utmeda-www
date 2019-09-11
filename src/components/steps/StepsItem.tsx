@@ -1,10 +1,8 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useReducer } from 'react';
 import { injectIntl } from 'gatsby-plugin-intl';
 import { useSpring, animated as a } from 'react-spring';
-
 import Play from 'assets/svg/play.svg';
 import Mouse from 'assets/svg/mouse.svg';
-
 import { useKeyDown } from 'hooks/use-keydown';
 import { useResize } from 'hooks/use-resize';
 import { useOrientation } from 'hooks/use-orientation';
@@ -16,7 +14,9 @@ import { Video, IVideoRef } from 'components/video/Video';
 import { Circle } from 'components/cursor/Circle';
 
 import { Content } from './Content';
+import { reducer } from './stepsItemReducer';
 import { PostVideo } from './PostVideo';
+
 import s from './StepsItem.scss';
 
 interface IProps {
@@ -73,20 +73,25 @@ export const StepsItem = injectIntl(
     bubbles,
     index,
   }: IProps) => {
+    const [state, dispatch] = useReducer(reducer, {
+      light: false,
+      playState: 'initial',
+      showPlayButton: false,
+      mouseDown: false,
+      mouseMove: false,
+      screenX: 0,
+      screenY: 0,
+    });
+    
     const { mouseEnter, mouseLeave } = useContext(AppContext);
-    const [playing, setPlaying] = useState(false);
-    const [light, setLight] = useState(false);
     const orientation = useOrientation();
-    const [showPlayButton, setShowPlayButton] = useState(false);
-    const [videoEnded, setVideoEnded] = useState(false);
-    const [mouseMove, setMouseMove] = useState(false);
     const [contentProps, setContentProps] = useSpring(() => ({ opacity: 1, pointerEvents: 'all' }));
     const [shareProps, setShareProps] = useSpring(() => ({ opacity: 0, pointerEvents: 'all' }));
     const [mediaProps, setMediaProps] = useSpring(() => ({ opacity: 1 }));
-    const [xy, setXy] = useState({ x: 0, y: 0 });
     const isMobile = useResize();
     const keys = useKeyDown();
     const ref = useRef<IVideoRef>(null);
+
     const videoSrc = isMobile ? video : videoDesktop;
 
     const handleMouseEnter = () => {
@@ -96,17 +101,13 @@ export const StepsItem = injectIntl(
       });
     };
 
-    const handleMouseLeave = () => {
-      mouseLeave();
-    };
+    const handleMouseLeave = () => mouseLeave();
 
-    const handlePointerDown = () => {
-      setLight(true);
-    };
+    const setLight = (light: boolean) => dispatch({ type: 'light', light });
 
-    const handlePointerUp = () => {
-      setLight(false);
-    };
+    const handlePointerDown = () => setLight(true);
+
+    const handlePointerUp = () => setLight(false);
 
     const handleClick = (e?: React.MouseEvent) => {
       if (e) {
@@ -115,33 +116,46 @@ export const StepsItem = injectIntl(
 
       if (!active) {
         onClick();
-      } else if (!videoEnded) {
-        setPlaying(true);
+      } else if (!state.playState === 'ended') {
+        dispatch({ type: 'play' });
       }
     };
 
     const handleMouseUp = () => {
-      if (!mouseMove) {
+      if (!state.mouseMove) {
         handleClick();
       }
+      dispatch({
+        type: 'mouseup',
+      });
     };
 
     const handleMouseDown = (e: any) => {
-      setXy({ x: e.screenX, y: e.screenY });
-      setMouseMove(false);
+      dispatch({
+        type: 'mousedown',
+        x: e.screenX,
+        y: e.screenY,
+      });
     };
 
     const handleMouseMove = (e: any) => {
-      setMouseMove(Math.abs(xy.x - e.screenX) > 5 || Math.abs(xy.y - e.screenY) > 5);
+      if (state.mouseDown) {
+        dispatch({
+          type: 'mousemove',
+          x: e.screenX,
+          y: e.screenY,
+        });
+      }
     };
 
     const handleVideoEnd = () => {
-      setPlaying(false);
-      setVideoEnded(true);
+      dispatch({
+        type: 'end',
+      });
     };
 
     useEffect(() => {
-      if (!active || !playing) {
+      if (!active || state.playState !== 'playing') {
         return;
       }
 
@@ -150,7 +164,7 @@ export const StepsItem = injectIntl(
       if (keys.includes(27)) {
         onClose();
       }
-    }, [keys, active, playing]);
+    }, [keys, active, state.playState]);
 
     const playVideo = () => {
       if (!ref.current) {
@@ -177,17 +191,18 @@ export const StepsItem = injectIntl(
         return;
       }
 
-      if (playing) {
+      if (state.playState === 'playing') {
         setMediaProps({
           opacity: 0,
           delay: 1200,
           onRest: playVideo,
         });
-      } else if (!playing) {
+      } else {
         ref.current.pause();
       }
-    }, [playing]);
+    }, [state.playState]);
 
+    // pause the video when the orientation changes
     useEffect(() => {
       if (!ref.current) {
         return;
@@ -195,15 +210,16 @@ export const StepsItem = injectIntl(
 
       if (orientation === 'portrait') {
         ref.current.pause();
-      } else if (ref.current.paused && !videoEnded) {
+      } else if (ref.current.paused && state.playState !== 'ended') {
         ref.current.play().catch((err) => {});
       }
-    }, [orientation]);
+    }, [state.playState, orientation]);
 
     const handlePlayPress = () => {
       ref.current!.play();
-      setPlaying(true);
-      setShowPlayButton(false);
+      dispatch({
+        type: 'play',
+      });
     };
 
     useEffect(() => {
@@ -221,21 +237,26 @@ export const StepsItem = injectIntl(
         });
 
         setMediaProps({ opacity: 1, immediate: true });
-        setVideoEnded(false);
-        setPlaying(false);
+        dispatch({
+          type: 'reset',
+        });
       } else {
         isPlayable(ref.current).then((result) => {
           if (result) {
-            setPlaying(true);
+            dispatch({
+              type: 'play',
+            });
           } else {
-            setShowPlayButton(true);
+            dispatch({
+              type: 'autoplay-disabled',
+            });
           }
         });
       }
     }, [active]);
 
     return (
-      <div className={s(s.stepsItem, { active, playing })}>
+      <div className={s(s.stepsItem, { active, playing: state.playState === 'playing' })}>
         <Container>
           <div
             className={s.stepsItem__wrapper}
@@ -257,7 +278,7 @@ export const StepsItem = injectIntl(
 
             {active && (
               <Video
-                light={light}
+                light={state.light}
                 bubbles={bubbles}
                 onPointerUp={handlePointerUp}
                 onPointerDown={handlePointerDown}
@@ -270,7 +291,7 @@ export const StepsItem = injectIntl(
             )}
 
             <button
-              className={s(s.stepsItem__cursor, { visible: isMobile && playing })}
+              className={s(s.stepsItem__cursor, { visible: isMobile && state.playState === 'playing' })}
               onTouchStart={handlePointerDown}
               onTouchEnd={handlePointerUp}
             >
@@ -282,7 +303,7 @@ export const StepsItem = injectIntl(
             </button>
 
             <button
-              className={s(s.stepsItem__cursor, { visible: showPlayButton && !playing })}
+              className={s(s.stepsItem__cursor, { visible: state.showPlayButton && state.playState !== 'playing' })}
               onClick={handlePlayPress}
             >
               <div className={s.stepsItem__cursorCircle}>
@@ -293,7 +314,7 @@ export const StepsItem = injectIntl(
             </button>
 
             <PostVideo
-              visible={active && videoEnded}
+              visible={active && state.playState === 'ended'}
               nextNum={next && next.num}
               nextTitle={next && next.title}
               text={text}

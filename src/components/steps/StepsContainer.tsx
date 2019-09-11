@@ -2,9 +2,9 @@ import React from 'react';
 import { injectIntl } from 'gatsby-plugin-intl';
 import { IStep } from 'utils/interfaces';
 import Helmet from 'react-helmet';
+import { Loader } from 'components/loader/Loader';
 
 import { Steps } from './Steps';
-import { Loader } from 'components/loader/Loader';
 
 interface IProps {
   initialStep?: number;
