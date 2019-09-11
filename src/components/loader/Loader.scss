@@ -1,0 +1,39 @@
+@import '~styles/config';
+
+.loader {
+  @include fit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+
+  width: 75%;
+
+  background: $color-background;
+
+  &__background {
+    position: relative;
+
+    background: $color-background;
+  }
+
+  &__text {
+    padding: 20px 0 20px 147px;
+    user-select: none;
+    font-size: 120px;
+    font-weight: 600;
+    line-height: 0.8;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+    text-align: center;
+    color: transparent;
+
+    background-clip: text;
+
+    transform: translate3d(0, 0, -100px) rotate3d(0, 1, 0, 0deg) scale3d(1, 1, 1);
+
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+      @include responsive-font(120, 450);
+    }
+  }
+}
