@@ -4,6 +4,7 @@ import { IStep } from 'utils/interfaces';
 import Helmet from 'react-helmet';
 
 import { Steps } from './Steps';
+import { Loader } from 'components/loader/Loader';
 
 interface IProps {
   initialStep?: number;
@@ -165,13 +166,13 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
           type: 'call',
           msg: intl.formatMessage({ id: 'steps.ten.bubbles.call' }),
         },
-        //{
+        // {
         //  key: '25',
         //  scene: 'both',
         //  timestamp: 19,
         //  duration: 3,
         //  type: 'typing',
-        //},
+        // },
         {
           key: '30',
           scene: 'both',
@@ -198,7 +199,7 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
         {
           key: '70',
           scene: 'light',
-          timestamp: 30.20,
+          timestamp: 30.2,
           duration: 12,
           type: 'reply',
           msg: intl.formatMessage({ id: 'steps.ten.bubbles.not-feeling-good' }),
@@ -214,7 +215,12 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
           <link rel="preload" href={s.video} key={s.num} />
         ))}
       </Helmet>
-      <Steps initialStep={initialStep} list={steps} title={intl.formatMessage({ id: 'title' })} />
+      <Loader
+        resources={steps.map((x) => ({ src: x.poster, type: 'image' }))}
+        title={intl.formatMessage({ id: 'title' })}
+      >
+        {() => <Steps initialStep={initialStep} list={steps} title={intl.formatMessage({ id: 'title' })} />}
+      </Loader>
     </>
   );
 });

@@ -42,7 +42,7 @@ const transform = (x: any, width: number, active: boolean) =>
 export default function Slider({ items, width = 700, active, visible = 4, children }: IProps) {
   const orientation = useOrientation();
   const previous = usePrevious(orientation);
-  const [springs, set] = useSprings(items.length, (i: number) => ({ x: i * width, width }));
+  const [springs, set] = useSprings(items.length, (i: number) => ({ x: i * width, width, opacity: i === 0 ? 1 : 0 }));
   const keys = useKeyDown();
   const offset = useRef(0);
 
@@ -50,6 +50,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
     (y) => {
       set((i: number) => {
         return {
+          opacity: 1,
           x: active === i ? 0 : -y + width * i,
           width: active === i ? window.innerWidth : width,
           immediate: previous && orientation !== previous,
@@ -121,6 +122,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
           key={i}
           className={s(s.slider__item, { [s.slider__itemActive]: i === active })}
           style={{
+            opacity: spring.opacity,
             width: spring.width,
             transform: transform(spring.x, width, active === i),
           }}

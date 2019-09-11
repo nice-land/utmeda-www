@@ -1,8 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { debounce } from 'lodash';
+import React, { useContext, useEffect } from 'react';
 
 import { IStep } from 'utils/interfaces';
-import { useMobile } from 'hooks/use-mobile';
+import { useSlideWidth } from 'hooks/use-slide-width';
 import Slider from 'components/slider/Slider';
 import { AppContext } from 'components/app-layout/AppLayout';
 
@@ -17,41 +16,17 @@ interface IProps {
 
 export const Steps = ({ title, list, initialStep }: IProps) => {
   const context = useContext(AppContext) as any;
-  const isMobile = useMobile();
-  const offset = isMobile ? 0.85 : 0.75;
-
-  const [width, setWidth] = useState(
-    typeof window === 'undefined' ? 720 : window.innerWidth * offset,
-  );
-
-  const handleResize = debounce(() => {
-    setWidth(window.innerWidth * offset);
-  }, 200);
+  const width = useSlideWidth();
 
   useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
     if (initialStep) {
       const initialTitle = list && list[initialStep] && list[initialStep].title;
       setTimeout(() => context.setActiveStep(initialStep, initialTitle), 500);
     }
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
   }, []);
 
   return (
-    <Slider
-      items={[{}, ...list]}
-      active={context.activeStep}
-      width={width}
-      visible={1.3}
-    >
+    <Slider items={[{}, ...list]} active={context.activeStep} width={width} visible={1.3}>
       {(step: any, i: number, a: boolean, x: any) =>
         i === 0 ? (
           <div className={s.steps__title}>

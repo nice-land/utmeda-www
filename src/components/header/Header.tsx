@@ -16,9 +16,10 @@ export const Header = ({ children }: IHeaderProps) => {
   const context = useContext(AppContext) as any;
   const isMobile = useMobile();
 
-  const handleClick = e => {
-    e.preventDefault();
-
+  const handleClick = (e) => {
+    if (!/about/gi.test(window.location.pathname)) {
+      e.preventDefault();
+    }
     context.setActiveStep(null);
   };
 
