@@ -24,7 +24,7 @@
     height: 100%;
     background: $color-background;
 
-    transform: translate3d(0, 0, -100px) rotate3d(0, 1, 0, 0deg) scale3d(1.1, 1.1, 1);
+    transform: translate3d(0, 0, -200px) rotate3d(0, 1, 0, 0deg) scale3d(1.1, 1.1, 1);
     will-change: transform;
 
     @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {

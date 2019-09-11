@@ -31,6 +31,7 @@
     transition: 0.5s ease-in-out;
     transition-property: right, bottom, left, width, height, opacity;
     transform: translate3d(0%, -50%, 110px);
+    will-change: right, bottom, left, width, height, opacity;
 
     &::before {
       content: '';
@@ -58,9 +59,9 @@
       left: 0;
       bottom: 0;
       right: 0;
-
       width: auto;
       pointer-events: none;
+      transition: 0.5s ease-in-out;
       transform: translate3d(0%, 0%, 110px);
     }
   }

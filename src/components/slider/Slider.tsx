@@ -22,7 +22,7 @@ interface IProps {
 const transform = (x: any, width: number, active: boolean) =>
   interpolate(
     [
-      x.interpolate((_x: any) => `translate3d(${_x}px,0,${active ? 0 : -100}px)`),
+      x.interpolate((_x: any) => `translate3d(${_x}px,0,${active ? 0 : -200}px)`),
       x
         .interpolate({
           range: [-width, 0, width],

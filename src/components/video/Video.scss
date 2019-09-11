@@ -1,4 +1,4 @@
-@import "~styles/config";
+@import '~styles/config';
 
 .video {
   @include fit;
@@ -8,7 +8,7 @@
   user-select: none;
 
   &::before {
-    content: "";
+    content: '';
 
     display: block;
 
@@ -22,6 +22,18 @@
 
   &__video {
     display: none;
+  }
+
+  &__progress {
+    @include rf(14, 24);
+    position: absolute;
+    z-index: 10;
+    bottom: 20px;
+    left: 20px;
+
+    @media (min-width: $min-tablet) {
+      left: 40px;
+    }
   }
 
   &__render {

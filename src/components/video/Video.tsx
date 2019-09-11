@@ -15,12 +15,14 @@ const tone: string = require('assets/videos/tone.mp3');
 
 interface IVideoProps {
   src: string;
+  gl: boolean;
   light: boolean;
   onVideoEnd(): void;
   onMouseEnter(): void;
   onMouseLeave(): void;
   onPointerDown(): void;
   onPointerUp(): void;
+  onCanPlay?(): void;
   onGlReady?(): void;
   bubbles?: IBubble[];
 }
@@ -35,14 +37,27 @@ export interface IVideoRef {
 
 export const Video = forwardRef<IVideoRef, IVideoProps>(
   (
-    { src, onMouseEnter, onMouseLeave, onVideoEnd, bubbles, light, onPointerDown, onPointerUp, onGlReady }: IVideoProps,
+    {
+      src,
+      gl,
+      onMouseEnter,
+      onMouseLeave,
+      onCanPlay,
+      onVideoEnd,
+      bubbles,
+      light,
+      onPointerDown,
+      onPointerUp,
+      onGlReady,
+    }: IVideoProps,
     outerRef,
   ) => {
     const ref = React.useRef<HTMLVideoElement>(null);
     const audioRef = React.useRef<HTMLAudioElement>(null);
     const [ended, setEnded] = useState<boolean>(false);
+    const [waiting, setWaiting] = useState<boolean>(true);
     const [currentTime, setCurrentTime] = useState<number>(0);
-
+    const [buffered, setBuffered] = useState<number>(0);
     const { on } = useSpring({ on: light ? 1.0 : 0.0 });
 
     useImperativeHandle(outerRef, () => ({
@@ -56,6 +71,19 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
         return ref.current!.currentTime;
       },
     }));
+
+    const handleProgress = (e) => {
+      const target = e.target as any;
+
+      let current = 0;
+      if (target.buffered.length) {
+        current = target.buffered.end(0);
+      }
+
+      const pct = (100 * current) / target.duration;
+
+      setBuffered(pct);
+    };
 
     const handleEnded = () => {
       setEnded(true);
@@ -71,6 +99,16 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
       }
 
       setCurrentTime(ref.current.currentTime);
+    };
+
+    const handlePlaying = () => {
+      console.log("Playing")
+      setWaiting(false);
+    };
+
+    const handleWaiting = () => {
+      console.log("Waiting")
+      setWaiting(true);
     };
 
     return (
@@ -91,6 +129,10 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
             src={src}
             playsInline
             autoPlay
+            onProgress={handleProgress}
+            onPlaying={handlePlaying}
+            onWaiting={handleWaiting}
+            onCanPlay={onCanPlay}
             onEnded={handleEnded}
             onTimeUpdate={onTimeUpdate}
           />
@@ -99,7 +141,7 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
             ref={audioRef}
             src={tone}
             autoPlay
-            muted={(ref.current && ref.current!.paused) || light || ended}
+            muted={(ref.current && ref.current!.paused) || light || ended || waiting}
             loop
           />
 
@@ -107,9 +149,18 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
             <Bubbles bubbles={bubbles} currentTime={currentTime} scene={light ? 'light' : 'dark'} />
           )}
 
-          {ref.current && ref.current.readyState > 1 && (
+          {!isNaN(buffered) && Math.abs(buffered - 100) > 0.001 && waiting && (
+            <div className={s.video__progress}>{buffered.toFixed(0)}%</div>
+          )}
+
+          {gl && (
             <div className={s.video__render}>
-              <Canvas orthographic={true} camera={{ position: new Vector3(0, 0, 10) }} onCreated={onGlReady}>
+              <Canvas
+                style={{ background: 'black' }}
+                orthographic={true}
+                camera={{ position: new Vector3(0, 0, 10) }}
+                onCreated={() => onGlReady && onGlReady()}
+              >
                 <VideoObject
                   angle={Math.PI * 4}
                   videoRef={ref}
