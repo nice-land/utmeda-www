@@ -18,6 +18,7 @@ import { reducer, init } from './stepsItemReducer';
 import { PostVideo } from './PostVideo';
 
 import s from './StepsItem.scss';
+import { usePrevious } from 'hooks/use-previous';
 
 interface IProps {
   intl: any;
@@ -68,14 +69,12 @@ export const StepsItem = injectIntl(
     active,
     next,
     onClick,
-    spring,
     video,
     videoDesktop,
     bubbles,
     index,
   }: IProps) => {
     const [state, dispatch] = useReducer(reducer, null, init);
-
     const { mouseEnter, mouseLeave } = useContext(AppContext);
     const orientation = useOrientation();
     const [contentProps, setContentProps] = useSpring(() => ({ opacity: 1, pointerEvents: 'all' }));
@@ -240,14 +239,6 @@ export const StepsItem = injectIntl(
       }
     }, [state.playState, orientation]);
 
-    const handleTransitionEnd = (e) => {
-      if (state.playState === 'transitioning' && active) {
-        dispatch({
-          type: 'init-load',
-        });
-      }
-    };
-
     const handlePlayPress = () => {
       ref.current!.play();
       ref.current!.pause();
@@ -256,8 +247,11 @@ export const StepsItem = injectIntl(
       });
     };
 
+    const timeoutRef = useRef<any>();
+
     useEffect(() => {
       if (!active) {
+        clearTimeout(timeoutRef.current);
         dispatch({
           type: 'reset',
         });
@@ -265,6 +259,15 @@ export const StepsItem = injectIntl(
         dispatch({
           type: 'activate',
         });
+
+        // this is a hack, because transitionend can't be relied upon in this setup
+        timeoutRef.current = setTimeout(
+          () =>
+            dispatch({
+              type: 'init-load',
+            }),
+          1000,
+        );
       }
     }, [active]);
 
@@ -281,7 +284,6 @@ export const StepsItem = injectIntl(
             <Share title={title} num={index} style={shareProps} />
 
             <a.div
-              onTransitionEnd={handleTransitionEnd}
               style={mediaProps}
               className={s.stepsItem__media}
               onMouseEnter={handleMouseEnter}

@@ -37,6 +37,7 @@ export const init = (): IState => ({
 });
 
 export const reducer: React.Reducer<IState, Action> = (state, action) => {
+  console.log(action.type, state);
   switch (action.type) {
     case 'light': {
       return {
@@ -47,7 +48,7 @@ export const reducer: React.Reducer<IState, Action> = (state, action) => {
     case 'activate': {
       return {
         ...state,
-        playState: 'transitioning',
+        playState: state.playState === 'loading' ? 'loading' : 'transitioning',
       };
     }
     case 'video-load-complete': {
