@@ -7,7 +7,7 @@ import { IIntlProps } from 'utils/interfaces';
 // tslint:disable-next-line:no-var-requires
 const favicon: string = require('assets/images/favicon.png');
 // tslint:disable-next-line:no-var-requires
-const defaultImage: string = require('assets/posters/share/5.jpg');
+const defaultImage: string = require('assets/posters/share/default.jpg');
 
 const domain = process.env.GATSBY_DOMAIN || '';
 
