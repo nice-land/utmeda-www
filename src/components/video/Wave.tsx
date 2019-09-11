@@ -7,7 +7,6 @@ import createWaveShader from './createWaveShader';
 export const Wave = ({ erratic }: { erratic: any }) => {
   const { size } = useThree();
   const dimensions: [number, number] = [size.width, size.width / 1.7777776];
-
   const shaderConfig = React.useMemo(() => createWaveShader(dimensions), []);
 
   useRender((_, dt) => {
