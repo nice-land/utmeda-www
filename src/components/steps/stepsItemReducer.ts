@@ -37,7 +37,6 @@ export const init = (): IState => ({
 });
 
 export const reducer: React.Reducer<IState, Action> = (state, action) => {
-  console.log(action.type, state);
   switch (action.type) {
     case 'light': {
       return {

@@ -102,12 +102,10 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
     };
 
     const handlePlaying = () => {
-      console.log("Playing")
       setWaiting(false);
     };
 
     const handleWaiting = () => {
-      console.log("Waiting")
       setWaiting(true);
     };
 
