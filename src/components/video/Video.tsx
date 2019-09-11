@@ -93,6 +93,7 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
             onEnded={handleEnded}
             onTimeUpdate={onTimeUpdate}
           />
+
           <audio
             ref={audioRef}
             src={tone}

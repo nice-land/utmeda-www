@@ -19,7 +19,8 @@
     z-index: 2;
 
     padding-top: 30px;
-    padding-right: 100px;
+    padding-left: 60px;
+    padding-right: 60px;
 
     height: 100%;
 
@@ -27,7 +28,18 @@
 
     @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
       padding-top: 0;
-      padding-right: 50px;
+      padding-left: 80px;
+      padding-right: 80px;
+    }
+
+    @media (min-width: 1600px) {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+
+    &:first-of-type {
+      padding-left: 0;
+      padding-right: 0;
     }
 
     &Active {
@@ -35,6 +47,7 @@
 
       padding-top: 0;
       padding-right: 0;
+      padding-left: 0;
     }
   }
 }
