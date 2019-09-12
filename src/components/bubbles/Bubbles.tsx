@@ -39,10 +39,10 @@ export const Bubbles = ({ bubbles, currentTime, scene, all = false, videoIndex }
   };
 
   const transitions = useTransition(items, (item: IBubble) => item.key, {
-    initial: { opacity: 1 },
-    from: { opacity: 1 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
+    initial: { transform: `translate3d(0,20px,0)`, opacity: 0, height: 0 },
+    from: { transform: `translate3d(0,20px,0)`, opacity: 0, height: 0 },
+    enter: { transform: `translate3d(0,0,0)`, opacity: 1, height: 'auto' },
+    leave: { transform: `translate3d(0,-20px,0)`, opacity: 0, height: 0 },
     config,
   });
 

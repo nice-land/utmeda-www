@@ -6,46 +6,47 @@
 
   position: absolute;
   top: 40%;
-  left: 50%;
+  right: 200px;
   z-index: 10;
 
-  min-width: 250px;
+  width: 300px;
   min-height: 400px;
 
   @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
     top: 50%;
-    left: 50%;
-    min-width: 400px;
+    right: 100px;
+
+    width: 400px;
     min-height: 400px;
   }
 
-  &.video4 {
-    top: 45%;
-  }
+  // &.video4 {
+  //   top: 45%;
+  // }
 
-  &.video5 {
-    top: 40%;
-    left: 45%;
+  // &.video5 {
+  //   top: 40%;
+  //   left: 45%;
 
-    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
-      top: 50%;
-      left: 60%;
-    }
-  }
+  //   @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+  //     top: 50%;
+  //     left: 60%;
+  //   }
+  // }
 
-  &.video10 {
-    top: 35%;
-    left: 45%;
+  // &.video10 {
+  //   top: 35%;
+  //   left: 45%;
 
-    min-width: 250px;
+  //   min-width: 250px;
 
-    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
-      top: 50%;
-      left: 55%;
+  //   @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+  //     top: 50%;
+  //     left: 55%;
 
-      min-width: 450px;
-    }
-  }
+  //     min-width: 450px;
+  //   }
+  // }
 
   &__bubble {
     align-self: flex-end;
