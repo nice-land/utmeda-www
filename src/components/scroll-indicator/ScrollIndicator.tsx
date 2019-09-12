@@ -18,7 +18,7 @@ interface IProps {
   springs: SliderSpring[];
 }
 
-const margin = 160;
+const margin = 80;
 
 const props = (spring: SliderSpring) => ({
   background: interpolate([spring.x, spring.width], (x, width) =>
