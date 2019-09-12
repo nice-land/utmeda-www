@@ -31,7 +31,7 @@
     bottom: 20px;
     left: 20px;
 
-    @media (min-width: $min-tablet) {
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
       left: 40px;
     }
   }

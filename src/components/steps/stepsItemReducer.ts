@@ -37,6 +37,7 @@ export const init = (): IState => ({
 });
 
 export const reducer: React.Reducer<IState, Action> = (state, action) => {
+  console.log(action.type, state);
   switch (action.type) {
     case 'light': {
       return {
@@ -79,6 +80,10 @@ export const reducer: React.Reducer<IState, Action> = (state, action) => {
       };
     }
     case 'fix-autoplay': {
+      if (state.playState !== 'loading') {
+        return state;
+      }
+
       return {
         ...state,
         playState: 'stalled',
