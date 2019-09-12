@@ -47,7 +47,7 @@ export default ({ children }: IAppLayoutProps) => {
     }, 400);
   };
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     setActive(null);
   };
 

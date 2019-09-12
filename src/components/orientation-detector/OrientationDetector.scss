@@ -13,7 +13,6 @@
 
   opacity: 0;
   background: #000;
-//  transition: opacity 0.3s ease-out;
 
   &.portrait {
     visibility: visible;
@@ -28,8 +27,8 @@
 
   &__message {
     margin-top: 40px;
-    font-size: 18px;
     padding: 1em;
+    font-size: 18px;
   }
 
   @keyframes phone-rotate {

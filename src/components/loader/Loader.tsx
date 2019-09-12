@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 
-import s from './Loader.scss';
-import { useMobile } from 'hooks/use-mobile';
 import { useSlideWidth } from 'hooks/use-slide-width';
+
+import s from './Loader.scss';
 
 interface IResource {
   type: 'image' | 'video';

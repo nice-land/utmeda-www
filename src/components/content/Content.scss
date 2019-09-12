@@ -33,7 +33,7 @@
     @include responsive-font(20, 24);
     line-height: 1.5;
 
-    p {
+    p { // stylelint-disable-line
       margin-bottom: 1rem;
     }
   }

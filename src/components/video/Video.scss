@@ -2,10 +2,10 @@
 
 .video {
   @include fit;
-  opacity: 1;
 
   overflow: hidden;
   user-select: none;
+  opacity: 1;
 
   &::before {
     content: '';

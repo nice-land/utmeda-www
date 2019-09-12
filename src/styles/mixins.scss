@@ -124,13 +124,13 @@
 }
 
 @mixin js-only {
-  html:not(:global(.no-js)) & {
+  html:not(:global(.no-js)) & { // stylelint-disable-line
     @content;
   }
 }
 
 @mixin no-js {
-  html:not(:global(.js)) & {
+  html:not(:global(.js)) & { // stylelint-disable-line
     @content;
   }
 }
@@ -161,13 +161,13 @@
 }
 
 @mixin visually-hidden() {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
   position: absolute;
+  margin: -1px;
+  padding: 0;
+  height: 1px;
   width: 1px;
+  overflow: hidden;
+  border: 0;
   white-space: nowrap;
+  clip: rect(0 0 0 0);
 }

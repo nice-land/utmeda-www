@@ -8,7 +8,7 @@ interface IProps {
   intl: any;
 }
 
-function one({ intl }: IProps) {
+function eight({ intl }: IProps) {
   const socialTitle = intl.formatMessage({ id: 'steps.eight.socialTitle' });
   const text = intl.formatMessage({ id: 'steps.eight.text' });
   const socialPoster: string = require('assets/posters/share/8.jpg');
@@ -21,4 +21,4 @@ function one({ intl }: IProps) {
   );
 }
 
-export default injectIntl(one);
+export default injectIntl(eight);

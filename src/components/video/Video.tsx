@@ -73,7 +73,7 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
       },
     }));
 
-    const handleProgress = (e) => {
+    const handleProgress = (e: any) => {
       const target = e.target as any;
 
       let current = 0;

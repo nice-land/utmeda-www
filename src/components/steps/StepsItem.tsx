@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useReducer, useCallback } from 'react';
+import React, { useContext, useEffect, useRef, useReducer } from 'react';
 import { injectIntl } from 'gatsby-plugin-intl';
 import { useSpring, animated as a } from 'react-spring';
 import Play from 'assets/svg/play.svg';
@@ -18,7 +18,6 @@ import { reducer, init } from './stepsItemReducer';
 import { PostVideo } from './PostVideo';
 
 import s from './StepsItem.scss';
-import { usePrevious } from 'hooks/use-previous';
 
 interface IProps {
   intl: any;
@@ -177,7 +176,7 @@ export const StepsItem = injectIntl(
         return;
       }
 
-      ref.current.play().catch((err) => {});
+      ref.current.play().catch(() => { /* empty */ });
 
       setShareProps({
         opacity: 1,
@@ -235,7 +234,7 @@ export const StepsItem = injectIntl(
       if (orientation === 'portrait') {
         ref.current.pause();
       } else if (ref.current.paused && state.playState === 'playing') {
-        ref.current.play().catch((err) => {});
+        ref.current.play().catch(() => { /* empty */ });
       }
     }, [state.playState, orientation]);
 

@@ -28,7 +28,10 @@ void main() {
   float angle2 = st.x * 120.0;
   float angle3 = st.x * 130.0 + mix(0.5, 0.6, random) * 60.0;
 
-  float y = (sin(angle - mix(0.0, 4.0 * PI, dt)) * sin(angle2 - mix(0.0, 4.0 * PI, dt)) * sin(angle3 - mix(0.0, 4.0 * PI, dt))) * amplitude * erratic + y_displacement;
+  float y = (sin(angle - mix(0.0, 4.0 * PI, dt)) *
+            sin(angle2 - mix(0.0, 4.0 * PI, dt)) *
+            sin(angle3 - mix(0.0, 4.0 * PI, dt))) *
+            amplitude * erratic + y_displacement;
 
   float pct = plot(st, y);
 

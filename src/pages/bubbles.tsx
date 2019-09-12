@@ -9,7 +9,7 @@ interface IProps {
 
 function bubbles({ intl }: IProps) {
 
-  const bubbles = [
+  const bubbs = [
     // Can you work Friday?
     {
       key: '1',
@@ -91,7 +91,7 @@ function bubbles({ intl }: IProps) {
   return (
     <>
       <Bubbles
-        bubbles={bubbles}
+        bubbles={bubbs}
         all
       />
     </>

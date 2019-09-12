@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-type Orientation = "portrait" | "landscape";
+type Orientation = 'portrait' | 'landscape';
 
 export const useOrientation = (): Orientation => {
-  if (typeof window == "undefined") {
-    return "landscape";
+  if (typeof window === 'undefined') {
+    return 'landscape';
   }
 
   const [landscape, set] = useState(true);
 
   const handleOrientationChange = () => {
-    const media = window.matchMedia("screen and (orientation: landscape)");
+    const media = window.matchMedia('screen and (orientation: landscape)');
 
     set(media.matches);
   };
@@ -25,5 +25,5 @@ export const useOrientation = (): Orientation => {
     };
   }, []);
 
-  return landscape ? "landscape" : "portrait";
+  return landscape ? 'landscape' : 'portrait';
 };

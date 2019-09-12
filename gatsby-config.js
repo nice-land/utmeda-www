@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   siteMetadata: {
-    title: 'Ueno Gatsby Starter',
+    title: 'Útmeða',
   },
   plugins: [
     'gatsby-plugin-ueno',

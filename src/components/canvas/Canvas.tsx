@@ -1,6 +1,4 @@
-import { CanvasProps } from 'react-three-fiber';
-
-export let Canvas = (props: CanvasProps) => null;
+export let Canvas = () => null;
 
 if (typeof window !== 'undefined') {
   // tslint:disable-next-line: no-var-requires

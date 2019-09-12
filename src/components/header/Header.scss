@@ -1,4 +1,4 @@
-@import "~styles/config";
+@import '~styles/config';
 
 .header {
   @include responsive-font(20, 24);
@@ -64,9 +64,9 @@
       text-transform: lowercase;
       font-weight: 600;
 
-      &::after {
+      &::after { // stylelint-disable-line
         // stylelint-disable-line
-        content: "";
+        content: '';
         display: block;
         margin-top: 5px;
         width: 100%;
@@ -78,7 +78,7 @@
         transition: transform 200ms ease-in;
       }
 
-      &:hover::after {
+      &:hover::after { // stylelint-disable-line
         // stylelint-disable-line
         transform: scaleX(1);
       }

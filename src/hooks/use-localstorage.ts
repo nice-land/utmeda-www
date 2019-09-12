@@ -8,7 +8,7 @@ type TValue = string | boolean | object;
  * return a value and a setter that is sync with localstorage.
  */
 export const useLocalStorage = (key: string, initialValue?: TValue) => {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return [initialValue, undefined];
   }
 

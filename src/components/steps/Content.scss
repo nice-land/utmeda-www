@@ -3,10 +3,10 @@
 .content {
   position: relative;
   z-index: 4;
-  transform: translate3d(0,0,120px);
   width: (550px / $font-size) * 1em;
 
   user-select: none;
+  transform: translate3d(0, 0, 120px);
 
   &__count {
     @include responsive-font(14, 18);
