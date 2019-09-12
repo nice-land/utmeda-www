@@ -3,18 +3,21 @@
 .bubbles {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
 
   position: absolute;
   top: 40%;
-  left: 50%;
+  // left: 50%;
   z-index: 10;
 
   min-width: 250px;
   min-height: 400px;
 
   @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
-    top: 50%;
-    left: 50%;
+    top: 100px;
+    right: 100px;
+    bottom: 100px;
+
     min-width: 400px;
     min-height: 400px;
   }

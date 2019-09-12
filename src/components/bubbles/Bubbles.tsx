@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import isEqual from 'lodash/isEqual';
 import sortBy from 'lodash/sortBy';
-import { useTransition, animated } from 'react-spring';
+import { useTransition, animated, useSprings } from 'react-spring';
 import { IBubble } from 'utils/interfaces';
 
 import { Bubble } from './Bubble';
@@ -16,7 +16,10 @@ interface IProps {
 }
 
 export const Bubbles = ({ bubbles, currentTime, scene, all = false }: IProps) => {
-  const [items, setItems] = React.useState<IBubble[]>([]);
+  // const springs = useSprings(bubbles.length, bubbles.map(_ => ({ y: 20, opacity: 0 })));
+  const [springs, setSprings] = useSprings(bubbles.length, (_) => ({ opacity: 0, y: 20, height: 0 }));
+
+  // const [items, setItems] = useState<IBubble[]>([]);
 
   const visible = bubbles.filter(
     (item) =>
@@ -27,35 +30,57 @@ export const Bubbles = ({ bubbles, currentTime, scene, all = false }: IProps) =>
       ),
   );
 
-  if (!isEqual(sortBy(visible), sortBy(items))) {
-    setItems(visible);
-  }
-
   const config = {
     mass: 1,
     tension: 170,
     friction: 26,
   };
 
-  const transitions = useTransition(items, (item: IBubble) => item.key, {
-    initial: { opacity: 1 },
-    from: { opacity: 1 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config,
-  });
+  // const transitions = useTransition(bubbles, (item: IBubble) => item.key, {
+  //   initial: { transform: 'translate3d(0,20px,0)', opacity: 0 },
+  //   from: { transform: 'translate3d(0,0,0)', opacity: 0 },
+  //   enter: { transform: 'translate3d(0,0,0)', opacity: 1 },
+  //   // leave: { transform: 'translate3d(0,-20px,0)', opacity: 0 },
+  //   config,
+  // });
+
+  useEffect(() => {
+    // console.log('-currentTime', currentTime);
+
+    if (!isEqual(sortBy(visible), sortBy(bubbles))) {
+      // console.log('-visible', visible);
+      // setItems(visible);
+
+      setSprings((index: number) => {
+        const isTyping = bubbles[index].type === 'typing';
+
+        // TODO: If typing, remove straight away?
+        if (index === visible.length - 1) {
+          return { opacity: 1, y: 0, height: 'auto' };
+        }
+      });
+    }
+  }, [currentTime]);
 
   return (
     <div className={s.bubbles}>
-      {transitions.map(({ key, item, props }) => {
+      {springs.map((props, index) => {
+        // console.log('-props', props);
+        // console.log('-index', index);
+
+        // return null;
+        const item = bubbles[index];
         const incoming = item.type === 'incoming' || item.type === 'typing' || item.type === 'call';
         const call = item.type === 'call';
         const browser = item.type === 'browser';
 
         return (
           <animated.div
-            key={key}
-            style={props}
+            key={index}
+            style={{
+              ...props,
+              transform: props.y.interpolate((_y) => `translate3d(0,${_y}px,0)`),
+            }}
             className={s(s.bubbles__bubble, { incoming, call, browser })}
           >
             <Bubble

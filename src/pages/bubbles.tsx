@@ -2,97 +2,90 @@ import * as React from 'react';
 import { injectIntl } from 'gatsby-plugin-intl';
 
 import { Bubbles } from 'components/bubbles/Bubbles';
+import { Video } from 'components/video/Video';
 
 interface IProps {
   intl: any;
 }
 
 function bubbles({ intl }: IProps) {
+  const video = require('assets/videos/four.mp4');
 
   const bubbs = [
-    // Can you work Friday?
-    {
-      key: '1',
-      scene: 'both',
-      timestamp: 2,
-      duration: 3,
-      type: 'incoming',
-      msg: intl.formatMessage({ id: 'steps.four.bubbles.play' }),
-    },
     {
       key: '10',
       scene: 'both',
-      timestamp: 3,
-      duration: 3,
-      type: 'reply-erase',
-      msg: intl.formatMessage({ id: 'steps.ten.bubbles.no' }),
+      timestamp: 2,
+      duration: 1.5,
+      type: 'incoming',
+      msg: intl.formatMessage({ id: 'steps.ten.bubbles.coming' }),
     },
-    // No, I'm busy
     {
-      key: '2',
-      scene: 'light',
-      timestamp: 4,
-      duration: 3,
+      key: '20',
+      scene: 'both',
+      timestamp: 5,
+      duration: 1.5,
       type: 'reply',
-      msg: intl.formatMessage({ id: 'steps.five.bubbles.yes' }),
+      msg: intl.formatMessage({ id: 'steps.ten.bubbles.not-coming' }),
     },
-    // Sure
     {
-      key: '3',
-      scene: 'dark',
-      timestamp: 4,
-      duration: 3,
-      type: 'reply',
-      msg: intl.formatMessage({ id: 'steps.five.bubbles.no' }),
-    },
-    // calling
-    {
-      key: '4',
-      scene: 'dark',
-      timestamp: 4,
-      duration: 3,
+      key: '22',
+      scene: 'both',
+      timestamp: 8,
+      duration: 1.5,
       type: 'call',
-      msg: `Karen ${intl.formatMessage({ id: 'call' })}`,
+      msg: intl.formatMessage({ id: 'steps.ten.bubbles.call' }),
     },
-    // typing
     {
-      key: '5',
-      scene: 'dark',
-      timestamp: 4,
-      duration: 3,
+      key: '30',
+      scene: 'both',
+      timestamp: 11,
+      duration: 1.5,
+      type: 'incoming',
+      msg: intl.formatMessage({ id: 'steps.ten.bubbles.1717' }),
+    },
+    {
+      key: '50',
+      scene: 'both',
+      timestamp: 14,
+      duration: 1.5,
       type: 'typing',
     },
     {
-      key: '6',
-      scene: 'dark',
-      timestamp: 4,
-      duration: 3,
-      type: 'browser',
+      key: '60',
+      scene: 'both',
+      timestamp: 17,
+      duration: 1.5,
+      type: 'incoming',
+      msg: intl.formatMessage({ id: 'steps.ten.bubbles.ok' }),
     },
     {
       key: '70',
       scene: 'light',
-      timestamp: 30,
-      duration: 12,
+      timestamp: 20,
+      duration: 1.5,
       type: 'reply',
-      theme: '1717',
       msg: intl.formatMessage({ id: 'steps.ten.bubbles.not-feeling-good' }),
-    },
-    {
-      key: '50',
-      scene: 'light',
-      timestamp: 21.15,
-      duration: 2,
-      theme: '1717',
-      type: 'typing',
     },
   ];
 
   return (
     <>
-      <Bubbles
+      {/* <Bubbles
         bubbles={bubbs}
         all
+      /> */}
+
+      <Video
+        active={true}
+        playing={true}
+        onMouseEnter={() => {}}
+        onMouseLeave={() => {}}
+        src={video}
+        onVideoEnd={() => {}}
+        onVideoPlay={() => void 0}
+        onVideoCanPlay={() => {}}
+        bubbles={bubbs}
       />
     </>
   );

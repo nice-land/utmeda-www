@@ -51,6 +51,7 @@ export const Cursor = () => {
         className={s.cursor__inner}
         style={{ opacity }}
       />
+
       <a.div
         className={s.cursor__stroke}
         style={{
