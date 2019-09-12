@@ -1,7 +1,9 @@
 import React from 'react';
 import { injectIntl } from 'gatsby-plugin-intl';
-import { IStep } from 'utils/interfaces';
 import Helmet from 'react-helmet';
+
+import { useMobile } from 'hooks/use-mobile';
+import { IStep } from 'utils/interfaces';
 import { Loader } from 'components/loader/Loader';
 
 import { Steps } from './Steps';
@@ -12,6 +14,8 @@ interface IProps {
 }
 
 export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
+  const isMobile = useMobile();
+
   const steps: IStep[] = [
     {
       num: 1,
@@ -233,10 +237,15 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
   return (
     <>
       <Helmet>
-        {steps.map((s) => (
-          <link rel="preload" href={s.video} key={s.num} />
+        {isMobile && steps.map((s) => (
+          <link rel="preload" href={s.video} key={s.num} as="video" />
+        ))}
+
+        {!isMobile && steps.map((s) => (
+          <link rel="preload" href={s.videoDesktop} key={s.num} as="video" />
         ))}
       </Helmet>
+
       <Loader
         resources={steps.map((x) => ({ src: x.poster, type: 'image' }))}
         title={intl.formatMessage({ id: 'title' })}
