@@ -147,7 +147,6 @@ export const StepsItem = injectIntl(
       dispatch({
         type: 'mousedown',
         x: e.screenX,
-        y: e.screenY,
       });
     };
 
@@ -156,7 +155,6 @@ export const StepsItem = injectIntl(
         dispatch({
           type: 'mousemove',
           x: e.screenX,
-          y: e.screenY,
         });
       }
     };
