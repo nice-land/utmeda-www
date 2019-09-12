@@ -9,6 +9,7 @@ import { usePrevious } from 'hooks/use-previous';
 import { useOrientation } from 'hooks/use-orientation';
 
 import s from './Slider.scss';
+import { ScrollIndicator } from 'components/scroll-indicator/ScrollIndicator';
 
 interface IProps {
   children: (item: any, i: number, active: boolean, spring: any) => React.ReactNode;
@@ -44,7 +45,11 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
 
   const orientation = useOrientation();
   const previous = usePrevious(orientation);
-  const [springs, set] = useSprings(items.length, (i: number) => ({ x: i * width, width, opacity: i === 0 ? 1 : 0 }));
+  const [springs, set] = useSprings(items.length, (i: number) => ({
+    x: i * width,
+    width,
+    opacity: i === 0 ? 1 : 0,
+  }));
   const keys = useKeyDown();
   const offset = useRef(0);
 
@@ -138,11 +143,11 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
 
     if (keys.includes(37)) {
       offset.current = Math.max(0, offset.current - width);
+      runSprings(offset.current);
     } else if (keys.includes(39) || keys.includes(32)) {
       offset.current = Math.min((items.length - 1) * width, offset.current + width);
+      runSprings(offset.current);
     }
-
-    runSprings(offset.current);
   }, [keys, active, runSprings]);
 
   return (
@@ -159,6 +164,8 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
           children={children(items[i], i, active === i, spring.x)}
         />
       ))}
+
+      <ScrollIndicator springs={springs} />
     </div>
   );
 }

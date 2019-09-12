@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { IStep } from 'utils/interfaces';
 import { useSlideWidth } from 'hooks/use-slide-width';

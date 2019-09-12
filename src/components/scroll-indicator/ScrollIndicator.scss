@@ -1,0 +1,34 @@
+@import '~styles/config';
+
+.scrollIndicator {
+  --offset: 20px;
+  display: flex;
+
+  justify-content: space-between;
+  flex-direction: row;
+
+  position: absolute;
+
+  left: var(--offset);
+  bottom: 20px;
+  right: var(--offset);
+
+  @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+    --offset: 40px;
+  }
+
+  &__step {
+    flex: 1 1;
+
+    margin: 0 3px 0 0;
+
+    height: 3px;
+
+    transition: background 0.3s ease-in-out;
+    // background: #303030;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}

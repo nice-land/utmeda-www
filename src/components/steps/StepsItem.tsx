@@ -3,7 +3,6 @@ import { injectIntl } from 'gatsby-plugin-intl';
 import { useSpring, animated as a } from 'react-spring';
 import Play from 'assets/svg/play.svg';
 import Mouse from 'assets/svg/mouse.svg';
-import { useKeyDown } from 'hooks/use-keydown';
 import { useResize } from 'hooks/use-resize';
 import { useOrientation } from 'hooks/use-orientation';
 import { Container } from 'components/container/Container';
@@ -35,8 +34,9 @@ interface IProps {
     num: number;
     title: string;
   };
-  onClose(): void;
+  light: boolean;
   onClick(): void;
+  onClose(): void;
   bubbles?: IBubble[];
 }
 
@@ -62,12 +62,12 @@ export const StepsItem = injectIntl(
     count,
     text,
     title,
-    onClose,
     media,
     intl,
     active,
     next,
     onClick,
+    onClose,
     video,
     videoDesktop,
     bubbles,
@@ -80,7 +80,6 @@ export const StepsItem = injectIntl(
     const [shareProps, setShareProps] = useSpring(() => ({ opacity: 0, pointerEvents: 'all' }));
     const [mediaProps, setMediaProps] = useSpring(() => ({ opacity: 1 }));
     const isMobile = useResize();
-    const keys = useKeyDown();
     const ref = useRef<IVideoRef>(null);
 
     const videoSrc = isMobile ? video : videoDesktop;
@@ -118,9 +117,20 @@ export const StepsItem = injectIntl(
       if (!active) {
         onClick();
       }
-      //  else if (state.playState !== 'ended') {
-      //   dispatch({ type: '' });
-      // }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.which === 32) {
+        setLight(true);
+      }
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (e.which === 32) {
+        setLight(false);
+      } else if (e.which === 27) {
+        onClose();
+      }
     };
 
     const handleMouseUp = () => {
@@ -157,26 +167,14 @@ export const StepsItem = injectIntl(
       });
     };
 
-    useEffect(() => {
-      if (!active) {
-        return;
-      }
-
-      if (state.playState === 'playing') {
-        setLight(keys.includes(32));
-      }
-
-      if (keys.includes(27)) {
-        onClose();
-      }
-    }, [keys, active, state.playState]);
-
     const playVideo = () => {
       if (!ref.current) {
         return;
       }
 
-      ref.current.play().catch(() => { /* empty */ });
+      ref.current.play().catch(() => {
+        /* empty */
+      });
 
       setShareProps({
         opacity: 1,
@@ -234,7 +232,9 @@ export const StepsItem = injectIntl(
       if (orientation === 'portrait') {
         ref.current.pause();
       } else if (ref.current.paused && state.playState === 'playing') {
-        ref.current.play().catch(() => { /* empty */ });
+        ref.current.play().catch(() => {
+          /* empty */
+        });
       }
     }, [state.playState, orientation]);
 
@@ -255,6 +255,9 @@ export const StepsItem = injectIntl(
           type: 'reset',
         });
       } else {
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', handleKeyUp);
+
         dispatch({
           type: 'activate',
         });
@@ -267,6 +270,11 @@ export const StepsItem = injectIntl(
             }),
           1000,
         );
+
+        return () => {
+          window.removeEventListener('keydown', handleKeyDown);
+          window.removeEventListener('keyup', handleKeyUp);
+        };
       }
     }, [active]);
 
