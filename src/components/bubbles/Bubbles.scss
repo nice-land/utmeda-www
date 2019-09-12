@@ -9,14 +9,14 @@
   right: 200px;
   z-index: 10;
 
-  min-width: 250px;
+  width: 300px;
   min-height: 400px;
 
   @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
     top: 50%;
     right: 100px;
 
-    min-width: 400px;
+    width: 400px;
     min-height: 400px;
   }
 

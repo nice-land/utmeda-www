@@ -11,16 +11,8 @@
   margin-bottom: 20px;
 
   width: 100%;
-  min-width: 200px;
-  max-width: 300px;
 
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-  @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
-    margin-bottom: 10px;
-
-    max-width: 200px;
-  }
 
   &.incoming {
     justify-content: flex-start;
