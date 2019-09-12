@@ -29,7 +29,7 @@ const props = (spring: SliderSpring) => ({
 export const ScrollIndicator = ({ springs }: IProps) => (
   <div className={s.scrollIndicator}>
     {springs.map((spring, i) => (
-      <a.span className={s.scrollIndicator__step} style={props(spring)} />
+      <a.span key={i} className={s.scrollIndicator__step} style={props(spring)} />
     ))}
   </div>
 );

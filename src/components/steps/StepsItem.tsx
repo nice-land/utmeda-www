@@ -172,7 +172,8 @@ export const StepsItem = injectIntl(
         return;
       }
 
-      ref.current.play().catch(() => {
+      ref.current.play().catch((e) => {
+        console.log(e);
         /* empty */
       });
 
@@ -186,6 +187,13 @@ export const StepsItem = injectIntl(
         opacity: 0,
         delay: 200,
         pointerEvents: 'none',
+      });
+    };
+
+    const handleVisibilityChange = () => {
+      dispatch({
+        type: 'visibility',
+        value: document.visibilityState,
       });
     };
 
@@ -220,6 +228,8 @@ export const StepsItem = injectIntl(
           delay: 1200,
           onRest: playVideo,
         });
+      } else if (playState === 'paused') {
+        ref.current!.pause();
       }
     }, [state.playState]);
 
@@ -257,7 +267,7 @@ export const StepsItem = injectIntl(
       } else {
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('keyup', handleKeyUp);
-
+        document.addEventListener('visibilitychange', handleVisibilityChange);
         dispatch({
           type: 'activate',
         });
@@ -274,6 +284,7 @@ export const StepsItem = injectIntl(
         return () => {
           window.removeEventListener('keydown', handleKeyDown);
           window.removeEventListener('keyup', handleKeyUp);
+          document.removeEventListener('visibilitychange', handleVisibilityChange);
         };
       }
     }, [active]);
@@ -304,6 +315,7 @@ export const StepsItem = injectIntl(
                 gl={
                   state.playState === 'loading' ||
                   state.playState === 'playing' ||
+                  state.playState === 'paused' ||
                   state.playState === 'ended' ||
                   state.playState === 'stalled'
                 }

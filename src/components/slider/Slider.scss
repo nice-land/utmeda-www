@@ -5,8 +5,11 @@
 
   overflow: hidden;
 
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
   perspective: 1000px;
   perspective-origin: center;
+  contain: layout;
 
   &__container {
     position: relative;
@@ -24,11 +27,7 @@
 
     height: 100%;
 
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-
     will-change: transform, opacity;
-
 
     @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
       padding-top: 0;
