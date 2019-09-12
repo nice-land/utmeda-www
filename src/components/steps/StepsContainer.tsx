@@ -160,7 +160,7 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
           key: '60',
           scene: 'dark',
           timestamp: 26.15,
-          duration: 19.05,
+          duration: 12,
           type: 'incoming',
           msg: intl.formatMessage({ id: 'steps.ten.bubbles.ok' }),
         },
