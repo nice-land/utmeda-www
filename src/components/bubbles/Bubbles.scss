@@ -5,8 +5,8 @@
   flex-direction: column;
 
   position: absolute;
-  top: 20%;
-  left: 40%;
+  top: 40%;
+  left: 50%;
   z-index: 10;
 
   min-width: 250px;
@@ -27,6 +27,11 @@
     }
 
     &.call {
+      width: 100%;
+    }
+
+    &.browser {
+      margin-bottom: 20px;
       width: 100%;
     }
   }

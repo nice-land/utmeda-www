@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { injectIntl } from 'gatsby-plugin-intl';
 
-import { Video } from 'components/video/Video';
 import { Bubbles } from 'components/bubbles/Bubbles';
 
 interface IProps {
@@ -9,7 +8,6 @@ interface IProps {
 }
 
 function bubbles({ intl }: IProps) {
-  const video = require('assets/videos/four.mp4');
 
   const bubbles = [
     // Can you work Friday?
@@ -21,6 +19,14 @@ function bubbles({ intl }: IProps) {
       type: 'incoming',
       msg: intl.formatMessage({ id: 'steps.four.bubbles.play' }),
     },
+    {
+      key: '10',
+      scene: 'both',
+      timestamp: 3,
+      duration: 3,
+      type: 'reply-erase',
+      msg: intl.formatMessage({ id: 'steps.ten.bubbles.no' }),
+    },
     // No, I'm busy
     {
       key: '2',
@@ -28,7 +34,7 @@ function bubbles({ intl }: IProps) {
       timestamp: 4,
       duration: 3,
       type: 'reply',
-      msg: intl.formatMessage({ id: 'steps.four.bubbles.yes' }),
+      msg: intl.formatMessage({ id: 'steps.five.bubbles.yes' }),
     },
     // Sure
     {
@@ -37,7 +43,7 @@ function bubbles({ intl }: IProps) {
       timestamp: 4,
       duration: 3,
       type: 'reply',
-      msg: intl.formatMessage({ id: 'steps.four.bubbles.no' }),
+      msg: intl.formatMessage({ id: 'steps.five.bubbles.no' }),
     },
     // calling
     {
@@ -56,6 +62,30 @@ function bubbles({ intl }: IProps) {
       duration: 3,
       type: 'typing',
     },
+    {
+      key: '6',
+      scene: 'dark',
+      timestamp: 4,
+      duration: 3,
+      type: 'browser',
+    },
+    {
+      key: '70',
+      scene: 'light',
+      timestamp: 30,
+      duration: 12,
+      type: 'reply',
+      theme: '1717',
+      msg: intl.formatMessage({ id: 'steps.ten.bubbles.not-feeling-good' }),
+    },
+    {
+      key: '50',
+      scene: 'light',
+      timestamp: 21.15,
+      duration: 2,
+      theme: '1717',
+      type: 'typing',
+    },
   ];
 
   return (
@@ -64,20 +94,6 @@ function bubbles({ intl }: IProps) {
         bubbles={bubbles}
         all
       />
-
-      {/*
-      <Video
-        active={true}
-        playing={true}
-        onMouseEnter={() => {}}
-        onMouseLeave={() => {}}
-        src={video}
-        onVideoEnd={() => {}}
-        onVideoPlay={() => void 0}
-        onVideoCanPlay={() => {}}
-        bubbles={bubbles}
-      />
-      */}
     </>
   );
 }

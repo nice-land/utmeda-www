@@ -1,10 +1,11 @@
-import { Canvas } from 'components/canvas/Canvas';
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
-import DisplacementMap from 'assets/images/displacementmap.png';
 import { useSpring } from 'react-spring/three';
-
 import { Vector3 } from 'three';
-import { Bubbles, IBubble } from 'components/bubbles/Bubbles';
+
+import { Canvas } from 'components/canvas/Canvas';
+import DisplacementMap from 'assets/images/displacementmap.png';
+import { IBubble } from 'utils/interfaces';
+import { Bubbles } from 'components/bubbles/Bubbles';
 
 import s from './Video.scss';
 import { VideoObject } from './VideoObject';

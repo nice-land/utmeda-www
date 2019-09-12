@@ -2,24 +2,16 @@ import * as React from 'react';
 import isEqual from 'lodash/isEqual';
 import sortBy from 'lodash/sortBy';
 import { useTransition, animated } from 'react-spring';
+import { IBubble } from 'utils/interfaces';
 
 import { Bubble } from './Bubble';
 
 import s from './Bubbles.scss';
 
-export interface IBubble {
-  key: string;
-  scene: 'both' | 'light' | 'dark';
-  timestamp: number;
-  duration: number;
-  type: 'incoming' | 'reply' | 'typing' | 'call';
-  msg?: string;
-}
-
 interface IProps {
   bubbles: IBubble[];
   currentTime: number;
-  scene: 'both' | 'light' | 'dark';
+  scene: 'light' | 'dark';
   all?: boolean;
 }
 
@@ -58,16 +50,20 @@ export const Bubbles = ({ bubbles, currentTime, scene, all = false }: IProps) =>
       {transitions.map(({ key, item, props }) => {
         const incoming = item.type === 'incoming' || item.type === 'typing' || item.type === 'call';
         const call = item.type === 'call';
+        const browser = item.type === 'browser';
 
         return (
           <animated.div
             key={key}
             style={props}
-            className={s(s.bubbles__bubble, { incoming, call })}
+            className={s(s.bubbles__bubble, { incoming, call, browser })}
           >
             <Bubble
               type={item.type}
               msg={item.msg}
+              seen={item.seen}
+              theme={item.theme}
+              scene={scene}
             />
           </animated.div>
         );

@@ -1,0 +1,21 @@
+@import '~styles/config';
+
+.replyErase {
+  &__cursor {
+    font-weight: 100;
+    font-size: 1.2em;
+    color: #000;
+    animation: blink 1s infinite;
+  }
+}
+
+@keyframes blink {
+  from,
+  to {
+    color: transparent;
+  }
+
+  50% {
+    color: #000;
+  }
+}

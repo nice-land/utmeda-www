@@ -9,9 +9,9 @@ import { useOrientation } from 'hooks/use-orientation';
 import { Container } from 'components/container/Container';
 import { AppContext } from 'components/app-layout/AppLayout';
 import { Share } from 'components/share/Share';
-import { IBubble } from 'components/bubbles/Bubbles';
 import { Video, IVideoRef } from 'components/video/Video';
 import { Circle } from 'components/cursor/Circle';
+import { IBubble } from 'utils/interfaces';
 
 import { Content } from './Content';
 import { reducer, init } from './stepsItemReducer';
