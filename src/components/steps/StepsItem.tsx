@@ -319,6 +319,7 @@ export const StepsItem = injectIntl(
                   state.playState === 'ended' ||
                   state.playState === 'stalled'
                 }
+                index={index}
                 light={state.light}
                 bubbles={bubbles}
                 onPointerUp={handlePointerUp}

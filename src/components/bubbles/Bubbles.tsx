@@ -13,9 +13,10 @@ interface IProps {
   currentTime: number;
   scene: 'light' | 'dark';
   all?: boolean;
+  videoIndex: number;
 }
 
-export const Bubbles = ({ bubbles, currentTime, scene, all = false }: IProps) => {
+export const Bubbles = ({ bubbles, currentTime, scene, all = false, videoIndex }: IProps) => {
   const [items, setItems] = React.useState<IBubble[]>([]);
 
   const visible = bubbles.filter(
@@ -45,8 +46,12 @@ export const Bubbles = ({ bubbles, currentTime, scene, all = false }: IProps) =>
     config,
   });
 
+  const video4 = videoIndex === 4;
+  const video5 = videoIndex === 5;
+  const video10 = videoIndex === 10;
+
   return (
-    <div className={s.bubbles}>
+    <div className={s(s.bubbles, { video4, video5, video10 })}>
       {transitions.map(({ key, item, props }) => {
         const incoming = item.type === 'incoming' || item.type === 'typing' || item.type === 'call';
         const call = item.type === 'call';
