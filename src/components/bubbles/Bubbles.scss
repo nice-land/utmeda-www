@@ -12,17 +12,23 @@
   width: 300px;
   min-height: 400px;
 
+  pointer-events: none;
+
   @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
     top: 50%;
-    right: 100px;
+    right: 150px;
 
     width: 400px;
     min-height: 400px;
   }
 
-  // &.video4 {
-  //   top: 45%;
-  // }
+  &.video4 {
+    top: 45%;
+
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+      top: 50%;
+    }
+  }
 
   // &.video5 {
   //   top: 40%;
