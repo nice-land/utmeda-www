@@ -10,10 +10,11 @@ export type Action =
   | { type: 'play' }
   | { type: 'end' }
   | { type: 'light'; light: boolean }
-  | { type: 'reset' };
+  | { type: 'reset' }
+  | { type: 'visibility'; value: 'hidden' | 'visible' | 'prerender' };
 
 export interface IState {
-  playState: 'inactive' | 'transitioning' | 'loading' | 'playing' | 'ended' | 'stalled';
+  playState: 'inactive' | 'transitioning' | 'loading' | 'playing' | 'paused' | 'ended' | 'stalled';
   light: boolean;
   showPlayButton: boolean;
   mouseDown: boolean;
@@ -37,8 +38,18 @@ export const init = (): IState => ({
 });
 
 export const reducer: React.Reducer<IState, Action> = (state, action) => {
-  console.log(action.type, state);
+  console.log(action.type, state, action);
   switch (action.type) {
+    case 'visibility': {
+      if (state.playState !== 'playing' && state.playState !== 'paused') {
+        return state;
+      }
+
+      return {
+        ...state,
+        playState: action.value === 'hidden' ? 'paused' : 'playing',
+      };
+    }
     case 'light': {
       return {
         ...state,

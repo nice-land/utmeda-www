@@ -18,7 +18,7 @@ interface IProps {
   springs: SliderSpring[];
 }
 
-const margin = 160;
+const margin = 80;
 
 const props = (spring: SliderSpring) => ({
   background: interpolate([spring.x, spring.width], (x, width) =>
@@ -29,7 +29,7 @@ const props = (spring: SliderSpring) => ({
 export const ScrollIndicator = ({ springs }: IProps) => (
   <div className={s.scrollIndicator}>
     {springs.map((spring, i) => (
-      <a.span className={s.scrollIndicator__step} style={props(spring)} />
+      <a.span key={i} className={s.scrollIndicator__step} style={props(spring)} />
     ))}
   </div>
 );

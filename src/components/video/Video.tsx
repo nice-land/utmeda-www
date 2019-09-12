@@ -16,6 +16,7 @@ const tone: string = require('assets/videos/tone.mp3');
 
 interface IVideoProps {
   src: string;
+  index: number;
   gl: boolean;
   light: boolean;
   onVideoEnd(): void;
@@ -40,6 +41,7 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
   (
     {
       src,
+      index,
       gl,
       onMouseEnter,
       onMouseLeave,
@@ -145,7 +147,7 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
           />
 
           {bubbles && (
-            <Bubbles bubbles={bubbles} currentTime={currentTime} scene={light ? 'light' : 'dark'} />
+            <Bubbles videoIndex={index} bubbles={bubbles} currentTime={currentTime} scene={light ? 'light' : 'dark'} />
           )}
 
           {!isNaN(buffered) && Math.abs(buffered - 100) > 0.001 && waiting && (
