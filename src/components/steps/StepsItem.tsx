@@ -134,7 +134,7 @@ export const StepsItem = injectIntl(
     };
 
     const handleMouseUp = () => {
-      if (!active && !state.mouseMove) {
+      if (!active && !state.mouseMove && state.mouseDown) {
         handleClick();
       }
 
@@ -143,20 +143,18 @@ export const StepsItem = injectIntl(
       });
     };
 
-    const handleMouseDown = (e: any) => {
+    const handleMouseDown = (e: MouseEvent) => {
       dispatch({
         type: 'mousedown',
         x: e.screenX,
-        y: e.screenY,
       });
     };
 
-    const handleMouseMove = (e: any) => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (state.mouseDown) {
         dispatch({
           type: 'mousemove',
           x: e.screenX,
-          y: e.screenY,
         });
       }
     };
@@ -319,6 +317,7 @@ export const StepsItem = injectIntl(
                   state.playState === 'ended' ||
                   state.playState === 'stalled'
                 }
+                index={index}
                 light={state.light}
                 bubbles={bubbles}
                 onPointerUp={handlePointerUp}

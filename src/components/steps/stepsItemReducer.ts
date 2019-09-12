@@ -1,6 +1,6 @@
 export type Action =
-  | { type: 'mousedown'; x: number; y: number }
-  | { type: 'mousemove'; x: number; y: number }
+  | { type: 'mousedown'; x: number }
+  | { type: 'mousemove'; x: number }
   | { type: 'mouseup' }
   | { type: 'activate' }
   | { type: 'init-load' }
@@ -22,7 +22,6 @@ export interface IState {
   videoPreloaded: boolean;
   glLoaded: boolean;
   screenX: number;
-  screenY: number;
 }
 
 export const init = (): IState => ({
@@ -34,7 +33,6 @@ export const init = (): IState => ({
   glLoaded: false,
   mouseMove: false,
   screenX: 0,
-  screenY: 0,
 });
 
 export const reducer: React.Reducer<IState, Action> = (state, action) => {
@@ -115,7 +113,7 @@ export const reducer: React.Reducer<IState, Action> = (state, action) => {
     case 'mousemove': {
       return {
         ...state,
-        mouseMove: Math.abs(action.x - state.screenX) > 5 || Math.abs(action.y - state.screenY) > 5,
+        mouseMove: Math.abs(action.x - state.screenX) > 5,
       };
     }
     case 'mousedown': {
@@ -124,7 +122,6 @@ export const reducer: React.Reducer<IState, Action> = (state, action) => {
         mouseDown: true,
         mouseMove: false,
         screenX: action.x,
-        screenY: action.y,
       };
     }
     case 'reset': {

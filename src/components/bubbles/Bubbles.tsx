@@ -13,9 +13,10 @@ interface IProps {
   currentTime: number;
   scene: 'light' | 'dark';
   all?: boolean;
+  videoIndex: number;
 }
 
-export const Bubbles = ({ bubbles, currentTime, scene, all = false }: IProps) => {
+export const Bubbles = ({ bubbles, currentTime, scene, all = false, videoIndex }: IProps) => {
   const [items, setItems] = React.useState<IBubble[]>([]);
 
   const visible = bubbles.filter(
@@ -38,15 +39,19 @@ export const Bubbles = ({ bubbles, currentTime, scene, all = false }: IProps) =>
   };
 
   const transitions = useTransition(items, (item: IBubble) => item.key, {
-    initial: { opacity: 1 },
-    from: { opacity: 1 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
+    initial: { transform: `translate3d(0,20px,0)`, opacity: 0, height: 0 },
+    from: { transform: `translate3d(0,20px,0)`, opacity: 0, height: 0 },
+    enter: { transform: `translate3d(0,0,0)`, opacity: 1, height: 'auto' },
+    leave: { transform: `translate3d(0,-20px,0)`, opacity: 0, height: 0 },
     config,
   });
 
+  const video4 = videoIndex === 4;
+  const video5 = videoIndex === 5;
+  const video10 = videoIndex === 10;
+
   return (
-    <div className={s.bubbles}>
+    <div className={s(s.bubbles, { video4, video5, video10 })}>
       {transitions.map(({ key, item, props }) => {
         const incoming = item.type === 'incoming' || item.type === 'typing' || item.type === 'call';
         const call = item.type === 'call';

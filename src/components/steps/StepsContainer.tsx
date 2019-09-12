@@ -1,7 +1,9 @@
 import React from 'react';
 import { injectIntl } from 'gatsby-plugin-intl';
-import { IStep } from 'utils/interfaces';
 import Helmet from 'react-helmet';
+
+import { useMobile } from 'hooks/use-mobile';
+import { IStep } from 'utils/interfaces';
 import { Loader } from 'components/loader/Loader';
 
 import { Steps } from './Steps';
@@ -12,6 +14,8 @@ interface IProps {
 }
 
 export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
+  const isMobile = useMobile();
+
   const steps: IStep[] = [
     {
       num: 1,
@@ -49,10 +53,14 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
         {
           key: '1',
           scene: 'both',
-          timestamp: 9,
-          duration: 9,
+          timestamp: 11,
+          duration: 6.5,
           type: 'incoming',
           msg: intl.formatMessage({ id: 'steps.four.bubbles.play' }),
+          seen: {
+            dark: false,
+            light: true,
+          },
         },
       ],
     },
@@ -69,9 +77,13 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
           key: '1',
           scene: 'both',
           timestamp: 7.11,
-          duration: 40,
+          duration: 4,
           type: 'incoming',
           msg: intl.formatMessage({ id: 'steps.five.bubbles.work' }),
+          seen: {
+            dark: false,
+            light: false,
+          },
         },
         // Can you work on Friday?
         {
@@ -140,12 +152,12 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
           key: '10',
           scene: 'both',
           timestamp: 3.15,
-          duration: 20.85,
+          duration: 8.5,
           type: 'incoming',
           msg: intl.formatMessage({ id: 'steps.ten.bubbles.coming' }),
           seen: {
             dark: false,
-            light: true,
+            light: false,
           },
         },
         {
@@ -167,8 +179,8 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
         {
           key: '65',
           scene: 'dark',
-          timestamp: 30.15,
-          duration: 8,
+          timestamp: 32.15,
+          duration: 6,
           type: 'reply-erase',
           msg: intl.formatMessage({ id: 'steps.ten.bubbles.no' }),
         },
@@ -190,8 +202,8 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
         {
           key: '30',
           scene: 'light',
-          timestamp: 19,
-          duration: 8,
+          timestamp: 18,
+          duration: 6,
           type: 'incoming',
           msg: intl.formatMessage({ id: 'steps.ten.bubbles.1717' }),
         },
@@ -225,10 +237,15 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
   return (
     <>
       <Helmet>
-        {steps.map((s) => (
-          <link rel="preload" href={s.video} key={s.num} />
+        {isMobile && steps.map((s) => (
+          <link rel="preload" href={s.video} key={s.num} as="video" />
+        ))}
+
+        {!isMobile && steps.map((s) => (
+          <link rel="preload" href={s.videoDesktop} key={s.num} as="video" />
         ))}
       </Helmet>
+
       <Loader
         resources={steps.map((x) => ({ src: x.poster, type: 'image' }))}
         title={intl.formatMessage({ id: 'title' })}
