@@ -38,7 +38,6 @@ export const init = (): IState => ({
 });
 
 export const reducer: React.Reducer<IState, Action> = (state, action) => {
-  console.log(action.type, state, action);
   switch (action.type) {
     case 'visibility': {
       if (state.playState !== 'playing' && state.playState !== 'paused') {

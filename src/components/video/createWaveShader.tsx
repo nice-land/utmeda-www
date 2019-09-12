@@ -35,7 +35,9 @@ void main() {
 
   float pct = plot(st, y);
 
-  gl_FragColor = mix(vec4(0.0,0.0,0.0,0.0), vec4(1.0,1.0,1.0, 0.8), pct);
+  vec4 color = mix(vec4(1.0,1.0,1.0,1.0), vec4(1.0, 0.2501, 0.3126, 1.0), erratic);
+
+  gl_FragColor = mix(vec4(0.0,0.0,0.0,0.0), color, pct);
 }
 `;
 
