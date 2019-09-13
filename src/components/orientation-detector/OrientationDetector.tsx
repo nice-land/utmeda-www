@@ -2,20 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'gatsby-plugin-intl';
 import { useOrientation } from 'hooks/use-orientation';
 import Phone from 'assets/svg/phone.svg';
+import { isFacebookApp } from 'utils/isFacebook';
 
 import s from './OrientationDetector.scss';
-
-function isFacebookApp() {
-  if (typeof window === 'undefined') {
-    return false;
-  }
-
-  const w = window as any;
-
-  const ua = navigator.userAgent || navigator.vendor || w.opera;
-
-  return ua.indexOf('FBIOS') > -1 || ua.indexOf('FBAN') > -1;
-}
 
 export const OrientationDetector = () => {
   const orientation = useOrientation();
@@ -26,9 +15,7 @@ export const OrientationDetector = () => {
   }, []);
 
   return (
-    <div
-      className={s(s.orientationDetector)}
-    >
+    <div className={s(s.orientationDetector, { portrait: orientation === 'portrait', isFacebook })}>
       <Phone className={s.orientationDetector__phone} />
 
       <p className={s.orientationDetector__message}>

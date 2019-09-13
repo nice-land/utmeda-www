@@ -6,7 +6,7 @@
   z-index: 20;
 
   background: $color-background;
-  
+
   backface-visibility: hidden;
   perspective: 1000px;
   perspective-origin: center;
@@ -37,6 +37,11 @@
       margin-bottom: 0;
 
       width: 100%;
+    }
+
+    :global(.facebook-app) & {
+      width: 100vh;
+      height: 100vw;
     }
   }
 

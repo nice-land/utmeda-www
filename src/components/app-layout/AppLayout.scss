@@ -13,7 +13,9 @@
 
   will-change: transform;
 
-  &.wat {
+  &:global(.facebook-app) {
+    height: 100vw;
+
     transform: rotate(90deg);
   }
 }

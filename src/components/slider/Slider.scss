@@ -11,6 +11,11 @@
   perspective-origin: center;
   contain: layout;
 
+  :global(.facebook-app) & {
+    width: 100vh;
+    height: 100vw;
+  }
+
   &__container {
     position: relative;
     height: 100%;

@@ -8,6 +8,7 @@ import { ScrollIndicator } from 'components/scroll-indicator/ScrollIndicator';
 import { useKeyDown } from 'hooks/use-keydown';
 import { usePrevious } from 'hooks/use-previous';
 import { useOrientation } from 'hooks/use-orientation';
+import { useViewportWidth } from 'hooks/use-viewport-width';
 
 import s from './Slider.scss';
 
@@ -42,8 +43,8 @@ const transform = (x: any, width: number, active: boolean) =>
 
 export default function Slider({ items, width = 700, active, visible = 4, children }: IProps) {
   const [hasActive, setHasActive] = useState(false);
-
   const orientation = useOrientation();
+  const viewportWidth = useViewportWidth();
   const previous = usePrevious(orientation);
   const [springs, set] = useSprings(items.length, (i: number) => ({
     x: i * width,
@@ -67,7 +68,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
     (y) => {
       set((i: number) => {
         const isFirst = i === 0;
-        const firstItemWidth = window.innerWidth * 0.75;
+        const firstItemWidth = viewportWidth * 0.75;
         const diff = width - firstItemWidth;
         const immediate = (hasActive && active !== i + 1) || (previous && orientation !== previous);
 
@@ -86,7 +87,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
         return {
           opacity: 1,
           x,
-          width: active === i ? window.innerWidth : isFirst ? firstItemWidth : width,
+          width: active === i ? viewportWidth : isFirst ? firstItemWidth : width,
           immediate,
           config: {
             tension: active === i ? 300 * i : 100 * i + 50,
@@ -95,33 +96,34 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
         };
       });
     },
-    [width, active, hasActive, visible, set, orientation, items.length],
+    [width, active, hasActive, visible, set, viewportWidth, orientation, items.length],
   );
 
   type GestureSelector = (h: FullGestureState<Coords>) => [number, number];
 
-  const handleGesture = (selector: GestureSelector, boost: [number, number?] = [1, -1]) => (
-    h: FullGestureState<Coords>,
-  ) => {
-    if (active !== null) {
-      return;
-    }
+  const handleGesture = useCallback(
+    (selector: GestureSelector, boost: [number, number?] = [1, -1]) => (h: FullGestureState<Coords>) => {
+      if (active !== null) {
+        return;
+      }
 
-    const [currentX, previousX] = selector(h);
-    const [boostCurrent, boostPrev = boostCurrent] = boost;
-    const firstItemWidth = window.innerWidth * 0.75;
-    const diff = width - firstItemWidth;
+      const [currentX, previousX] = selector(h);
+      const [boostCurrent, boostPrev = boostCurrent] = boost;
+      const firstItemWidth = viewportWidth * 0.75;
+      const diff = width - firstItemWidth;
 
-    offset!.current = clamp(
-      offset!.current + currentX * boostCurrent + previousX * boostPrev,
-      0,
-      width * (items.length - 1) - diff,
-    );
+      offset!.current = clamp(
+        offset!.current + currentX * boostCurrent + previousX * boostPrev,
+        0,
+        width * (items.length - 1) - diff,
+      );
 
-    runSprings(offset!.current);
+      runSprings(offset!.current);
 
-    return offset!.current;
-  };
+      return offset!.current;
+    },
+    [viewportWidth, width, runSprings],
+  );
 
   const bind = useGesture({
     onDrag: handleGesture(({ xy: [cx], previous: [px] }) => [cx, px], [-5, 5]),

@@ -8,6 +8,7 @@ import { PhoneBubble } from 'components/phone-bubble/PhoneBubble';
 import { Cursor } from 'components/cursor/Cursor';
 import { OrientationDetector } from 'components/orientation-detector/OrientationDetector';
 import { useMobile } from 'hooks/use-mobile';
+import { isFacebookApp } from 'utils/isFacebook';
 
 import s from './AppLayout.scss';
 import { useOrientation } from 'hooks/use-orientation';
@@ -73,11 +74,13 @@ export default ({ children }: IAppLayoutProps) => {
       const active = state && state.i ? state.i : null;
       setActive(active);
     });
-
   }, []);
 
   return (
-    <div className={s(s.layout, { wat: orientation === 'portrait' })} onContextMenuCapture={onContextMenu}>
+    <div
+      className={s(s.layout, { 'facebook-app': isFacebookApp() && orientation === 'portrait' })}
+      onContextMenuCapture={onContextMenu}
+    >
       <OrientationDetector />
 
       <AppContext.Provider

@@ -11,9 +11,14 @@
   right: 0;
   z-index: $zindex-header;
 
+  :global(.facebook-app) & {
+    width: 100vh;
+  }
+
   &__container {
     padding-left: 20px;
     padding-right: 20px;
+
 
     @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
       padding-left: 40px;

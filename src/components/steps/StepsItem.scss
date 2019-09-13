@@ -13,6 +13,11 @@
   height: 100%;
   width: 100%;
 
+  :global(.facebook-app) &.active {
+    width: 100vh;
+    height: 100vw;
+  }
+
   &__wrapper {
     text-decoration: none;
   }
@@ -90,6 +95,11 @@
     transform: translate3d(0%, -50%, 121px);
 
     outline: none;
+
+    :global(.facebook-app) {
+      bottom: 92vh;
+      right: 95vw;
+    }
 
     &Play {
       position: absolute;

@@ -7,6 +7,11 @@
   user-select: none;
   opacity: 1;
 
+  :global(.facebook-app) & {
+    width: 100vh;
+    height: 100vw;
+  }
+
   &::before {
     content: '';
 
