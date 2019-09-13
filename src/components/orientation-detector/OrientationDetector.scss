@@ -23,6 +23,10 @@
     transform-origin: 50% 50%;
 
     animation: phone-rotate 3s ease-in-out infinite;
+
+    .isFacebook & {
+      display: none;
+    }
   }
 
   &__message {

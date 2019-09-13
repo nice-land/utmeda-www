@@ -73,6 +73,7 @@
     }
   },
   "orientation": {
+    "facebook":"You are using the in-app Facebook browser. Please switch to your phone's default web browser for a better experience.",
     "pleaseRotate": "Please rotate your device or increase the browser size horizontally."
   },
   "share": {

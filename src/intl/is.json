@@ -73,6 +73,7 @@
     }
   },
   "orientation": {
+    "facebook":"Þú ert að nota innbyggða Facebook vafrann. Vinsamlegast opnaðu síðuna í netvafranum á símanum þínum fyrir betri upplifun.",
     "pleaseRotate": "Vinsamlegast snúðu tækinu þínu eða stækkaðu gluggann."
   },
   "share": {
