@@ -60,7 +60,7 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
           msg: intl.formatMessage({ id: 'steps.four.bubbles.play' }),
           seen: {
             dark: false,
-            light: true,
+            light: false,
           },
         },
       ],
