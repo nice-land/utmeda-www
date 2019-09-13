@@ -63,7 +63,7 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
   const offset = useRef(0);
 
   useEffect(() => {
-    console.log(width, viewportWidth, orientation)
+
     runSprings(offset.current);
   }, [width, viewportWidth, orientation]);
 

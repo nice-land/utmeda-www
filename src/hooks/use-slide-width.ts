@@ -15,13 +15,9 @@ export function useSlideWidth() {
 
   const [width, setWidth] = useState(viewport * offset);
 
-  const handleResize = useCallback(
-    (e) => {
-      console.log('RESIZE', viewport, offset, e && e.target.innerWidth, e && e.target.innerHeight);
-      setWidth(viewport * offset);
-    },
-    [viewport, isMobile],
-  );
+  const handleResize = useCallback(() => {
+    setWidth(viewport * offset);
+  }, [viewport, isMobile]);
 
   useEffect(handleResize, [isMobile, viewport]);
 
