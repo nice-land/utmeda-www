@@ -49,7 +49,7 @@ div[role='group'][tabindex='-1'] {
 
 html {
   -webkit-overflow-scrolling: touch;
-  overflow-x: auto;
+  overflow: hidden;
   // overflow-y: hidden;
 
   -webkit-font-smoothing: antialiased;

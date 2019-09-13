@@ -11,8 +11,13 @@ export const useViewportWidth = () => {
   const orientation = useOrientation();
   const [viewport, set] = React.useState<number>(window.innerWidth);
 
-  const onResize = () =>
+  const onResize = React.useCallback(() => {
+    console.log(
+      'useViewportWidth',
+      isFacebookApp() && orientation === 'portrait' ? window.innerHeight : window.innerWidth,
+    );
     set(isFacebookApp() && orientation === 'portrait' ? window.innerHeight : window.innerWidth);
+  }, [orientation]);
 
   React.useEffect(onResize, [orientation]);
 

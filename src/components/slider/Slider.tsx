@@ -6,13 +6,12 @@ import { FullGestureState, Coordinates as Coords } from 'react-use-gesture/dist/
 
 import { ScrollIndicator } from 'components/scroll-indicator/ScrollIndicator';
 import { useKeyDown } from 'hooks/use-keydown';
-import { usePrevious } from 'hooks/use-previous';
 import { useOrientation } from 'hooks/use-orientation';
 import { useViewportWidth } from 'hooks/use-viewport-width';
 import { isFacebookApp } from 'utils/isFacebook';
+import { useSlideWidth } from 'hooks/use-slide-width';
 
 import s from './Slider.scss';
-import { useSlideWidth } from 'hooks/use-slide-width';
 
 interface IProps {
   children: (item: any, i: number, active: boolean, spring: any) => React.ReactNode;
@@ -23,32 +22,37 @@ interface IProps {
   visible: number;
 }
 
-const transform = (x: any, width: number, active: boolean) =>
-  interpolate(
+const transform = (x: any, width: number, active: boolean) => {
+  const fb = isFacebookApp();
+
+  return interpolate(
     [
-      x.interpolate((_x: any) => `translate3d(${_x}px,0,${active ? 0 : -200}px)`),
+      x.interpolate((_x: any) => `translate3d(${_x}px,0,${active ? 0 : fb ? 0 : -200}px)`),
       x
         .interpolate({
           range: [-width, 0, width],
           output: [-5.0, 0, 5.0],
         })
-        .interpolate((_x: any) => `rotate3d(0,1,0,${_x}deg)`),
+        .interpolate((_x: any) => `rotate3d(0,1,0,${fb ? 0 : _x}deg)`),
       x
         .interpolate({
           range: [-width, 0, width],
-          output: [1.0, active ? 1.0 : 1.1, 1.0],
+          output: [1.0, active || fb ? 1.0 : 1.1, 1.0],
         })
         .interpolate((_x: any) => `scale3d(${_x},${_x},1)`),
     ],
     (translate, rotate, scale) => `${translate} ${rotate} ${scale}`,
   );
+};
 
 export default function Slider({ items, active, visible = 4, children }: IProps) {
   const [hasActive, setHasActive] = useState(false);
   const orientation = useOrientation();
   const viewportWidth = useViewportWidth();
   const width = useSlideWidth();
-  
+  const fb = isFacebookApp();
+  const sliderRef = useRef<HTMLDivElement>(null);
+
   const [springs, set] = useSprings(items.length, (i: number) => ({
     x: i * width,
     width,
@@ -59,14 +63,9 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
   const offset = useRef(0);
 
   useEffect(() => {
-    if (active === null) {
-      setHasActive(false);
-    }
-  }, [active]);
-
-  useEffect(() => {
+    console.log(width, viewportWidth, orientation)
     runSprings(offset.current);
-  }, [width]);
+  }, [width, viewportWidth, orientation]);
 
   const runSprings = useCallback(
     (y) => {
@@ -78,7 +77,7 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
 
         let x;
 
-        if (active === i) {
+        if (!fb && active === i) {
           x = 0;
         } else if (i === 0) {
           x = -y;
@@ -107,7 +106,7 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
 
   const handleGesture = useCallback(
     (selector: GestureSelector, boost: [number, number?] = [1, -1]) => (h: FullGestureState<Coords>) => {
-      if (active !== null) {
+      if (active !== null || fb) {
         return;
       }
 
@@ -129,7 +128,7 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
     [viewportWidth, width, runSprings],
   );
 
-  const useY = isFacebookApp() && orientation === 'portrait';
+  const useY = fb && orientation === 'portrait';
 
   const bind = useGesture({
     onDrag: handleGesture(({ xy: [cx, cy], previous: [px, py] }) => [useY ? cy : cx, useY ? py : px], [
@@ -141,7 +140,22 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
 
   useEffect(() => {
     if (active) {
-      offset.current = width * active;
+      // offset.current = width * active;
+      if (fb) {
+        const firstItemWidth = viewportWidth * 0.75;
+        const diff = width - firstItemWidth;
+
+        sliderRef.current!.scrollTo({
+          behavior: 'smooth',
+          left: -diff + width * active,
+        });
+      }
+    } else {
+      if (fb) {
+        offset.current = 0;
+      }
+
+      setHasActive(false);
     }
 
     runSprings(offset.current);
@@ -162,7 +176,7 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
   }, [keys, active, runSprings]);
 
   return (
-    <div {...bind()} className={s.slider}>
+    <div {...bind()} ref={sliderRef} className={s(s.slider, { active: active !== null })}>
       {springs.map((spring, i) => (
         <animated.div
           key={i}
@@ -176,7 +190,7 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
         />
       ))}
 
-      <ScrollIndicator springs={springs} />
+      {!fb && <ScrollIndicator springs={springs} />}
     </div>
   );
 }
