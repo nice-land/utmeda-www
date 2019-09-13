@@ -42,6 +42,11 @@ body {
   background-color: $color-background;
 }
 
+#___gatsby,
+div[role='group'][tabindex='-1'] {
+  height: 100%;
+}
+
 html {
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;

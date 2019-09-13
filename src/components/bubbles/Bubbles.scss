@@ -12,6 +12,8 @@
   width: 300px;
   min-height: 400px;
 
+  pointer-events: none;
+
   @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
     top: 50%;
     right: 100px;

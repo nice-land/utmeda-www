@@ -9,8 +9,10 @@ import { useKeyDown } from 'hooks/use-keydown';
 import { usePrevious } from 'hooks/use-previous';
 import { useOrientation } from 'hooks/use-orientation';
 import { useViewportWidth } from 'hooks/use-viewport-width';
+import { isFacebookApp } from 'utils/isFacebook';
 
 import s from './Slider.scss';
+import { useSlideWidth } from 'hooks/use-slide-width';
 
 interface IProps {
   children: (item: any, i: number, active: boolean, spring: any) => React.ReactNode;
@@ -41,16 +43,18 @@ const transform = (x: any, width: number, active: boolean) =>
     (translate, rotate, scale) => `${translate} ${rotate} ${scale}`,
   );
 
-export default function Slider({ items, width = 700, active, visible = 4, children }: IProps) {
+export default function Slider({ items, active, visible = 4, children }: IProps) {
   const [hasActive, setHasActive] = useState(false);
   const orientation = useOrientation();
   const viewportWidth = useViewportWidth();
-  const previous = usePrevious(orientation);
+  const width = useSlideWidth();
+  
   const [springs, set] = useSprings(items.length, (i: number) => ({
     x: i * width,
     width,
     opacity: i === 0 ? 1 : 0,
   }));
+
   const keys = useKeyDown();
   const offset = useRef(0);
 
@@ -62,7 +66,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
 
   useEffect(() => {
     runSprings(offset.current);
-  }, []);
+  }, [width]);
 
   const runSprings = useCallback(
     (y) => {
@@ -70,7 +74,7 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
         const isFirst = i === 0;
         const firstItemWidth = viewportWidth * 0.75;
         const diff = width - firstItemWidth;
-        const immediate = (hasActive && active !== i + 1) || (previous && orientation !== previous);
+        const immediate = hasActive && active !== i + 1;
 
         let x;
 
@@ -125,8 +129,13 @@ export default function Slider({ items, width = 700, active, visible = 4, childr
     [viewportWidth, width, runSprings],
   );
 
+  const useY = isFacebookApp() && orientation === 'portrait';
+
   const bind = useGesture({
-    onDrag: handleGesture(({ xy: [cx], previous: [px] }) => [cx, px], [-5, 5]),
+    onDrag: handleGesture(({ xy: [cx, cy], previous: [px, py] }) => [useY ? cy : cx, useY ? py : px], [
+      -5,
+      5,
+    ]),
     onWheel: handleGesture(({ xy: [, cy], previous: [, py] }) => [cy, py]),
   });
 

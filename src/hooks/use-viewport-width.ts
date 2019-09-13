@@ -1,29 +1,22 @@
 import * as React from 'react';
-import { isFacebookApp } from 'utils/isFacebook';
 
 import { useOrientation } from './use-orientation';
+import { isFacebookApp } from 'utils/isFacebook';
 
 export const useViewportWidth = () => {
+  if (typeof window === 'undefined') {
+    return 1280;
+  }
+
   const orientation = useOrientation();
   const [viewport, set] = React.useState<number>(window.innerWidth);
 
-  const isFacebook = React.useMemo(() => isFacebookApp(), [window]);
+  const onResize = () =>
+    set(isFacebookApp() && orientation === 'portrait' ? window.innerHeight : window.innerWidth);
 
-  const onResize = () => {
-    if (typeof window === undefined) {
-      return;
-    }
-
-    const vp = isFacebook && orientation === 'portrait' ? window.innerHeight : window.innerWidth;
-    set(vp);
-  };
+  React.useEffect(onResize, [orientation]);
 
   React.useEffect(() => {
-    if (typeof window === undefined) {
-      return;
-    }
-
-    onResize();
     window.addEventListener('resize', onResize);
 
     return () => {

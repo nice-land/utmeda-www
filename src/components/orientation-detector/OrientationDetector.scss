@@ -20,7 +20,7 @@
     opacity: 1;
   }
 
-  &.isFacebook {
+  :global(.facebook-app) & {
     display: none;
   }
 

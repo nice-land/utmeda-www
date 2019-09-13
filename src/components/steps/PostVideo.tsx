@@ -19,17 +19,19 @@ export const PostVideo = ({ visible, text, nextTitle, nextNum }: IProps) => {
     context.setActiveStep(nextNum);
   };
 
+  const eat = (e) => {
+    if (visible) {
+      e.stopPropagation();
+    }
+  };
+
   return (
-    <div className={s(s.postVideo, { visible })}>
+    <div className={s(s.postVideo, { visible })} onMouseDown={eat} onMouseUp={eat}>
       <p className={s.postVideo__text}>{text}</p>
 
       {nextNum && nextTitle && (
         <div className={s.postVideo__next}>
-          <Content
-            count={(nextNum + '').padStart(2, '0')}
-            text={nextTitle}
-            onClick={handleNextClick}
-          />
+          <Content count={(nextNum + '').padStart(2, '0')} text={nextTitle} onClick={handleNextClick} />
         </div>
       )}
     </div>

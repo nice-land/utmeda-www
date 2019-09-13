@@ -4,6 +4,7 @@ import { useSpring, animated } from 'react-spring';
 import { useSlideWidth } from 'hooks/use-slide-width';
 
 import s from './Loader.scss';
+import { useViewportWidth } from 'hooks/use-viewport-width';
 
 interface IResource {
   type: 'image' | 'video';
@@ -22,7 +23,7 @@ export const Loader =
     : ({ resources, children, title }: IProps) => {
         const [loaded, set] = useState(0);
         const [loadComplete, setLoadComplete] = useState(false);
-        const width = useSlideWidth();
+        const width = useViewportWidth() * 0.9;
 
         const handleRest = () => {
           if (loaded === resources.length) {

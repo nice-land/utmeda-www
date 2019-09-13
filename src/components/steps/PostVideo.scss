@@ -14,8 +14,10 @@
 
   opacity: 0;
 
+  transition: 0.6s ease-out;
   transform: translate3d(100%, 0, 0);
-  will-change: transform, opacity;
+  transition-property: transform, opacity, box-shadow;
+  will-change: transform, opacity, box-shadow;
 
   &__text {
     @include rf(18, 60);
@@ -32,9 +34,9 @@
     width: auto;
 
     transform: translate3d(100%, 0, 0);
+    transition: transform 0.8s ease-out 0.3s;
 
     .visible & {
-      transition: transform 0.8s ease-out 0.3s;
       transform: translate3d(0, 0, 0);
     }
   }
@@ -44,7 +46,6 @@
 
     opacity: 1;
 
-    transition: 0.6s ease-out;
     transform: translate3d(20%, 0, 0);
     transition-property: transform, opacity, box-shadow;
 

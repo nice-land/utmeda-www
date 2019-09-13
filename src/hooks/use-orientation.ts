@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { debounce } from 'lodash';
 
 type Orientation = 'portrait' | 'landscape';
 
@@ -9,11 +10,9 @@ export const useOrientation = (): Orientation => {
 
   const [landscape, set] = useState(true);
 
-  const handleOrientationChange = () => {
-    const media = window.matchMedia('screen and (orientation: landscape)');
-
-    set(media.matches);
-  };
+  const handleOrientationChange = debounce(() => {
+    set(window.matchMedia('screen and (orientation: landscape)').matches);
+  }, 100);
 
   useEffect(() => {
     handleOrientationChange();

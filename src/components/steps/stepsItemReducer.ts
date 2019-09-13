@@ -101,6 +101,7 @@ export const reducer: React.Reducer<IState, Action> = (state, action) => {
     case 'mouseup': {
       return {
         ...state,
+        playState: state.playState === 'ended' ? 'playing' : state.playState,
         mouseDown: false,
       };
     }
@@ -119,6 +120,7 @@ export const reducer: React.Reducer<IState, Action> = (state, action) => {
     case 'mousedown': {
       return {
         ...state,
+
         mouseDown: true,
         mouseMove: false,
         screenX: action.x,
