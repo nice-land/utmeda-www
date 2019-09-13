@@ -24,6 +24,7 @@
     "dev-network": "gatsby develop -H 0.0.0.0 -p 8000",
     "build": "gatsby build",
     "start": "gatsby serve",
+    "start-network": "gatsby serve -H 0.0.0.0 -p 8000",
     "clean": "rimraf .cache public",
     "lint": "npm run tslint && npm run stylelint",
     "tslint": "tslint --fix 'src/**/*.{ts,tsx}' -p .",

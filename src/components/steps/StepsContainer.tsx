@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 
 import { useMobile } from 'hooks/use-mobile';
 import { IStep } from 'utils/interfaces';
+import { isEdge } from 'utils/browser';
 import { Loader } from 'components/loader/Loader';
 
 import { Steps } from './Steps';
@@ -59,7 +60,7 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
           msg: intl.formatMessage({ id: 'steps.four.bubbles.play' }),
           seen: {
             dark: false,
-            light: true,
+            light: false,
           },
         },
       ],
@@ -236,15 +237,17 @@ export const StepsContainer = injectIntl(({ initialStep, intl }: IProps) => {
 
   return (
     <>
-      <Helmet>
-        {isMobile && steps.map((s) => (
-          <link rel="preload" href={s.video} key={s.num} as="video" />
-        ))}
+      {!isEdge && (
+        <Helmet>
+          {isMobile && steps.map((s) => (
+            <link rel="preload" href={s.video} key={s.num} as="video" />
+          ))}
 
-        {!isMobile && steps.map((s) => (
-          <link rel="preload" href={s.videoDesktop} key={s.num} as="video" />
-        ))}
-      </Helmet>
+          {!isMobile && steps.map((s) => (
+            <link rel="preload" href={s.videoDesktop} key={s.num} as="video" />
+          ))}
+        </Helmet>
+      )}
 
       <Loader
         resources={steps.map((x) => ({ src: x.poster, type: 'image' }))}
