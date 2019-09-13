@@ -4,12 +4,12 @@ import { useGesture } from 'react-use-gesture';
 import { clamp } from 'lodash';
 import { FullGestureState, Coordinates as Coords } from 'react-use-gesture/dist/types';
 
+import { ScrollIndicator } from 'components/scroll-indicator/ScrollIndicator';
 import { useKeyDown } from 'hooks/use-keydown';
 import { usePrevious } from 'hooks/use-previous';
 import { useOrientation } from 'hooks/use-orientation';
 
 import s from './Slider.scss';
-import { ScrollIndicator } from 'components/scroll-indicator/ScrollIndicator';
 
 interface IProps {
   children: (item: any, i: number, active: boolean, spring: any) => React.ReactNode;

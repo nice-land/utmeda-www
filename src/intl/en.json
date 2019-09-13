@@ -73,7 +73,7 @@
     }
   },
   "orientation": {
-    "facebook":"You are using the in-app Facebook browser. Please switch to your phone's default web browser for a better experience.",
+    "facebook": "This site unfortunately does not work in this browser. You can open it in Safari by clicking the top right corner, and selecting \"Open in Safari\".",
     "pleaseRotate": "Please rotate your device or increase the browser size horizontally."
   },
   "share": {

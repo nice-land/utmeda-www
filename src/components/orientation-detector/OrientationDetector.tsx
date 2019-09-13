@@ -27,27 +27,16 @@ export const OrientationDetector = () => {
 
   return (
     <div
-      className={s(s.orientationDetector, { portrait: isFacebook || orientation === 'portrait', isFacebook })}
+      className={s(s.orientationDetector)}
     >
       <Phone className={s.orientationDetector__phone} />
 
       <p className={s.orientationDetector__message}>
         {isFacebook && (
-          <>
-            <p>
-              <FormattedMessage
-                id="orientation.facebook"
-                defaultMessage={`Þú ert að nota innbyggða Facebook vafrann.
-            Vinsamlegast opnaðu síðuna í netvafranum á símanum þínum fyrir betri upplifun.`}
-              />
-            </p>
-
-            <p>
-              <a href="https://www.utmeda.is" target="_blank">
-                Opna í vafra
-              </a>
-            </p>
-          </>
+          <FormattedMessage
+            id="orientation.facebook"
+            defaultMessage={`Því miður virkar þessi vefur ekki í þessum vafra. Þú getur opnað hann í Safari með því að smella á merkið í efra hægra horninu, og velja "Open in Safari".`}
+          />
         )}
 
         {!isFacebook && (

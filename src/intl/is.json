@@ -73,7 +73,7 @@
     }
   },
   "orientation": {
-    "facebook":"Þú ert að nota innbyggða Facebook vafrann. Vinsamlegast opnaðu síðuna í netvafranum á símanum þínum fyrir betri upplifun.",
+    "facebook": "Því miður virkar þessi vefur ekki í þessum vafra. Þú getur opnað hann í Safari með því að smella á merkið í efra hægra horninu, og velja \"Open in Safari\".",
     "pleaseRotate": "Vinsamlegast snúðu tækinu þínu eða stækkaðu gluggann."
   },
   "share": {

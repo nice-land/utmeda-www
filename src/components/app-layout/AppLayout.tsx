@@ -10,6 +10,7 @@ import { OrientationDetector } from 'components/orientation-detector/Orientation
 import { useMobile } from 'hooks/use-mobile';
 
 import s from './AppLayout.scss';
+import { useOrientation } from 'hooks/use-orientation';
 
 interface IAppLayoutProps {
   children: React.ReactNode;
@@ -26,6 +27,7 @@ export default ({ children }: IAppLayoutProps) => {
   const [activeStep, setActive] = React.useState<number | null>(null);
   const timer = React.useRef<any>(null);
   const isMobile = useMobile();
+  const orientation = useOrientation();
 
   const mouseEnter = ({ text, icon }: { text: string | undefined; icon: 'play' | 'mouse' }) => {
     clearTimeout(timer.current);
@@ -75,7 +77,7 @@ export default ({ children }: IAppLayoutProps) => {
   }, []);
 
   return (
-    <div className={s.layout} onContextMenuCapture={onContextMenu}>
+    <div className={s(s.layout, { wat: orientation === 'portrait' })} onContextMenuCapture={onContextMenu}>
       <OrientationDetector />
 
       <AppContext.Provider

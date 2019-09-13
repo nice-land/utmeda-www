@@ -8,4 +8,12 @@
   display: block;
 
   overflow: visible;
+
+  transform-origin: center center;
+
+  will-change: transform;
+
+  &.wat {
+    transform: rotate(90deg);
+  }
 }
