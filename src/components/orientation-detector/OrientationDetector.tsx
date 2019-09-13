@@ -34,15 +34,19 @@ export const OrientationDetector = () => {
       <p className={s.orientationDetector__message}>
         {isFacebook && (
           <>
-            <FormattedMessage
-              id="orientation.facebook"
-              defaultMessage={`Þú ert að nota innbyggða Facebook vafrann.
+            <p>
+              <FormattedMessage
+                id="orientation.facebook"
+                defaultMessage={`Þú ert að nota innbyggða Facebook vafrann.
             Vinsamlegast opnaðu síðuna í netvafranum á símanum þínum fyrir betri upplifun.`}
-            />
+              />
+            </p>
 
-            <a href="https://www.utmeda.is" target="_blank">
-              Opna í vafra
-            </a>
+            <p>
+              <a href="https://www.utmeda.is" target="_blank">
+                Opna í vafra
+              </a>
+            </p>
           </>
         )}
 

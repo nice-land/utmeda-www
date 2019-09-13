@@ -16,7 +16,12 @@
 
   &.portrait {
     visibility: visible;
+
     opacity: 1;
+  }
+
+  &.isFacebook {
+    pointer-events: all;
   }
 
   &__phone {
