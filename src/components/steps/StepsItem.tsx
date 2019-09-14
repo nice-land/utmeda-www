@@ -171,7 +171,6 @@ export const StepsItem = injectIntl(
       }
 
       ref.current.play().catch((e) => {
-        
         /* empty */
       });
 

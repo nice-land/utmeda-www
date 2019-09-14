@@ -24,7 +24,13 @@ export const VideoObject = ({
 }: IProps) => {
   const { size } = useThree();
 
-  const dimensions = [size.width, size.width / 1.7777776];
+  let dimensions = [size.width, size.width / 1.7777776];
+
+  if (dimensions[1] < size.height) {
+    const resizeFactor = size.height / dimensions[1];
+    
+    dimensions = [size.width * resizeFactor, size.height];
+  }
 
   if (videoRef.current === null) {
     return null;
