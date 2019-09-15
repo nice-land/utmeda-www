@@ -7,13 +7,15 @@
 
   min-height: 100%;
 
-  overflow-y: scroll;
-
   &__inner {
     margin-top: 80px;
 
+    max-height: calc(100vh - 80px);
+
+    overflow-y: auto;
+
     @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
-      margin-top: 0px;
+      margin-top: 0;
     }
   }
 }
