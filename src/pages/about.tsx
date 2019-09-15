@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 
 import { injectIntl } from 'gatsby-plugin-intl';
 import { Content } from 'components/content/Content';
+import { ScrollContainer } from 'components/scroll-container/ScrollContainer';
 
 interface IProps {
   intl: any;
@@ -14,15 +15,16 @@ const About = ({ intl }: IProps) => {
   return (
     <>
       <Helmet title={title} />
-
-      <Content
-        title={intl.formatMessage({ id: 'about.title' })}
-        source={intl.formatMessage({ id: 'about.content' })}
-      />
+      <ScrollContainer>
+        <Content
+          noPadding
+          titleStyle="bold"
+          title={intl.formatMessage({ id: 'about.title' })}
+          source={intl.formatMessage({ id: 'about.content' })}
+        />
+      </ScrollContainer>
     </>
   );
 };
 
-export default injectIntl((props: IProps) => (
-  <About {...props} />
-));
+export default injectIntl((props: IProps) => <About {...props} />);

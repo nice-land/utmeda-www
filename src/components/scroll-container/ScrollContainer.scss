@@ -1,0 +1,19 @@
+@import '~styles/config';
+
+.scrollContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100%;
+
+  overflow-y: scroll;
+
+  &__inner {
+    margin-top: 80px;
+
+    @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+      margin-top: 0px;
+    }
+  }
+}
