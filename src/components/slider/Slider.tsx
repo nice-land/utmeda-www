@@ -139,15 +139,17 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
 
   useEffect(() => {
     if (active) {
-      // offset.current = width * active;
       if (fb) {
         const firstItemWidth = viewportWidth * 0.75;
         const diff = width - firstItemWidth;
-
+        
         sliderRef.current!.scrollTo({
           behavior: 'smooth',
           left: -diff + width * active,
         });
+      } else  {
+        
+        offset.current = width * active;
       }
     } else {
       if (fb) {
