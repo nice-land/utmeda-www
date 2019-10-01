@@ -309,13 +309,6 @@ export const StepsItem = injectIntl(
 
             {['inactive', 'transitioning'].includes(state.playState) === false && (
               <Video
-                gl={
-                  state.playState === 'loading' ||
-                  state.playState === 'playing' ||
-                  state.playState === 'paused' ||
-                  state.playState === 'ended' ||
-                  state.playState === 'stalled'
-                }
                 index={index}
                 light={state.light}
                 bubbles={bubbles}

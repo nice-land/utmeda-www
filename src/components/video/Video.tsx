@@ -17,7 +17,7 @@ const tone: string = require('assets/videos/tone.mp3');
 interface IVideoProps {
   src: string;
   index: number;
-  gl: boolean;
+
   light: boolean;
   onVideoEnd(): void;
   onMouseEnter(): void;
@@ -42,7 +42,6 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
     {
       src,
       index,
-      gl,
       onMouseEnter,
       onMouseLeave,
       onCanPlay,
@@ -147,32 +146,30 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
           />
 
           {bubbles && (
-            <Bubbles videoIndex={index} bubbles={bubbles} currentTime={currentTime} scene={light ? 'light' : 'dark'} />
+            <Bubbles
+              videoIndex={index}
+              bubbles={bubbles}
+              currentTime={currentTime}
+              scene={light ? 'light' : 'dark'}
+            />
           )}
 
           {!isNaN(buffered) && Math.abs(buffered - 100) > 0.001 && waiting && (
             <div className={s.video__progress}>{buffered.toFixed(0)}%</div>
           )}
 
-          {gl && (
-            <div className={s.video__render}>
-              <Canvas
-                style={{ background: 'black' }}
-                orthographic={true}
-                camera={{ position: new Vector3(0, 0, 10) }}
-                onCreated={() => onGlReady && onGlReady()}
-              >
-                <VideoObject
-                  angle={Math.PI * 4}
-                  videoRef={ref}
-                  displacementMap={DisplacementMap}
-                  light={on}
-                />
+          <div className={s.video__render}>
+            <Canvas
+              style={{ background: 'black' }}
+              orthographic={true}
+              camera={{ position: new Vector3(0, 0, 10) }}
+              onCreated={() => onGlReady && onGlReady()}
+            >
+              <VideoObject angle={Math.PI * 4} videoRef={ref} displacementMap={DisplacementMap} light={on} />
 
-                {!ended && <Wave erratic={on} />}
-              </Canvas>
-            </div>
-          )}
+              {!ended && <Wave erratic={on} />}
+            </Canvas>
+          </div>
         </div>
       </div>
     );
