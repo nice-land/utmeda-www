@@ -132,8 +132,6 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
     if (active) {
       offset.current = width * active;
     } else {
-      offset.current = 0;
-
       setHasActive(false);
     }
 
