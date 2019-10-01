@@ -17,9 +17,9 @@
 
     overflow-x: scroll;
 
-    // &.active {
-    //   overflow-x: hidden;
-    // }
+    &.active {
+      overflow-x: hidden;
+    }
   }
 
   &__container {
