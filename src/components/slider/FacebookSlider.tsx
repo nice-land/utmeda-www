@@ -78,10 +78,7 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
       const firstItemWidth = viewportWidth * 0.75;
       const diff = width - firstItemWidth;
 
-      sliderRef.current!.scrollTo({
-        behavior: 'smooth',
-        left: -diff + width * active,
-      });
+      sliderRef.current!.scrollLeft = -diff + width * active;
     } else {
       offset.current = 0;
 
@@ -103,7 +100,6 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
       offset.current = Math.min((items.length - 1) * width, offset.current + width);
       runSprings(offset.current);
     }
-
   }, [keys, active, runSprings]);
 
   return (

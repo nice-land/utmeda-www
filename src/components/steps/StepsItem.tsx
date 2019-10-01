@@ -307,7 +307,7 @@ export const StepsItem = injectIntl(
               <img src={media} alt="" />
             </a.div>
 
-            {['inactive', 'transitioning'].includes(state.playState) === false && (
+            {active && ['inactive', 'transitioning'].includes(state.playState) === false && (
               <Video
                 index={index}
                 light={state.light}
