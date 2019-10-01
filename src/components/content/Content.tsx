@@ -11,7 +11,7 @@ interface IProps {
   noPadding?: boolean;
 }
 
-export const Content = ({ title, source, titleStyle, noPadding }: IProps) => {
+export const Content = React.memo(({ title, source, titleStyle, noPadding }: IProps) => {
   return (
     <div className={s(s.content__container, { noPadding })}>
       <div className={s.content__row}>
@@ -24,4 +24,4 @@ export const Content = ({ title, source, titleStyle, noPadding }: IProps) => {
       </div>
     </div>
   );
-};
+});

@@ -12,7 +12,7 @@ interface IContentProps {
   style?: any;
 }
 
-export const Content = ({ count, text, onClick, style }: IContentProps) => {
+export const Content = React.memo(({ count, text, onClick, style }: IContentProps) => {
   const handleClick = () => {
     if (onClick) {
       onClick();
@@ -28,4 +28,4 @@ export const Content = ({ count, text, onClick, style }: IContentProps) => {
       </p>
     </animated.div>
   );
-};
+});
