@@ -38,6 +38,8 @@
 
     height: 100%;
 
+    outline: none;
+
     will-change: transform, opacity;
 
     @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {

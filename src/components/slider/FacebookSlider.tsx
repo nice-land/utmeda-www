@@ -1,10 +1,6 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
-import { useSprings, animated, interpolate } from 'react-spring';
-import { useGesture } from 'react-use-gesture';
-import { clamp } from 'lodash';
-import { FullGestureState, Coordinates as Coords } from 'react-use-gesture/dist/types';
+import { useSprings, animated } from 'react-spring';
 
-import { ScrollIndicator } from 'components/scroll-indicator/ScrollIndicator';
 import { useKeyDown } from 'hooks/use-keydown';
 import { useOrientation } from 'hooks/use-orientation';
 import { useViewportWidth } from 'hooks/use-viewport-width';
@@ -21,32 +17,14 @@ interface IProps {
   visible: number;
 }
 
-const transform = (x: any, width: number, active: boolean) => {
-  return interpolate(
-    [
-      x.interpolate((_x: any) => `translate3d(${_x}px,0,${active ? 0 : -200}px)`),
-      x
-        .interpolate({
-          range: [-width, 0, width],
-          output: [-5.0, 0, 5.0],
-        })
-        .interpolate((_x: any) => `rotate3d(0,1,0,${_x}deg)`),
-      x
-        .interpolate({
-          range: [-width, 0, width],
-          output: [1.0, active ? 1.0 : 1.1, 1.0],
-        })
-        .interpolate((_x: any) => `scale3d(${_x},${_x},1)`),
-    ],
-    (translate, rotate, scale) => `${translate} ${rotate} ${scale}`,
-  );
-};
+const transform = (x: any) => x.interpolate((_x: any) => `translate3d(${_x}px, 0, 0px)`);
 
 export default function Slider({ items, active, visible = 4, children }: IProps) {
   const [hasActive, setHasActive] = useState(false);
   const orientation = useOrientation();
   const viewportWidth = useViewportWidth();
   const width = useSlideWidth();
+
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const [springs, set] = useSprings(items.length, (i: number) => ({
@@ -72,9 +50,7 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
 
         let x;
 
-        if (active === i) {
-          x = 0;
-        } else if (i === 0) {
+        if (i === 0) {
           x = -y;
         } else if (i === 1) {
           x = -y + firstItemWidth;
@@ -97,40 +73,15 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
     [width, active, hasActive, visible, set, viewportWidth, orientation, items.length],
   );
 
-  type GestureSelector = (h: FullGestureState<Coords>) => [number, number];
-
-  const handleGesture = useCallback(
-    (selector: GestureSelector, boost: [number, number?] = [1, -1]) => (h: FullGestureState<Coords>) => {
-      if (active !== null) {
-        return;
-      }
-
-      const [currentX, previousX] = selector(h);
-      const [boostCurrent, boostPrev = boostCurrent] = boost;
+  useEffect(() => {
+    if (active) {
       const firstItemWidth = viewportWidth * 0.75;
       const diff = width - firstItemWidth;
 
-      offset!.current = clamp(
-        offset!.current + currentX * boostCurrent + previousX * boostPrev,
-        0,
-        width * (items.length - 1) - diff,
-      );
-
-      runSprings(offset!.current);
-
-      return offset!.current;
-    },
-    [viewportWidth, width, runSprings],
-  );
-
-  const bind = useGesture({
-    onDrag: handleGesture(({ xy: [cx], previous: [px] }) => [cx, px], [-5, 5]),
-    onWheel: handleGesture(({ xy: [, cy], previous: [, py] }) => [cy, py]),
-  });
-
-  useEffect(() => {
-    if (active) {
-      offset.current = width * active;
+      sliderRef.current!.scrollTo({
+        behavior: 'smooth',
+        left: -diff + width * active,
+      });
     } else {
       offset.current = 0;
 
@@ -152,10 +103,11 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
       offset.current = Math.min((items.length - 1) * width, offset.current + width);
       runSprings(offset.current);
     }
+
   }, [keys, active, runSprings]);
 
   return (
-    <div {...bind()} ref={sliderRef} className={s(s.slider, { active: active !== null })}>
+    <div ref={sliderRef} className={s(s.slider, { active: active !== null })}>
       {springs.map((spring, i) => (
         <animated.div
           key={i}
@@ -163,14 +115,12 @@ export default function Slider({ items, active, visible = 4, children }: IProps)
           style={{
             opacity: spring.opacity,
             width: spring.width,
-            transform: transform(spring.x, width, active === i),
+            transform: transform(spring.x),
           }}
           tabIndex={i}
           children={children(items[i], i, active === i, spring.x)}
         />
       ))}
-
-      <ScrollIndicator springs={springs} />
     </div>
   );
 }
