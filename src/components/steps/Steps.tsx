@@ -7,10 +7,10 @@ import FacebookSlider from 'components/slider/FacebookSlider';
 import { AppContext } from 'components/app-layout/AppLayout';
 import DisplacementMap from 'assets/images/displacementmap.png';
 import { isFacebookApp } from 'utils/isFacebook';
+import { TextureLoader } from 'three';
 
 import { StepsItem } from './StepsItem';
 import s from './Steps.scss';
-import { TextureLoader } from 'three';
 
 interface IProps {
   title: string;
