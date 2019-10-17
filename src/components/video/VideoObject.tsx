@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { useThree } from 'react-three-fiber';
 
 import createRippleShader from './createRippleShader';
+import { ShaderMaterial, TextureLoader, Texture } from 'three';
 
 interface IProps {
   videoRef: React.RefObject<HTMLVideoElement>;
   angle: number;
   light: any;
-  displacementMap: any;
+  displacementMap: Texture;
   intensity1?: number;
   intensity2?: number;
   angle2?: number;
@@ -24,11 +25,13 @@ export const VideoObject = ({
 }: IProps) => {
   const { size } = useThree();
 
+  const shader = useRef<ShaderMaterial>(null);
+
   let dimensions = [size.width, size.width / 1.7777776];
 
   if (dimensions[1] < size.height) {
     const resizeFactor = size.height / dimensions[1];
-    
+
     dimensions = [size.width * resizeFactor, size.height];
   }
 
@@ -36,16 +39,20 @@ export const VideoObject = ({
     return null;
   }
 
+  useEffect(() => {
+    shader.current!.needsUpdate = true;
+  }, [videoRef.current]);
+
   const shaderConfig = React.useMemo(
     () => createRippleShader(videoRef.current!, intensity1, intensity2, angle, angle2, displacementMap),
-    [videoRef, intensity1, intensity2, angle, angle2, displacementMap],
+    [intensity1, intensity2, angle, angle2, displacementMap],
   );
 
   return (
     <group>
       <mesh rotation={[0, 0, 0]}>
         <boxGeometry attach="geometry" args={[...dimensions, 0] as [number, number, number]} />
-        <shaderMaterial attach="material" args={[shaderConfig]} uniforms-dispFactor={light} />
+        <shaderMaterial ref={shader} attach="material" args={[shaderConfig]} uniforms-dispFactor={light} />
       </mesh>
     </group>
   );

@@ -1,9 +1,4 @@
-import {
-  VideoTexture,
-  LinearFilter,
-  TextureLoader,
-  RepeatWrapping,
-} from 'three';
+import { VideoTexture, LinearFilter, TextureLoader, RepeatWrapping, Texture } from 'three';
 
 const fragmentShader = `
 varying vec2 vUv;
@@ -62,14 +57,9 @@ export default (
   intensity2: number,
   angle1: number,
   angle2: number,
-  dispUrl: string,
+  dispTexture: Texture,
 ) => {
   const texture = createTexture(src);
-
-  const loader = new TextureLoader();
-  loader.crossOrigin = '';
-
-  const dispTexture = loader.load(dispUrl);
 
   dispTexture.wrapS = dispTexture.wrapT = RepeatWrapping;
 

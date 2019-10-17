@@ -17,6 +17,7 @@ import { reducer, init } from './stepsItemReducer';
 import { PostVideo } from './PostVideo';
 
 import s from './StepsItem.scss';
+import { Texture } from 'three';
 
 interface IProps {
   intl: any;
@@ -30,6 +31,7 @@ interface IProps {
   active: boolean;
   video: string;
   videoDesktop: string;
+  displacementMap: Texture;
   next?: {
     num: number;
     title: string;
@@ -41,20 +43,26 @@ interface IProps {
 }
 
 // we need to detect whether autoplay is disabled or not
-const isPlayable = async (ref: IVideoRef | null): Promise<boolean> => {
-  if (ref === null) {
-    return false;
-  }
+const isPlayable = (ref: IVideoRef | null): Promise<boolean> => {
+  return new Promise((resolve) => {
+    if (ref === null) {
+      return resolve(false);
+    }
 
-  try {
-    const time = ref.currentTime;
-    await ref.play();
-    ref.pause();
-    ref.setTime(time);
-    return true;
-  } catch (e) {
-    return false;
-  }
+    const time = ref!.currentTime;
+
+    ref!
+      .play()
+      .then(() => {
+        ref.pause();
+        ref.setTime(time);
+        resolve(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        resolve(false);
+      });
+  });
 };
 
 export const StepsItem = injectIntl(
@@ -70,6 +78,7 @@ export const StepsItem = injectIntl(
     onClose,
     video,
     videoDesktop,
+    displacementMap,
     bubbles,
     index,
   }: IProps) => {
@@ -86,7 +95,9 @@ export const StepsItem = injectIntl(
 
     const handleMouseEnter = () => {
       mouseEnter({
-        text: intl.formatMessage({ id: active ? 'step_click' : 'step_watch' }),
+        text: intl.formatMessage({
+          id: active ? (state.videoPreloaded ? 'step_click' : 'one_moment') : 'step_watch',
+        }),
         icon: active ? 'mouse' : 'play',
       });
     };
@@ -171,8 +182,13 @@ export const StepsItem = injectIntl(
       }
 
       ref.current.play().catch((e) => {
-        /* empty */
+        dispatch({
+          type: 'fix-autoplay',
+        });
       });
+
+      // reconfigure the cursor text
+      handleMouseEnter();
 
       setShareProps({
         opacity: 1,
@@ -211,19 +227,19 @@ export const StepsItem = injectIntl(
         });
 
         setMediaProps({ opacity: 1, immediate: true });
-      } else if (playState === 'loading') {
+      } else if (playState === 'playing') {
         isPlayable(ref.current).then((result) => {
           if (!result) {
             dispatch({
               type: 'fix-autoplay',
             });
+          } else {
+            setMediaProps({
+              opacity: 0,
+              delay: 1200,
+              onRest: playVideo,
+            });
           }
-        });
-      } else if (playState === 'playing') {
-        setMediaProps({
-          opacity: 0,
-          delay: 1200,
-          onRest: playVideo,
         });
       } else if (playState === 'paused') {
         ref.current!.pause();
@@ -321,16 +337,21 @@ export const StepsItem = injectIntl(
                 onGlReady={handleGlReady}
                 onCanPlay={handleCanPlay}
                 onVideoEnd={handleVideoEnd}
+                displacementMap={displacementMap}
               />
             )}
 
             <button
-              className={s(s.stepsItem__cursor, { visible: isMobile && state.playState === 'playing' })}
+              className={s(s.stepsItem__cursor, { visible: isMobile })}
               onTouchStart={handlePointerDown}
               onTouchEnd={handlePointerUp}
             >
               <div className={s.stepsItem__cursorCircle}>
-                <Circle text={intl.formatMessage({ id: 'step_click' })} />
+                <Circle
+                  text={intl.formatMessage({
+                    id: state.playState === 'playing' ? 'step_click' : 'one_moment',
+                  })}
+                />
               </div>
 
               <Mouse className={s.stepsItem__cursorMouse} />

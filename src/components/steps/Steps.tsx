@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
 
 import { IStep } from 'utils/interfaces';
 import { useSlideWidth } from 'hooks/use-slide-width';
 import Slider from 'components/slider/Slider';
 import { AppContext } from 'components/app-layout/AppLayout';
-
+import DisplacementMap from 'assets/images/displacementmap.png';
 import { StepsItem } from './StepsItem';
 import s from './Steps.scss';
+import { TextureLoader } from 'three';
 
 interface IProps {
   title: string;
@@ -24,6 +25,8 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
       setTimeout(() => context.setActiveStep(initialStep, initialTitle), 500);
     }
   }, []);
+
+  const displacementMap = useMemo(() => new TextureLoader().load(DisplacementMap), []);
 
   return (
     <Slider items={[{}, ...list]} active={context.activeStep} width={width} visible={1.3}>
@@ -46,6 +49,7 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
             videoDesktop={step.videoDesktop}
             bubbles={step.bubbles}
             active={a}
+            displacementMap={displacementMap}
             onClose={() => context.setActiveStep(null, title)}
             onClick={() => context.setActiveStep(i, step.title)}
             next={list[i]} // a bit weird, but we have an edge case for the title, which "is" the first element in the list

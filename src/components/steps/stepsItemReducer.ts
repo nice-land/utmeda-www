@@ -88,10 +88,6 @@ export const reducer: React.Reducer<IState, Action> = (state, action) => {
       };
     }
     case 'fix-autoplay': {
-      if (state.playState !== 'loading') {
-        return state;
-      }
-
       return {
         ...state,
         playState: 'stalled',

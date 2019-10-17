@@ -1,9 +1,9 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { useSpring } from 'react-spring/three';
-import { Vector3 } from 'three';
+import { Vector3, Texture } from 'three';
 
 import { Canvas } from 'components/canvas/Canvas';
-import DisplacementMap from 'assets/images/displacementmap.png';
+
 import { IBubble } from 'utils/interfaces';
 import { Bubbles } from 'components/bubbles/Bubbles';
 
@@ -17,7 +17,7 @@ const tone: string = require('assets/videos/tone.mp3');
 interface IVideoProps {
   src: string;
   index: number;
-
+  displacementMap: Texture;
   light: boolean;
   onVideoEnd(): void;
   onMouseEnter(): void;
@@ -51,6 +51,7 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
       onPointerDown,
       onPointerUp,
       onGlReady,
+      displacementMap,
     }: IVideoProps,
     outerRef,
   ) => {
@@ -82,7 +83,7 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
         current = target.buffered.end(0);
       }
 
-      const pct = (100 * current) / target.duration;
+      const pct = (100 * current) / (target.duration || 0.0001);
 
       setBuffered(pct);
     };
@@ -129,6 +130,7 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
             src={src}
             playsInline
             autoPlay
+            preload=""
             onProgress={handleProgress}
             onPlaying={handlePlaying}
             onWaiting={handleWaiting}
@@ -154,7 +156,7 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
             />
           )}
 
-          {!isNaN(buffered) && Math.abs(buffered - 100) > 0.001 && waiting && (
+          {ref.current && !isNaN(buffered) && Math.abs(buffered - 100) > 0.001 && waiting && (
             <div className={s.video__progress}>{buffered.toFixed(0)}%</div>
           )}
 
@@ -165,7 +167,7 @@ export const Video = forwardRef<IVideoRef, IVideoProps>(
               camera={{ position: new Vector3(0, 0, 10) }}
               onCreated={() => onGlReady && onGlReady()}
             >
-              <VideoObject angle={Math.PI * 4} videoRef={ref} displacementMap={DisplacementMap} light={on} />
+              <VideoObject angle={Math.PI * 4} videoRef={ref} displacementMap={displacementMap} light={on} />
 
               {!ended && <Wave erratic={on} />}
             </Canvas>
