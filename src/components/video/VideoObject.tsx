@@ -39,13 +39,9 @@ export const VideoObject = ({
     return null;
   }
 
-  useEffect(() => {
-    shader.current!.needsUpdate = true;
-  }, [videoRef.current]);
-
   const shaderConfig = React.useMemo(
     () => createRippleShader(videoRef.current!, intensity1, intensity2, angle, angle2, displacementMap),
-    [intensity1, intensity2, angle, angle2, displacementMap],
+    [videoRef.current, intensity1, intensity2, angle, angle2, displacementMap],
   );
 
   return (
