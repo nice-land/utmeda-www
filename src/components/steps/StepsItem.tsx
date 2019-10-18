@@ -243,6 +243,11 @@ export const StepsItem = injectIntl(
         });
       } else if (playState === 'paused') {
         ref.current!.pause();
+      } else if (playState === 'replaying') {
+        ref.current!.setTime(0);
+        dispatch({
+          type: 'play',
+        });
       }
     }, [state.playState]);
 

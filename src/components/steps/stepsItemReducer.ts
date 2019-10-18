@@ -14,7 +14,7 @@ export type Action =
   | { type: 'visibility'; value: 'hidden' | 'visible' | 'prerender' };
 
 export interface IState {
-  playState: 'inactive' | 'transitioning' | 'loading' | 'playing' | 'paused' | 'ended' | 'stalled';
+  playState: 'inactive' | 'transitioning' | 'loading' | 'playing' | 'paused' | 'ended' | 'replaying' | 'stalled';
   light: boolean;
   showPlayButton: boolean;
   mouseDown: boolean;
@@ -97,7 +97,7 @@ export const reducer: React.Reducer<IState, Action> = (state, action) => {
     case 'mouseup': {
       return {
         ...state,
-        playState: state.playState === 'ended' ? 'playing' : state.playState,
+        playState: state.playState === 'ended' ? 'replaying' : state.playState,
         mouseDown: false,
       };
     }
