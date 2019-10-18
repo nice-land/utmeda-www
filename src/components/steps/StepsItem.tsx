@@ -342,7 +342,7 @@ export const StepsItem = injectIntl(
             )}
 
             <button
-              className={s(s.stepsItem__cursor, { visible: isMobile })}
+              className={s(s.stepsItem__cursor, { visible: isMobile && !state.showPlayButton })}
               onTouchStart={handlePointerDown}
               onTouchEnd={handlePointerUp}
             >
