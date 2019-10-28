@@ -84,8 +84,9 @@
   "navigation": {
     "steps": "Skrefin",
     "about": "Um átakið",
-    "is": "Íslenska",
-    "en": "English"
+    "is": "Ís",
+    "en": "En",
+    "pl": "Pl"
   },
   "about": {
     "title": "Um Útmeða",
