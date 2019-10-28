@@ -7,73 +7,73 @@
     "one": {
       "title": "_Kochaj_ się takim jakim jesteś.",
       "socialTitle": "Kochaj się takim jakim jesteś.",
-      "text": "Be your own best friend. Love yourself and don’t compare yourself to others."
+      "text": "Bądź swoim najlepszym przyjacielem. Kochaj samego siebie i nie porównuj się do innych."
     },
     "two": {
       "title": "_Odłóż_ telefon i oddaj się chwili.",
       "socialTitle": "Odłóż telefon i oddaj się chwili.",
-      "text": "Don’t allow your phone to take you out of the moment. Enjoy your life with good friends."
+      "text": "Nie pozwól by telefon odebrał ci cenną chwilę. Ciesz się życiem z dobrymi przyjaciółmi."
     },
     "three": {
       "title": "Spróbuj czegoś _nowego_.",
       "socialTitle": "Spróbuj czegoś nowego.",
-      "text": "Step out of your comfort zone and experience new things. Life is full of exciting opportunities."
+      "text": "Wyjdź ze swej strefy komfortu i doświadcz czegoś nowego. Życie jest pełne wspaniałych możliwości."
     },
     "four": {
       "title": "Dobrze się _wysypiaj_, _jedz_ zdrowo i _ćwicz_.",
       "socialTitle": "Dobrze się wysypiaj, jedz zdrowo i ćwicz.",
-      "text": "Take good care of yourself. Physical health supports mental well-being.",
+      "text": "Dbaj o siebie. Zdrowie fizyczne ma ogromny wpływ na Twoje emocjonalne i psychiczne samopoczucie.",
       "bubbles": {
-        "play": "Want to play football?"
+        "play": "Zagramy w piłkę?"
       }
     },
     "five": {
       "title": "Naucz się mówić _nie_.",
       "socialTitle": "Naucz sie mówić nie.",
-      "text": "You are the boss of your own life and you don’t need to please others. Sometimes no is the right answer.",
+      "text": "To Ty jesteś Panią swojego życia i nie musisz zadowalać wszystkich wokół. Czasem „nie” jest tą właściwą odpowiedzią.",
       "bubbles": {
-        "work": "Can you work on Friday?",
-        "yes": "Yes, no problem",
-        "no": "No, I'm busy"
+        "work": "Możesz pracować w piątek?",
+        "yes": "Tak, nie ma sprawy",
+        "no": "Nie, jestem zajęta"
       }
     },
     "six": {
       "title": "Miej _pozytywne_ nastawienie i _ciesz_ się chwilą.",
       "socialTitle": "Miej pozytywne nastawienie i ciesz się chwilą.",
-      "text": "Direct your mind in a positive direction. Be thankful and enjoy what you have."
+      "text": "Skieruj swój umysł w pozytywną stronę. Bądź wdzięczny i ciesz się tym, co masz."
     },
     "seven": {
       "title": "Podążaj za _marzeniami_.",
       "socialTitle": "Podążaj za marzeniami.",
-      "text": "Don’t give up on your dreams when things don’t go your way. The more resilience, the sweeter the victory."
+      "text": "Nie rezygnuj z marzeń gdy sprawy nie idą po Twojej myśli. Im mocniej wytrwasz tym słodsze będzie zwycięstwo."
     },
     "eight": {
       "title": "Bądź dobrym _przyjacielem_.",
       "socialTitle": "Bądź dobrym przyjacielem.",
-      "text": "Be there for your friends when they’re going through a hard time. True friendship is one of the most valuable gifts of life."
+      "text": "Bądź wsparciem dla przyjaciół gdy przechodzą przez trudne chwile, gdy najbardziej Cię potrzebują. Prawdziwa przyjaźń to jeden z najcenniejszych darów życia."
     },
     "nine": {
       "title": "Nie bój się popełniać błędów, _wyciągaj wnioski_ ze swoich doświadczeń.",
       "socialTitle": "Nie bój się popełniać błędów, wyciągaj wnioski ze swoich doświadczeń",
-      "text": "Keep trying and accept challenges. Mistakes are a natural part of life."
+      "text": "Próbuj dalej i podejmuj wyzwania. Błędy są naturalną częścią życia."
     },
     "ten": {
       "title": "Szukaj _pomocy_ i powiedz o tym komuś, jeśli czujesz się źle.",
       "socialTitle": "Szukaj pomocy i powiedz o tym komuś, jeśli czujesz się źle.",
-      "text": "The first step towards feeling better is always telling someone. When a problem is put into words, the solution is around the corner.",
+      "text": "Pierwszym krokiem w drodze do lepszego samopoczucia jest zawsze powiedzenie o tym komuś. Gdy problem ubierzemy w słowa rozwiązanie pojawi się tuż za rogiem.",
       "bubbles": {
-        "coming": "Are you coming?",
-        "not-coming": "No sorry, I don't feel so good",
-        "1717": "Ok. You know you can always talk to me, but if you don't feel comfortable you can talk to a professional on 1717.is",
-        "call": "Karen is calling",
-        "ok": "Is everything alright?",
-        "no": "No",
-        "not-feeling-good": "I don’t feel well."
+        "coming": "Wpadniesz?",
+        "not-coming": "Nie, przepraszam. Nie czuję się za dobrze",
+        "1717": "Ok. Wiesz, że zawsze możesz ze mną pogadać, ale jeśli nie czujesz się komfortowo, może spróbuj porozmawiać z profesjonalistą na 1717.is",
+        "call": "Ania is calling",
+        "ok": "Wszystko w porządku?",
+        "no": "Nie",
+        "not-feeling-good": "Nie czuję się dobrze..."
       }
     }
   },
   "orientation": {
-    "facebook": "Ta strona niestety nie działa w tej przeglądarce. Możesz ją otworzyć w Safari klikając w prawym górnym rogu i wybierając w menu \"Open in Safari\".",
+    "facebook": "Ta strona niestety nie działa w tej przeglądarce. Możesz ją otworzyć w Safari klikając w prawym górnym rogu i wybierając w menu „Open in Safari”.",
     "pleaseRotate": "Obróć telefon lub rozciągnij okno przeglądarki w poziomie."
   },
   "share": {
