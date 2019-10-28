@@ -1,35 +1,35 @@
 {
-  "defaultPageTitle": "Out with it",
-  "defaultPageDescription": "It matters to spread the message. Out with it.",
-  "title": "The Ten",
-  "tagline": "Take the step",
+  "defaultPageTitle": "Wyrzuć to z siebie",
+  "defaultPageDescription": "To ważne, by dzielić się tym z innymi. Wyrzuć to z siebie.",
+  "title": "10",
+  "tagline": "Zrób krok",
   "steps": {
     "one": {
-      "title": "_Love_ yourself the way you are",
-      "socialTitle": "Love yourself the way you are",
+      "title": "_Kochaj_ się takim jakim jesteś.",
+      "socialTitle": "Kochaj się takim jakim jesteś.",
       "text": "Be your own best friend. Love yourself and don’t compare yourself to others."
     },
     "two": {
-      "title": "Put your phone _down_ and get lost in the moment.",
-      "socialTitle": "Put your phone down and get lost in the moment.",
+      "title": "_Odłóż_ telefon i oddaj się chwili.",
+      "socialTitle": "Odłóż telefon i oddaj się chwili.",
       "text": "Don’t allow your phone to take you out of the moment. Enjoy your life with good friends."
     },
     "three": {
-      "title": "Try something _new_.",
-      "socialTitle": "Try something new.",
+      "title": "Spróbuj czegoś _nowego_.",
+      "socialTitle": "Spróbuj czegoś nowego.",
       "text": "Step out of your comfort zone and experience new things. Life is full of exciting opportunities."
     },
     "four": {
-      "title": "Get enough _sleep_, _eat_ well and _exercise_.",
-      "socialTitle": "Get enough sleep, eat well and exercise.",
+      "title": "Dobrze się _wysypiaj_, _jedz_ zdrowo i _ćwicz_.",
+      "socialTitle": "Dobrze się wysypiaj, jedz zdrowo i ćwicz.",
       "text": "Take good care of yourself. Physical health supports mental well-being.",
       "bubbles": {
         "play": "Want to play football?"
       }
     },
     "five": {
-      "title": "Learn to say _no_.",
-      "socialTitle": "Learn to say no.",
+      "title": "Naucz się mówić _nie_.",
+      "socialTitle": "Naucz sie mówić nie.",
       "text": "You are the boss of your own life and you don’t need to please others. Sometimes no is the right answer.",
       "bubbles": {
         "work": "Can you work on Friday?",
@@ -38,28 +38,28 @@
       }
     },
     "six": {
-      "title": "Have a _positive_ mindset and enjoy.",
-      "socialTitle": "Have a positive mindset and enjoy.",
+      "title": "Miej _pozytywne_ nastawienie i _ciesz_ się chwilą.",
+      "socialTitle": "Miej pozytywne nastawienie i ciesz się chwilą.",
       "text": "Direct your mind in a positive direction. Be thankful and enjoy what you have."
     },
     "seven": {
-      "title": "Follow your _dreams_.",
-      "socialTitle": "Follow your dreams.",
+      "title": "Podążaj za _marzeniami_.",
+      "socialTitle": "Podążaj za marzeniami.",
       "text": "Don’t give up on your dreams when things don’t go your way. The more resilience, the sweeter the victory."
     },
     "eight": {
-      "title": "Be a loyal _friend_.",
-      "socialTitle": "Be a loyal friend.",
+      "title": "Bądź dobrym _przyjacielem_.",
+      "socialTitle": "Bądź dobrym przyjacielem.",
       "text": "Be there for your friends when they’re going through a hard time. True friendship is one of the most valuable gifts of life."
     },
     "nine": {
-      "title": "Don’t be afraid to make mistakes, _learn_ from your experiences.",
-      "socialTitle": "Don’t be afraid to make mistakes, learn from your experiences.",
+      "title": "Nie bój się popełniać błędów, _wyciągaj wnioski_ ze swoich doświadczeń.",
+      "socialTitle": "Nie bój się popełniać błędów, wyciągaj wnioski ze swoich doświadczeń",
       "text": "Keep trying and accept challenges. Mistakes are a natural part of life."
     },
     "ten": {
-      "title": "Tell someone and seek _help_ if you don’t feel well.",
-      "socialTitle": " Tell someone and seek help if you don’t feel well.",
+      "title": "Szukaj _pomocy_ i powiedz o tym komuś, jeśli czujesz się źle.",
+      "socialTitle": "Szukaj pomocy i powiedz o tym komuś, jeśli czujesz się źle.",
       "text": "The first step towards feeling better is always telling someone. When a problem is put into words, the solution is around the corner.",
       "bubbles": {
         "coming": "Are you coming?",
@@ -73,13 +73,13 @@
     }
   },
   "orientation": {
-    "facebook": "This site unfortunately does not work in this browser. You can open it in Safari by clicking the top right corner, and selecting \"Open in Safari\".",
-    "pleaseRotate": "Please rotate your device or increase the browser size horizontally."
+    "facebook": "Ta strona niestety nie działa w tej przeglądarce. Możesz ją otworzyć w Safari klikając w prawym górnym rogu i wybierając w menu \"Open in Safari\".",
+    "pleaseRotate": "Obróć telefon lub rozciągnij okno przeglądarki w poziomie."
   },
   "share": {
-    "twitter": "Share on Twitter",
-    "facebook": "Share on Facebook",
-    "copy": "Share"
+    "twitter": "Udostępnij na Twitterze",
+    "facebook": "Udostępnij na Facebooku",
+    "copy": "Udostępnij"
   },
   "navigation": {
     "steps": "Kroki",
@@ -89,14 +89,14 @@
     "pl": "Pl"
   },
   "about": {
-    "title": "About Útmeða",
+    "title": "O Útmeða",
     "content": "Geðhjálp and The Red Cross Helpline 1717 jointly run the preventice project Útmeð’a. The aim of the project is to promote improved public health by encouraging people, with a special emphasis on young people, to express their mental well-being and seek professional assistance when needed. The project is urgent, considering that between 500 and 600 people seek help at clinics and hospitals in Iceland due to self-harm following anxiety every year. Suicide is the most common cause of death for young men in Iceland."
   },
-  "step_watch": "Watch",
-  "one_moment": "One moment",
-  "step_play": "Play",
-  "loading": "Every story has two sides. Press the space bar to see the other side.",
-  "transition": "Look at the other side.",
-  "step_click": "Hold",
-  "call": "is calling..."
+  "step_watch": "Obejrzyj",
+  "one_moment": "Chwila",
+  "step_play": "Odtwórz",
+  "loading": "Każda historia ma dwie strony. Wciśnij spację by zobaczyć drugą stronę.",
+  "transition": "Spójrz na drugą stronę.",
+  "step_click": "Wciśnij",
+  "call": "dzwoni..."
 }
