@@ -54,6 +54,15 @@
       }
     }
 
+    &:first-of-type > svg { // stylelint-disable-line
+      margin-left: -1px;
+    }
+
+    &:last-of-type > svg { // stylelint-disable-line
+      margin-top: 1px;
+      margin-left: 1px;
+    }
+
     @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
       margin-bottom: 25px;
 
