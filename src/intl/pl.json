@@ -5,8 +5,8 @@
   "tagline": "Zrób krok",
   "steps": {
     "one": {
-      "title": "_Kochaj_ się takim jakim jesteś.",
-      "socialTitle": "Kochaj się takim jakim jesteś.",
+      "title": "_Kochaj_ się taką jaką jesteś.",
+      "socialTitle": "Kochaj się taką jaką jesteś.",
       "text": "Bądź swoim najlepszym przyjacielem. Kochaj samego siebie i nie porównuj się do innych."
     },
     "two": {
@@ -83,14 +83,14 @@
   },
   "navigation": {
     "steps": "Kroki",
-    "about": "O akcji",
+    "about": "O kampanii",
     "is": "Ís",
     "en": "En",
     "pl": "Pl"
   },
   "about": {
     "title": "O Útmeða",
-    "content": "Geðhjálp and The Red Cross Helpline 1717 jointly run the preventice project Útmeð’a. The aim of the project is to promote improved public health by encouraging people, with a special emphasis on young people, to express their mental well-being and seek professional assistance when needed. The project is urgent, considering that between 500 and 600 people seek help at clinics and hospitals in Iceland due to self-harm following anxiety every year. Suicide is the most common cause of death for young men in Iceland."
+    "content": "Útmeða to kampania prewencyjna prowadzona wspólnie przez Islandzkie Stowarzyszenie na rzecz Zdrowia Psychicznego (Geðhjálp) i Infolinię 1717 Czerwonego Krzyża. Celem kampanii jest promocja poprawy zdrowia publicznego poprzez zachęcanie ludzi, z naciskiem na młodych, do wyrażania swego stanu i zdrowia psychicznego oraz szukania profesjonalnej pomocy w razie takiej potrzeby. Kampania jest pilna, zwłaszcza gdy wziąć pod uwagę fakt, że każdego roku na Islandii od 500 do 600 osób wymaga pomocy medycznej z powodu samookaleczeń wywoływanych lękami i depresją. Samobójstwa są najczęstszą przyczyną śmierci młodych mężczyzn na Islandii."
   },
   "step_watch": "Obejrzyj",
   "one_moment": "Chwila",
