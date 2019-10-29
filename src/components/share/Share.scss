@@ -67,8 +67,11 @@
   &__copy {
     @include rf(12, 14);
 
-    margin-top: 15px;
-    margin-left: -5px;
+    margin-top: -2px;
+    margin-left: -6px;
+
+    width: 36px;
+    height: 36px;
 
     user-select: none;
 
@@ -76,10 +79,18 @@
     letter-spacing: 2px;
     font-weight: 600;
 
-    transform: rotate(-90deg);
+    transform: rotate(-90deg) translateY(-50%);
+    transform-origin: 100% 0%;
 
     @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
       margin-left: -7px;
+
+      width: 44px;
+      height: 44px;
+    }
+
+    span { // stylelint-disable-line 
+      float: right;
     }
   }
 }
