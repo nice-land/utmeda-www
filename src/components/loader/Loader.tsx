@@ -62,9 +62,8 @@ export const Loader =
                       (val) => `linear-gradient(to right, #fff ${val}%, #303030 ${val}%, #303030 100%)`,
                     ),
                 }}
-              >
-                {title}
-              </animated.h1>
+                dangerouslySetInnerHTML={{ __html: title }}
+              />
             </div>
           </div>
         );
