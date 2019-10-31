@@ -54,13 +54,21 @@
     line-height: 0.8;
     letter-spacing: -0.01em;
     text-transform: lowercase;
-    text-align: center;
+    text-align: left;
     color: transparent;
 
     background-clip: text;
 
     @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
       @include responsive-font(120, 450);
+    }
+
+    &Smaller {
+      font-size: 88px;
+
+      @media (min-width: $min-tablet) and (min-height: $min-desktop-height) {
+        @include responsive-font(88, 400);
+      }
     }
   }
 }
