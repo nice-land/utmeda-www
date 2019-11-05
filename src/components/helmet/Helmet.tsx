@@ -24,7 +24,7 @@ export const Helmet = ({ title, description, image }: IProps) => (
       const usedTitle = title || messages.defaultPageTitle;
 
       // remove markdown, TODO more intricate
-      const strippedTitle = usedTitle.replace(/_/g, '');
+      const strippedTitle = usedTitle.replace(/_|&#8203;/g, '');
       const usedDescription = description || messages.defaultPageDescription;
       const usedImage = image || defaultImage;
 

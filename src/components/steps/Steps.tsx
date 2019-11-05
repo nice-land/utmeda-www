@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 
 import { IStep } from 'utils/interfaces';
 import { useSlideWidth } from 'hooks/use-slide-width';
@@ -33,7 +33,10 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
       {(step: any, i: number, a: boolean, x: any) =>
         i === 0 ? (
           <div className={s.steps__title}>
-            <h1 className={s.steps__titleContent}>{title}</h1>
+            <h1
+              className={s(s.steps__titleContent, { [s.steps__titleContentSmaller]: title.length > 7 })}
+              dangerouslySetInnerHTML={{ __html: title}}
+            />
           </div>
         ) : (
           <StepsItem

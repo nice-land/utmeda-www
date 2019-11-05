@@ -1,0 +1,102 @@
+{
+  "defaultPageTitle": "Wyrzuć to z siebie",
+  "defaultPageDescription": "To ważne, by dzielić się tym z innymi. Wyrzuć to z siebie.",
+  "title": "Dzie&#8203;sięć",
+  "tagline": "Zrób krok",
+  "steps": {
+    "one": {
+      "title": "_Kochaj_ się taką jaką jesteś.",
+      "socialTitle": "Kochaj się taką jaką jesteś.",
+      "text": "Bądź swoim najlepszym przyjacielem. Kochaj samego siebie i nie porównuj się do innych."
+    },
+    "two": {
+      "title": "_Odłóż_ telefon i oddaj się chwili.",
+      "socialTitle": "Odłóż telefon i oddaj się chwili.",
+      "text": "Nie pozwól by telefon odebrał ci cenną chwilę. Ciesz się życiem z dobrymi przyjaciółmi."
+    },
+    "three": {
+      "title": "Spróbuj czegoś _nowego_.",
+      "socialTitle": "Spróbuj czegoś nowego.",
+      "text": "Wyjdź ze swej strefy komfortu i doświadcz czegoś nowego. Życie jest pełne wspaniałych możliwości."
+    },
+    "four": {
+      "title": "Dobrze się _wysypiaj_, _jedz_ zdrowo i _ćwicz_.",
+      "socialTitle": "Dobrze się wysypiaj, jedz zdrowo i ćwicz.",
+      "text": "Dbaj o siebie. Zdrowie fizyczne ma ogromny wpływ na Twoje emocjonalne i psychiczne samopoczucie.",
+      "bubbles": {
+        "play": "Zagramy w piłkę?"
+      }
+    },
+    "five": {
+      "title": "Naucz się mówić _nie_.",
+      "socialTitle": "Naucz sie mówić nie.",
+      "text": "To Ty jesteś Panią swojego życia i nie musisz zadowalać wszystkich wokół. Czasem „nie” jest tą właściwą odpowiedzią.",
+      "bubbles": {
+        "work": "Możesz pracować w piątek?",
+        "yes": "Tak, nie ma sprawy",
+        "no": "Nie, jestem zajęta"
+      }
+    },
+    "six": {
+      "title": "Miej _pozytywne_ nastawienie i _ciesz_ się chwilą.",
+      "socialTitle": "Miej pozytywne nastawienie i ciesz się chwilą.",
+      "text": "Skieruj swój umysł w pozytywną stronę. Bądź wdzięczny i ciesz się tym, co masz."
+    },
+    "seven": {
+      "title": "Podążaj za _marzeniami_.",
+      "socialTitle": "Podążaj za marzeniami.",
+      "text": "Nie rezygnuj z marzeń gdy sprawy nie idą po Twojej myśli. Im mocniej wytrwasz tym słodsze będzie zwycięstwo."
+    },
+    "eight": {
+      "title": "Bądź dobrym _przyjacielem_.",
+      "socialTitle": "Bądź dobrym przyjacielem.",
+      "text": "Bądź wsparciem dla przyjaciół w trudnych chwilach, wtedy gdy najbardziej Cię potrzebują. Prawdziwa przyjaźń to jeden z najcenniejszych darów życia."
+    },
+    "nine": {
+      "title": "Nie bój się popełniać błędów, _wyciągaj wnioski_ ze swoich doświadczeń.",
+      "socialTitle": "Nie bój się popełniać błędów, wyciągaj wnioski ze swoich doświadczeń",
+      "text": "Próbuj dalej i podejmuj wyzwania. Błędy są naturalną częścią życia."
+    },
+    "ten": {
+      "title": "Szukaj _pomocy_ i powiedz o tym komuś, jeśli czujesz się źle.",
+      "socialTitle": "Szukaj pomocy i powiedz o tym komuś, jeśli czujesz się źle.",
+      "text": "Pierwszym krokiem w drodze do lepszego samopoczucia jest zawsze powiedzenie o tym komuś. Gdy problem ubierzemy w słowa rozwiązanie pojawi się tuż za rogiem.",
+      "bubbles": {
+        "coming": "Wpadniesz?",
+        "not-coming": "Nie, przepraszam. Nie czuję się za dobrze",
+        "1717": "Ok. Wiesz, że zawsze możesz ze mną pogadać, ale jeśli nie czujesz się komfortowo, może spróbuj porozmawiać z profesjonalistą na 1717.is",
+        "call": "Ania is calling",
+        "ok": "Wszystko w porządku?",
+        "no": "Nie",
+        "not-feeling-good": "Nie czuję się dobrze..."
+      }
+    }
+  },
+  "orientation": {
+    "facebook": "Ta strona niestety nie działa w tej przeglądarce. Możesz ją otworzyć w Safari klikając w prawym górnym rogu i wybierając w menu „Open in Safari”.",
+    "pleaseRotate": "Obróć telefon lub rozciągnij okno przeglądarki w poziomie."
+  },
+  "share": {
+    "twitter": "Udostępnij na Twitterze",
+    "facebook": "Udostępnij na Facebooku",
+    "copy": "Udostępnij"
+  },
+  "navigation": {
+    "steps": "Kroki",
+    "about": "O kampanii",
+    "is": "Ís",
+    "en": "En",
+    "pl": "Pl"
+  },
+  "about": {
+    "title": "O Útmeða",
+    "content": "Útmeða to kampania prewencyjna prowadzona wspólnie przez Islandzkie Stowarzyszenie na rzecz Zdrowia Psychicznego (Geðhjálp) i Infolinię 1717 Czerwonego Krzyża. Celem kampanii jest promocja poprawy zdrowia publicznego poprzez zachęcanie ludzi, z naciskiem na młodych, do wyrażania swego stanu i zdrowia psychicznego oraz szukania profesjonalnej pomocy w razie takiej potrzeby. Kampania jest pilna, zwłaszcza gdy wziąć pod uwagę fakt, że każdego roku na Islandii od 500 do 600 osób wymaga pomocy medycznej z powodu samookaleczeń wywoływanych lękami i depresją. Samobójstwa są najczęstszą przyczyną śmierci młodych mężczyzn na Islandii."
+  },
+  "step_watch": "Obejrzyj",
+  "one_moment": "Chwila",
+  "step_play": "Odtwórz",
+  "loading": "Każda historia ma dwie strony. Wciśnij spację by zobaczyć drugą stronę.",
+  "transition": "Spójrz na drugą stronę.",
+  "step_click": "Wciśnij",
+  "call": "dzwoni..."
+}

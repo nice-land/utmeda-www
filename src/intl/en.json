@@ -5,8 +5,8 @@
   "tagline": "Take the step",
   "steps": {
     "one": {
-      "title": "_Love_ yourself the way you are",
-      "socialTitle": "Love yourself the way you are",
+      "title": "_Love_ yourself the way you are.",
+      "socialTitle": "Love yourself the way you are.",
       "text": "Be your own best friend. Love yourself and don’t compare yourself to others."
     },
     "two": {
@@ -59,7 +59,7 @@
     },
     "ten": {
       "title": "Tell someone and seek _help_ if you don’t feel well.",
-      "socialTitle": " Tell someone and seek help if you don’t feel well.",
+      "socialTitle": "Tell someone and seek help if you don’t feel well.",
       "text": "The first step towards feeling better is always telling someone. When a problem is put into words, the solution is around the corner.",
       "bubbles": {
         "coming": "Are you coming?",
@@ -84,8 +84,9 @@
   "navigation": {
     "steps": "The steps",
     "about": "About",
-    "is": "Íslenska",
-    "en": "English"
+    "is": "Ís",
+    "en": "En",
+    "pl": "Pl"
   },
   "about": {
     "title": "About Útmeða",
