@@ -48,6 +48,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-netlify',
       options: {
+        mergeSecurityHeaders: false,
         headers: {
           '/*': [
             'X-Frame-Options: allow-from slides.com',
