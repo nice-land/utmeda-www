@@ -45,7 +45,16 @@ module.exports = {
         redirect: false,
       },
     },
-    'gatsby-plugin-netlify',
+    {
+      resolve: 'gatsby-plugin-netlify',
+      options: {
+        headers: {
+          '/*': [
+            'X-Frame-Options: allow-from slides.com',
+          ],
+        },
+      },
+    },
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
