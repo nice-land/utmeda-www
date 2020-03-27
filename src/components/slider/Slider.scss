@@ -17,9 +17,9 @@
 
     overflow-x: scroll;
 
-    // &.active {
-    //   overflow-x: hidden;
-    // }
+    &.active {
+      overflow-x: hidden;
+    }
   }
 
   &__container {
@@ -37,6 +37,8 @@
     padding-right: 60px;
 
     height: 100%;
+
+    outline: none;
 
     will-change: transform, opacity;
 

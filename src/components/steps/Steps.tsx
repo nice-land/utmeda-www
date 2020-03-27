@@ -3,11 +3,14 @@ import React, { useContext, useEffect, useMemo } from 'react';
 import { IStep } from 'utils/interfaces';
 import { useSlideWidth } from 'hooks/use-slide-width';
 import Slider from 'components/slider/Slider';
+import FacebookSlider from 'components/slider/FacebookSlider';
 import { AppContext } from 'components/app-layout/AppLayout';
 import DisplacementMap from 'assets/images/displacementmap.png';
+import { isFacebookApp } from 'utils/isFacebook';
+import { TextureLoader } from 'three';
+
 import { StepsItem } from './StepsItem';
 import s from './Steps.scss';
-import { TextureLoader } from 'three';
 
 interface IProps {
   title: string;
@@ -19,6 +22,10 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
   const context = useContext(AppContext) as any;
   const width = useSlideWidth();
 
+  const isFb = isFacebookApp();
+
+  const SliderCmp = isFb ? FacebookSlider : Slider;
+
   useEffect(() => {
     if (initialStep) {
       const initialTitle = list && list[initialStep] && list[initialStep].title;
@@ -29,7 +36,7 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
   const displacementMap = useMemo(() => new TextureLoader().load(DisplacementMap), []);
 
   return (
-    <Slider items={[{}, ...list]} active={context.activeStep} width={width} visible={1.3}>
+    <SliderCmp items={[{}, ...list]} active={context.activeStep} width={width} visible={1.3}>
       {(step: any, i: number, a: boolean, x: any) =>
         i === 0 ? (
           <div className={s.steps__title}>
@@ -59,6 +66,6 @@ export const Steps = ({ title, list, initialStep }: IProps) => {
           />
         )
       }
-    </Slider>
+    </SliderCmp>
   );
 };
