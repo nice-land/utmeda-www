@@ -46,7 +46,7 @@
     "gatsby-plugin-ueno": "2.0.1",
     "gatsby-transformer-sharp": "2.1.15",
     "intersection-observer": "0.7.0",
-    "lodash": "4.17.11",
+    "lodash": "4.17.21",
     "react": "16.8.4",
     "react-dom": "16.8.4",
     "react-helmet": "5.2.0",
